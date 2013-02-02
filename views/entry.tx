@@ -1,0 +1,6 @@
+: cascade base
+: around content -> {
+<article>
+<: $article :>
+</article>
+: }
