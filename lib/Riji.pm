@@ -9,7 +9,7 @@ __PACKAGE__->setting(
     handle_static => 1,
 );
 
-get '/' => sub {
+get '/{index:(?:index.html)?}' => sub {
     my $c = shift;
     $c->render('index.tx', { greeting => "Hello" });
 };
@@ -25,7 +25,6 @@ get '/entry/:name.html' => sub {
     return $c->res_404 unless -f $md_file;
 
     my $article = $md_file->slurp;
-
     state $md = Text::Markdown::Discount->new;
     $article = $md->markdown($article);
 
