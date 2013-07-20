@@ -3,14 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 <title>Riji</title>
-<link rel="shortcut icon" href="<: $c.req.uri_for('/favicon.ico') :>" type="image/vnd.microsoft.icon" />
-<link rel="stylesheet" href="<: $c.req.uri_for('/css/bootstrap.min.css') :>">
+<link rel="shortcut icon" href="<: uri_for('/static/favicon.ico') :>" type="image/vnd.microsoft.icon" />
+<link rel="stylesheet" href="<: uri_for('/static/css/bootstrap.min.css') :>">
 <style>
 body {
   padding-top: 60px;
 }
 </style>
-<link rel="stylesheet" href="<: $c.req.uri_for('/css/bootstrap-responsive.min.css') :>">
+<link rel="stylesheet" href="<: uri_for('/static/css/bootstrap-responsive.min.css') :>">
 </head>
 <body>
 
@@ -22,10 +22,10 @@ body {
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </a>
-<a class="brand" href="<: $c.req.uri_for('/') :>">Riji</a>
+<a class="brand" href="<: uri_for('/') :>">Riji</a>
 <div class="nav-collapse">
 <ul class="nav">
-<li class="active"><a href="<: $c.req.uri_for('/') :>">Home</a></li>
+<li class="active"><a href="<: uri_for('/') :>">Home</a></li>
 <li><a href="#about">About</a></li>
 <li><a href="#contact">Contact</a></li>
 </ul>
@@ -40,7 +40,7 @@ body {
 
 </div> <!-- /container -->
 
-<script type="text/javascript" src="<: $c.req.uri_for('/js/jquery.min.js') :>"></script>
-<script type="text/javascript" src="<: $c.req.uri_for('/js/bootstrap.min.js') :>"></script>
+<script type="text/javascript" src="<: uri_for('/static/js/jquery.min.js') :>"></script>
+<script type="text/javascript" src="<: uri_for('/static/js/bootstrap.min.js') :>"></script>
 </body>
 </html>
