@@ -3,6 +3,8 @@ use Puncheur::Lite;
 use Path::Tiny;
 use Text::Markdown::Discount;
 
+use Riji::Model::Entry;
+
 our $VERSION = 0.01;
 
 __PACKAGE__->setting(
@@ -24,12 +26,11 @@ get '/entry/:name.html' => sub {
 
     return $c->res_404 unless -f $md_file;
 
-    my $article = $md_file->slurp;
-    state $md = Text::Markdown::Discount->new;
-    $article = $md->markdown($article);
+    my $entry = Riji::Model::Entry->new($md_file);
 
     $c->render('entry.tx', {
-        article => $article,
+        title   => $entry->title,
+        article => $entry->as_html,
     });
 };
 
