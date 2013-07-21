@@ -1,8 +1,11 @@
 package Riji;
 use Puncheur::Lite;
+
+use Encode;
 use Text::Markdown::Discount;
 
 use Riji::Model::Entry;
+use Riji::Model::Atom;
 
 our $VERSION = 0.01;
 
@@ -35,6 +38,18 @@ get '/entry/:name.html' => sub {
         created_at       => $entry->created_at,
         created_by       => $entry->created_by,
     });
+};
+
+get '/atom.xml' => sub {
+    my $c = shift;
+
+    my $atom = Riji::Model::Atom->new(
+        base_dir => $c->base_dir,
+        fqdn     => 'riji.songmu.jp',
+    );
+
+    my $xml = $atom->feed->to_string;
+    $c->create_response(200, ['Content-Type' => 'application/atom+xml'], [encode($c->encoding, $xml)]);
 };
 
 1;
