@@ -20,7 +20,7 @@ get '/entry/:name.html' => sub {
     my $name = $args->{name};
     return $c->res_404 if $name =~ /[^-_.a-zA-Z0-9]/;
 
-    my $md_file = path($c->base_dir)->child('docs',  "$name.md");
+    my $md_file = path($c->base_dir)->child('docs', 'entry', "$name.md");
 
     return $c->res_404 unless -f $md_file;
 
