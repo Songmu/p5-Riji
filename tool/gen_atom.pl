@@ -42,7 +42,7 @@ for my $file ( grep { -f -r $_ && $_ =~ /\.md$/ } $mkdn_dir->children ){
         pubDate     => $entry->last_modified_at,
         author      => $entry->created_by,
         guid        => $tag_uri->as_string,
-        published   => localtime($entry->created_at)->datetime,
+        published   => $entry->created_at,
         link        => $url,
     } unless $entry->headers('draft');
 }
