@@ -82,6 +82,8 @@ sub created_at {
 sub created_by       { shift->file_history->created_by }
 sub last_modified_by { shift->file_history->last_modified_by }
 
+sub tags {...}
+
 sub _parse_content {
     my $self = shift;
     my ($header_raw, $body) = split /^---\n/ms, $self->{content_raw}, 2;
