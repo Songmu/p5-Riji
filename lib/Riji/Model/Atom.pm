@@ -19,10 +19,13 @@ sub new {
 sub base_dir { shift->{base_dir} }
 sub fqdn     { shift->{fqdn}   }
 sub url_root { "http://@{[shift->fqdn]}/" }
+sub author   { 'Masayuki Matsuki' }
+sub title    { "Songmu's Riji"    }
+sub mkdn_dir { 'docs/entry'       }
 
-sub mkdn_dir {
+sub mkdn_path {
     my $self = shift;
-    $self->{mkdn_dir} //= path($self->base_dir, 'docs/entry');
+    $self->{mkdn_dir} //= path($self->base_dir, $self->mkdn_dir);
 }
 
 sub repo {
@@ -35,8 +38,8 @@ sub entries {
 
     $self->{entries} ||= do {
         my @entries;
-        for my $file ( grep { -f -r $_ && $_ =~ /\.md$/ } $self->mkdn_dir->children ){
-            my $path = $file->relative($self->mkdn_dir);
+        for my $file ( grep { -f -r $_ && $_ =~ /\.md$/ } $self->mkdn_path->children ){
+            my $path = $file->relative($self->mkdn_path);
             my $entry = Riji::Model::Entry->new(
                 file     => $path,
                 base_dir => $self->base_dir,
@@ -68,14 +71,14 @@ sub entries {
 sub feed {
     my $self = shift;
 
-    my $last_modified_at = $self->repo->file_history('docs/entry')->last_modified_at;
+    my $last_modified_at = $self->repo->file_history($self->mkdn_dir)->last_modified_at;
     my $tag_uri = URI->new('tag:');
     $tag_uri->authority($self->fqdn);
     $tag_uri->date(gmtime($last_modified_at)->strftime('%Y-%m-%d'));
     my $feed = XML::FeedPP::Atom::Atom10->new(
         link    => $self->url_root,
-        author  => 'Masayuki Matsuki',
-        title   => "Songmu's Riji",
+        author  => $self->author,
+        title   => $self->title,
         pubDate => $last_modified_at,
         id      => $tag_uri->as_string,
     );
