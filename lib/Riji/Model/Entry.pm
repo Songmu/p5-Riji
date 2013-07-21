@@ -6,7 +6,7 @@ use utf8;
 use Path::Tiny;
 use YAML::Tiny;
 use Text::Markdown::Discount;
-use Time::Piece::Plus;
+use Time::Piece;
 
 use Git::Repository 'FileHistory';
 
