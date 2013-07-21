@@ -6,12 +6,22 @@ use utf8;
 use Path::Tiny;
 use YAML::Tiny;
 use Text::Markdown::Discount;
+use Time::Piece::Plus;
+
+use Git::Repository 'FileHistory';
 
 sub new {
-    my ($class, $file) = @_;
-    die 'file not found' unless -f -r $file;
+    my ($class, %args) = @_;
+
+    my $base_dir = $args{base_dir};
+    my @path = ('docs', 'entry', $args{file});
+    my $file = path($base_dir, @path);
+    return () unless -f -r $file;
+
     my $self = bless {
-        content_raw => path($file)->slurp_utf8,
+        base_dir    => $args{base_dir},
+        path        => join('/', @path),
+        content_raw => $file->slurp_utf8,
     }, $class;
     $self->_parse_content;
     $self;
@@ -48,6 +58,29 @@ sub title {
         }
     }->() // 'unknown';
 }
+
+sub repo {
+    my $self = shift;
+    $self->{repo} //= Git::Repository->new(work_tree => $self->{base_dir});
+}
+
+sub file_history {
+    my $self = shift;
+    $self->{file_history} //= $self->repo->file_history($self->{path});
+}
+
+sub last_modified_at {
+    my $self = shift;
+    $self->{last_modified_at} //= localtime($self->file_history->last_modified_at)->datetime;
+}
+
+sub created_at {
+    my $self = shift;
+    $self->{created_at} //= localtime($self->file_history->created_at)->datetime;
+}
+
+sub created_by       { shift->file_history->created_by }
+sub last_modified_by { shift->file_history->last_modified_by }
 
 sub _parse_content {
     my $self = shift;

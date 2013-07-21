@@ -2,5 +2,11 @@
 : around content -> {
 <article>
 <: $article | mark_raw :>
+<address>
+    <span>作成者</span><: $created_by :><br>
+    <span>作成時</span><: $created_at :><br>
+    <span>最終更新者</span><: $last_modified_by :><br>
+    <span>最終更新時</span><: $last_modified_at :>
+</address>
 </article>
 : }
