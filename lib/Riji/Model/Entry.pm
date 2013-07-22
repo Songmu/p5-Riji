@@ -13,27 +13,43 @@ use Git::Repository 'FileHistory';
 sub new {
     my ($class, %args) = @_;
 
-    my $base_dir = $args{base_dir};
-    my @path = ('docs', 'entry', $args{file});
-    my $file = path($base_dir, @path);
-    return () unless -f -r $file;
-
     my $self = bless {
         base_dir    => $args{base_dir},
-        path        => join('/', @path),
-        content_raw => $file->slurp_utf8,
+        file        => $args{file},
     }, $class;
+
+    return () unless -f -r $self->file_path;
+
     $self->_parse_content;
     $self;
 }
 
-sub body { shift->{body} }
+sub mkdn_dir { 'docs/entry' }
+sub base_dir { shift->{base_dir} }
+sub file     { shift->{file}     }
+sub file_path {
+    my $self = shift;
+    $self->{file_path} //= path($self->base_dir, $self->mkdn_dir, $self->file);
+}
+sub content_raw {
+    my $self = shift;
+    $self->{content_raw} //= $self->file_path->slurp_utf8;
+}
 
+sub repo {
+    my $self = shift;
+    $self->{repo} //= Git::Repository->new(work_tree => $self->{base_dir});
+}
+sub repo_path {
+    my $self = shift;
+    $self->file_path->relative($self->base_dir)
+}
+
+sub body { shift->{body} }
+sub md { shift->{md} //= Text::Markdown::Discount->new }
 sub body_as_html {
     my $self = shift;
-
-    state $md = Text::Markdown::Discount->new;
-    $self->{body_as_html} //= $md->markdown($self->body);
+    $self->{body_as_html} //= $self->md->markdown($self->body);
 }
 
 sub headers {
@@ -59,14 +75,9 @@ sub title {
     }->() // 'unknown';
 }
 
-sub repo {
-    my $self = shift;
-    $self->{repo} //= Git::Repository->new(work_tree => $self->{base_dir});
-}
-
 sub file_history {
     my $self = shift;
-    $self->{file_history} //= $self->repo->file_history($self->{path});
+    $self->{file_history} //= $self->repo->file_history($self->repo_path);
 }
 
 sub last_modified_at {
@@ -86,7 +97,7 @@ sub tags {...}
 
 sub _parse_content {
     my $self = shift;
-    my ($header_raw, $body) = split /^---\n/ms, $self->{content_raw}, 2;
+    my ($header_raw, $body) = split /^---\n/ms, $self->content_raw, 2;
 
     my $headers = {};
     if (defined $body) {
@@ -95,7 +106,7 @@ sub _parse_content {
             YAML::Tiny::Load($header_raw);
         } || {};
         if ($@) {
-            ($header_raw, $body) = ('', $self->{content_raw});
+            ($header_raw, $body) = ('', $self->content_raw);
         }
     }
     else {
