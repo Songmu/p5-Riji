@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use utf8;
 
+use List::UtilsBy qw/rev_sort_by/;
+
 use Riji::Model::BlogSetting;
 use Riji::Model::Atom;
 
@@ -62,14 +64,20 @@ has atom => (
 has entries => (
     is      => 'ro',
     isa     => 'ArrayRef[Riji::Model::Entry]',
-    builder => '_build_entries',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        [
+            rev_sort_by { $_->created_at }
+            grep        { !$_->is_draft }
+            map         { $self->entry($_->basename) }
+            grep        { -f -r $_ && /\.md$/ }
+            $self->mkdn_path->children
+        ]
+    },
 );
 
 no Mouse;
-
-sub _build_entries {
-    []
-}
 
 sub entry {
     my ($self, $file) = @_;

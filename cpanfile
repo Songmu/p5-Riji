@@ -1,5 +1,6 @@
 requires 'Git::Repository';
 requires 'Git::Repository::FileHistory';
+requires 'List::UtilsBy';
 requires 'Object::Container';
 requires 'Mouse';
 requires 'Path::Tiny';

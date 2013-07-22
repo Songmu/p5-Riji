@@ -125,6 +125,14 @@ has tag_uri => (
     },
 );
 
+has is_draft => (
+    is  => 'ro',
+    lazy => 1,
+    default => sub {
+        shift->headers('draft');
+    },
+);
+
 no Mouse;
 
 sub BUILD {
