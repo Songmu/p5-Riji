@@ -48,6 +48,7 @@ has setting => (
             mkdn_dir => $self->mkdn_dir,
         );
     },
+    handles => [qw/mkdn_path repo/],
 );
 
 has atom => (
@@ -57,6 +58,7 @@ has atom => (
         my $self = shift;
         Riji::Model::Atom->new(
             setting => $self->setting,
+            entries => $self->entries,
         );
     },
 );
