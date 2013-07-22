@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use utf8;
 
+use Git::Repository 'FileHistory';
 use Path::Tiny;
 
 sub new {
@@ -22,5 +23,9 @@ sub mkdn_path {
     $self->{mkdn_path} //= path($self->base_dir, $self->mkdn_dir);
 }
 
+sub repo {
+    my $self = shift;
+    $self->{repo} //= Git::Repository->new(work_tree => $self->base_dir);
+}
 
 1;

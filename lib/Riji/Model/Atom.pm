@@ -25,11 +25,8 @@ sub mkdn_dir { shift->setting->mkdn_dir }
 sub url_root { shift->setting->url_root }
 
 sub mkdn_path { shift->setting->mkdn_path }
+sub repo      { shift->setting->repo      }
 
-sub repo {
-    my $self = shift;
-    $self->{repo} //= Git::Repository->new(work_tree => $self->base_dir);
-}
 
 sub entries {
     my $self = shift;
