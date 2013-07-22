@@ -8,47 +8,90 @@ use YAML::Tiny;
 use Text::Markdown::Discount;
 use Time::Piece;
 
-use Git::Repository 'FileHistory';
+use Mouse;
 
-sub new {
-    my ($class, %args) = @_;
+has file    => (
+    is       => 'ro',
+    required => 1,
+);
 
-    my $self = bless {%args}, $class;
+has setting => (
+    is       => 'ro',
+    isa      => 'Riji::Model::BlogSetting',
+    required => 1,
+    handles  => [qw/base_dir fqdn author mkdn_dir url_root mkdn_path repo/],
+);
 
-    return () unless -f -r $self->file_path;
+has md => (
+    is => 'ro',
+    default => sub { Text::Markdown::Discount->new },
+);
 
-    $self->_parse_content;
-    $self;
-}
+has file_path => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        path($self->base_dir, $self->mkdn_dir, $self->file);
+    },
+);
 
-sub mkdn_dir { 'docs/entry' }
-sub base_dir { shift->{base_dir} }
-sub file     { shift->{file}     }
-sub fqdn     { shift->{fqdn}   }
+has content_raw => (
+    is => 'ro',
+    default => sub {
+        shift->file_path->slurp_utf8;
+    },
+);
 
-sub file_path {
-    my $self = shift;
-    $self->{file_path} //= path($self->base_dir, $self->mkdn_dir, $self->file);
-}
-sub content_raw {
-    my $self = shift;
-    $self->{content_raw} //= $self->file_path->slurp_utf8;
-}
+has repo_path => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        $self->file_path->relative($self->base_dir)
+    },
+);
 
-sub repo {
-    my $self = shift;
-    $self->{repo} //= Git::Repository->new(work_tree => $self->{base_dir});
-}
-sub repo_path {
-    my $self = shift;
-    $self->file_path->relative($self->base_dir)
-}
+has body => (is => 'rw');
 
-sub body { shift->{body} }
-sub md { shift->{md} //= Text::Markdown::Discount->new }
-sub body_as_html {
-    my $self = shift;
-    $self->{body_as_html} //= $self->md->markdown($self->body);
+has title => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        $self->headers('title') // sub {
+            for my $line ( split /\n/, $self->body ){
+                if ( $line =~ /^#/ ){
+                    $line =~ s/^[#\s]+//;
+                    $line =~ s/[#\s]+$//;
+                    return $line;
+                }
+            }
+        }->() // 'unknown';
+    },
+);
+
+has body_as_html => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        $self->md->markdown($self->body);
+    },
+);
+
+has file_history => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        $self->repo->file_history($self->repo_path);
+    },
+    handles => [qw/created_by last_modified_by/],
+);
+
+no Mouse;
+
+sub BUILD {
+    shift->_parse_content;
 }
 
 sub headers {
@@ -61,24 +104,6 @@ sub headers {
     }
 }
 
-sub title {
-    my $self = shift;
-    $self->{title} //= $self->headers('title') // sub {
-        for my $line ( split /\n/, $self->body ){
-            if ( $line =~ /^#/ ){
-                $line =~ s/^[#\s]+//;
-                $line =~ s/[#\s]+$//;
-                return $line;
-            }
-        }
-    }->() // 'unknown';
-}
-
-sub file_history {
-    my $self = shift;
-    $self->{file_history} //= $self->repo->file_history($self->repo_path);
-}
-
 sub last_modified_at {
     my $self = shift;
     $self->{last_modified_at} //= localtime($self->file_history->last_modified_at)->datetime;
@@ -88,9 +113,6 @@ sub created_at {
     my $self = shift;
     $self->{created_at} //= localtime($self->file_history->created_at)->datetime;
 }
-
-sub created_by       { shift->file_history->created_by }
-sub last_modified_by { shift->file_history->last_modified_by }
 
 sub tags {...}
 
@@ -112,7 +134,7 @@ sub _parse_content {
         ($header_raw, $body) = ('', $header_raw);
     }
 
-    $self->{body}       = $body;
+    $self->body($body);
     $self->{header_raw} = $header_raw;
     $self->{headers}    = $headers;
     $self;

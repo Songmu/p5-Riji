@@ -3,30 +3,21 @@ use strict;
 use warnings;
 use utf8;
 
-use Git::Repository 'FileHistory';
 use Time::Piece;
 use URI::tag;
 use XML::FeedPP;
-
 use Riji::Model::Entry;
 
-sub new {
-    my ($class, %args) = @_;
-    bless {%args}, $class;
-}
+use Mouse;
 
-sub setting  { shift->{setting}     }
+has setting => (
+    is       => 'ro',
+    isa      => 'Riji::Model::BlogSetting',
+    required => 1,
+    handles  => [qw/base_dir fqdn author title mkdn_dir url_root mkdn_path repo/],
+);
 
-sub base_dir { shift->setting->base_dir }
-sub fqdn     { shift->setting->fqdn     }
-sub author   { shift->setting->author   }
-sub title    { shift->setting->title    }
-sub mkdn_dir { shift->setting->mkdn_dir }
-sub url_root { shift->setting->url_root }
-
-sub mkdn_path { shift->setting->mkdn_path }
-sub repo      { shift->setting->repo      }
-
+no Mouse;
 
 sub entries {
     my $self = shift;
@@ -37,7 +28,7 @@ sub entries {
             my $path = $file->relative($self->mkdn_path);
             my $entry = Riji::Model::Entry->new(
                 file     => $path,
-                base_dir => $self->base_dir,
+                setting  => $self->setting,
             );
 
             my $entry_path = $file->basename;

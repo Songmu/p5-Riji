@@ -2,17 +2,13 @@ package Riji;
 use Puncheur::Lite;
 
 use Encode;
-use Text::Markdown::Discount;
-
-use Riji::Model::Entry;
-use Riji::Model::Atom;
-use Riji::Model::Blog;
 
 our $VERSION = 0.01;
 
 __PACKAGE__->setting(
     handle_static => 1,
 );
+__PACKAGE__->load_plugin(qw/Model/);
 
 get '/{index:(?:index.html)?}' => sub {
     my $c = shift;
@@ -25,11 +21,8 @@ get '/entry/:name.html' => sub {
     my $name = $args->{name};
     return $c->res_404 if $name =~ /[^-_.a-zA-Z0-9]/;
 
-    my $entry = Riji::Model::Entry->new(
-        base_dir => $c->base_dir,
-        file     => "$name.md",
-    );
-    return $c->res_404 unless $entry;
+    my $entry = $c->model('Blog')->entry("$name.md");
+    return $c->res_404 unless -f -r $entry->file_path;
 
     $c->render('entry.tx', {
         title   => $entry->title,
@@ -44,11 +37,7 @@ get '/entry/:name.html' => sub {
 get '/atom.xml' => sub {
     my $c = shift;
 
-    my $atom = Riji::Model::Blog->new(
-        base_dir => $c->base_dir,
-        fqdn     => 'riji.songmu.jp',
-    )->atom;
-
+    my $atom = $c->model('Blog')->atom;
     my $xml = $atom->feed->to_string;
     $c->create_response(200, ['Content-Type' => 'application/atom+xml'], [encode($c->encoding, $xml)]);
 };
