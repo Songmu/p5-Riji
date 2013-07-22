@@ -1,5 +1,7 @@
 requires 'Git::Repository';
 requires 'Git::Repository::FileHistory';
+requires 'Object::Container';
+requires 'Mouse';
 requires 'Path::Tiny';
 requires 'Puncheur';
 requires 'Text::Markdown::Discount';
