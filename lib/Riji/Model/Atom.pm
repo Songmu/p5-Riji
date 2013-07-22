@@ -4,7 +4,6 @@ use warnings;
 use utf8;
 
 use Git::Repository 'FileHistory';
-use Path::Tiny;
 use Time::Piece;
 use URI::tag;
 use XML::FeedPP;
@@ -16,18 +15,16 @@ sub new {
     bless {%args}, $class;
 }
 
-sub base_dir { shift->{base_dir} }
-sub fqdn     { shift->{fqdn}     }
-sub author   { shift->{author}   }
-sub title    { shift->{title}    }
-sub mkdn_dir { shift->{mkdn_dir} }
+sub setting  { shift->{setting}     }
 
-sub url_root { "http://@{[shift->fqdn]}/" }
+sub base_dir { shift->setting->base_dir }
+sub fqdn     { shift->setting->fqdn     }
+sub author   { shift->setting->author   }
+sub title    { shift->setting->title    }
+sub mkdn_dir { shift->setting->mkdn_dir }
+sub url_root { shift->setting->url_root }
 
-sub mkdn_path {
-    my $self = shift;
-    $self->{mkdn_path} //= path($self->base_dir, $self->mkdn_dir);
-}
+sub mkdn_path { shift->setting->mkdn_path }
 
 sub repo {
     my $self = shift;
@@ -52,7 +49,7 @@ sub entries {
             my $url = $self->url_root . $entry_path . '.html';
             my $tag_uri = URI->new('tag:');
             $tag_uri->authority($self->fqdn);
-            $tag_uri->date(localtime($entry->last_modified_at)->strftime('%Y-%m-%d'));
+            $tag_uri->date(localtime($entry->file_history->last_modified_at)->strftime('%Y-%m-%d'));
             $tag_uri->specific(join('-',split(m{/},$entry_path)));
 
             push @entries, {
