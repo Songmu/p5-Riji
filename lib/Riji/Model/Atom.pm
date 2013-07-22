@@ -31,23 +31,14 @@ sub entries {
                 setting  => $self->setting,
             );
 
-            my $entry_path = $file->basename;
-            $entry_path =~ s/\.md$//;
-            $entry_path = "entry/$entry_path";
-            my $url = $self->url_root . $entry_path . '.html';
-            my $tag_uri = URI->new('tag:');
-            $tag_uri->authority($self->fqdn);
-            $tag_uri->date(localtime($entry->file_history->last_modified_at)->strftime('%Y-%m-%d'));
-            $tag_uri->specific(join('-',split(m{/},$entry_path)));
-
             push @entries, {
                 title       => $entry->title,
                 description => \$entry->body_as_html, #pass scalar ref for CDATA
                 pubDate     => $entry->last_modified_at,
                 author      => $entry->created_by,
-                guid        => $tag_uri->as_string,
+                guid        => $entry->tag_uri->as_string,
                 published   => $entry->created_at,
-                link        => $url,
+                link        => $entry->url,
             } unless $entry->headers('draft');
         }
         \@entries;
