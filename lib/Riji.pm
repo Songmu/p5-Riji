@@ -15,6 +15,13 @@ get '/{index:(?:index.html)?}' => sub {
     $c->render('index.tx', { greeting => "Hello" });
 };
 
+get '/archives.html' => sub {
+    my $c = shift;
+    $c->render('archives.tx', {
+        entries => $c->model('Blog')->entries,
+    });
+};
+
 get '/entry/:name.html' => sub {
     my ($c, $args) = @_;
 
