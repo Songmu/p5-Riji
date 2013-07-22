@@ -13,10 +13,7 @@ use Git::Repository 'FileHistory';
 sub new {
     my ($class, %args) = @_;
 
-    my $self = bless {
-        base_dir    => $args{base_dir},
-        file        => $args{file},
-    }, $class;
+    my $self = bless {%args}, $class;
 
     return () unless -f -r $self->file_path;
 
@@ -27,6 +24,8 @@ sub new {
 sub mkdn_dir { 'docs/entry' }
 sub base_dir { shift->{base_dir} }
 sub file     { shift->{file}     }
+sub fqdn     { shift->{fqdn}   }
+
 sub file_path {
     my $self = shift;
     $self->{file_path} //= path($self->base_dir, $self->mkdn_dir, $self->file);
@@ -117,6 +116,12 @@ sub _parse_content {
     $self->{header_raw} = $header_raw;
     $self->{headers}    = $headers;
     $self;
+}
+
+sub tag_uri {
+
+
+
 }
 
 1;

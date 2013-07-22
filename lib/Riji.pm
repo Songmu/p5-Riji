@@ -6,6 +6,7 @@ use Text::Markdown::Discount;
 
 use Riji::Model::Entry;
 use Riji::Model::Atom;
+use Riji::Model::Blog;
 
 our $VERSION = 0.01;
 
@@ -43,10 +44,10 @@ get '/entry/:name.html' => sub {
 get '/atom.xml' => sub {
     my $c = shift;
 
-    my $atom = Riji::Model::Atom->new(
+    my $atom = Riji::Model::Blog->new(
         base_dir => $c->base_dir,
         fqdn     => 'riji.songmu.jp',
-    );
+    )->atom;
 
     my $xml = $atom->feed->to_string;
     $c->create_response(200, ['Content-Type' => 'application/atom+xml'], [encode($c->encoding, $xml)]);

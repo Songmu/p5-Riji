@@ -17,15 +17,16 @@ sub new {
 }
 
 sub base_dir { shift->{base_dir} }
-sub fqdn     { shift->{fqdn}   }
+sub fqdn     { shift->{fqdn}     }
+sub author   { shift->{author}   }
+sub title    { shift->{title}    }
+sub mkdn_dir { shift->{mkdn_dir} }
+
 sub url_root { "http://@{[shift->fqdn]}/" }
-sub author   { 'Masayuki Matsuki' }
-sub title    { "Songmu's Riji"    }
-sub mkdn_dir { 'docs/entry'       }
 
 sub mkdn_path {
     my $self = shift;
-    $self->{mkdn_dir} //= path($self->base_dir, $self->mkdn_dir);
+    $self->{mkdn_path} //= path($self->base_dir, $self->mkdn_dir);
 }
 
 sub repo {
