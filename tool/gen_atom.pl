@@ -5,13 +5,7 @@ use utf8;
 use FindBin::libs;
 
 use Path::Tiny;
-
 use Riji;
-use Riji::Model::Atom;
 
-my $atom = Riji::Model::Atom->new(
-    base_dir => Riji->new->base_dir,
-    fqdn     => 'riji.songmu.com',
-);
-
+my $atom = Riji->new->model('Blog')->atom;
 path('atom.xml')->spew_utf8($atom->feed->to_string);
