@@ -66,6 +66,10 @@ has title => (
                     return $line;
                 }
             }
+            my $title = $self->file;
+            $title =~ s/\.md$//;
+            $title =~ s/-/ /g;
+            $title;
         }->() // 'unknown';
     },
 );
