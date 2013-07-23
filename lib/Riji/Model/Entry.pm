@@ -125,6 +125,28 @@ has tag_uri => (
     },
 );
 
+has next => (
+    is      => 'rw',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my ($prev, $next) = $self->_search_prev_and_next;
+        $self->prev($prev);
+        $next;
+    },
+);
+
+has prev => (
+    is => 'rw',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my ($prev, $next) = $self->_search_prev_and_next;
+        $self->next($next);
+        $prev;
+    },
+);
+
 has is_draft => (
     is  => 'ro',
     lazy => 1,
@@ -183,6 +205,23 @@ sub _parse_content {
     $self->{header_raw} = $header_raw;
     $self->{headers}    = $headers;
     $self;
+}
+
+sub _search_prev_and_next {
+    my $self = shift;
+    my ($prev, $next);
+
+    my $found;
+    my @entries = @{ $self->blog->entries };
+    while (my $entry = shift @entries) {
+        if ($entry->file eq $self->file) {
+            $prev = shift @entries;
+            $found++; last;
+        }
+        $next = $entry;
+    }
+    return () unless $found;
+    ($prev, $next);
 }
 
 1;
