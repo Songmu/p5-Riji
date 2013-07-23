@@ -8,6 +8,11 @@
 <li>next: <a href="<: $entry.next.entry_path :>"><: $entry.next.title :></a>
 : }
 </ul>
+<ul>
+: for $entry.tags() -> $tag {
+<li><: $tag :></li>
+: }
+</ul>
 <article>
 <: $entry.body_as_html() | mark_raw :>
 <address><!-- address is not valid -->

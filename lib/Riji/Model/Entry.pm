@@ -159,6 +159,17 @@ has is_draft => (
     },
 );
 
+has tags => (
+    is  => 'ro',
+    lazy => 1,
+    default => sub {
+        my $tags = shift->headers('tags');
+        return [] unless $tags;
+        $tags = [split /,\s*/, $tags] unless ref $tags;
+        $tags;
+    },
+);
+
 no Mouse;
 
 sub BUILD {
@@ -184,8 +195,6 @@ sub created_at {
     my $self = shift;
     $self->{created_at} //= localtime($self->file_history->created_at);
 }
-
-sub tags {...}
 
 sub _parse_content {
     my $self = shift;
