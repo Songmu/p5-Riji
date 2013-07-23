@@ -16,9 +16,9 @@ has file    => (
     required => 1,
 );
 
-has setting => (
+has blog => (
     is       => 'ro',
-    isa      => 'Riji::Model::BlogSetting',
+    isa      => 'Riji::Model::Blog',
     required => 1,
     handles  => [qw/base_dir fqdn author mkdn_dir url_root mkdn_path repo/],
 );

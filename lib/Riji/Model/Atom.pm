@@ -6,21 +6,17 @@ use utf8;
 use Time::Piece;
 use URI::tag;
 use XML::FeedPP;
+
 use Riji::Model::Entry;
 
 use Mouse;
 
-has setting => (
+has blog => (
     is       => 'ro',
-    isa      => 'Riji::Model::BlogSetting',
+    isa      => 'Riji::Model::Blog',
     required => 1,
-    handles  => [qw/base_dir fqdn author title mkdn_dir url_root mkdn_path repo/],
-);
-
-has entries => (
-    is      => 'ro',
-    isa     => 'ArrayRef[Riji::Model::Entry]',
-    required => 1,
+    handles  => [qw/base_dir fqdn author title mkdn_dir url_root mkdn_path repo entries/],
+    weak_ref => 1,
 );
 
 has entry_datas => (

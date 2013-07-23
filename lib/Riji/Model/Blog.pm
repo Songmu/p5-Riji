@@ -3,52 +3,46 @@ use strict;
 use warnings;
 use utf8;
 
+use Git::Repository 'FileHistory';
 use List::UtilsBy qw/rev_sort_by/;
+use Path::Tiny 'path';
 
 use Riji::Model::BlogSetting;
 use Riji::Model::Atom;
 
 use Mouse;
 
-has base_dir => (
-    is       => 'ro',
-    required => 1,
-);
-
-has fqdn => (
-    is       => 'ro',
-    required => 1,
-);
-
-has author => (
-    is       => 'ro',
-    required => 1,
-);
-
-has title => (
-    is       => 'ro',
-    required => 1,
-);
+has base_dir => (is => 'ro', required => 1);
+has fqdn     => (is => 'ro', required => 1);
+has author   => (is => 'ro', required => 1);
+has title    => (is => 'ro', required => 1);
 
 has mkdn_dir => (
     is => 'ro',
     default => 'docs/entry',
 );
 
-has setting => (
-    is => 'ro',
+has url_root => (
+    is      => 'ro',
+    default => sub { "http://@{[shift->fqdn]}"},
+);
+
+has mkdn_path => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        path($self->base_dir, $self->mkdn_dir);
+    },
+);
+
+has repo => (
+    is   => 'ro',
     lazy => 1,
     default => sub {
         my $self = shift;
-        Riji::Model::BlogSetting->new(
-            base_dir => $self->base_dir,
-            fqdn     => $self->fqdn,
-            author   => $self->author,
-            title    => $self->title,
-            mkdn_dir => $self->mkdn_dir,
-        );
+        Git::Repository->new(work_tree => $self->base_dir);
     },
-    handles => [qw/mkdn_path repo/],
 );
 
 has atom => (
@@ -57,8 +51,7 @@ has atom => (
     default => sub {
         my $self = shift;
         Riji::Model::Atom->new(
-            setting => $self->setting,
-            entries => $self->entries,
+            blog => $self
         );
     },
 );
@@ -85,8 +78,8 @@ sub entry {
     my ($self, $file) = @_;
 
     my $entry = Riji::Model::Entry->new(
-        file    => $file,
-        setting => $self->setting,
+        file => $file,
+        blog => $self,
     );
     return () unless -f -r $entry->file_path;
 
