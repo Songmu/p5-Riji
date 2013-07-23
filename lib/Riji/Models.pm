@@ -2,6 +2,8 @@ package Riji::Models;
 use strict;
 use warnings;
 
+use URI;
+
 use Object::Container -base;
 
 register Blog => sub {
@@ -9,7 +11,7 @@ register Blog => sub {
     my $conf = $self->get('config');
     $self->ensure_class_loaded('Riji::Model::Blog')->new(
         base_dir => $self->get('base_dir'),
-        fqdn     => $conf->{fqdn},
+        site_url => URI->new($conf->{site_url}),
         author   => $conf->{author},
         title    => $conf->{title},
     );

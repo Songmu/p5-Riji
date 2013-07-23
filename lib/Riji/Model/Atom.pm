@@ -15,7 +15,7 @@ has blog => (
     is       => 'ro',
     isa      => 'Riji::Model::Blog',
     required => 1,
-    handles  => [qw/base_dir fqdn author title mkdn_dir url_root mkdn_path repo entries/],
+    handles  => [qw/base_dir fqdn author title mkdn_dir site_url mkdn_path repo entries/],
     weak_ref => 1,
 );
 
@@ -48,8 +48,9 @@ has feed => (
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
         $tag_uri->date(gmtime($last_modified_at)->strftime('%Y-%m-%d'));
+        $tag_uri->specific($self->blog->tag_uri_specific_prefix);
         my $feed = XML::FeedPP::Atom::Atom10->new(
-            link    => $self->url_root,
+            link    => $self->site_url,
             author  => $self->author,
             title   => $self->title,
             pubDate => $last_modified_at,

@@ -13,18 +13,36 @@ use Riji::Model::Entry;
 use Mouse;
 
 has base_dir => (is => 'ro', required => 1);
-has fqdn     => (is => 'ro', required => 1);
 has author   => (is => 'ro', required => 1);
 has title    => (is => 'ro', required => 1);
+has site_url => (
+    is       => 'ro',
+    isa      => 'URI',
+    required => 1
+);
+
+has fqdn => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {shift->site_url->host},
+);
+
+has tag_uri_specific_prefix => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $pref = shift->site_url->path;
+        $pref =~ s!/$!!;
+        $pref =~ s!^/!!;
+        $pref =~ s!/!-!g;
+        $pref .= ':' if $pref;
+        $pref;
+    },
+);
 
 has mkdn_dir => (
     is => 'ro',
     default => 'docs/entry',
-);
-
-has url_root => (
-    is      => 'ro',
-    default => sub { "http://@{[shift->fqdn]}"},
 );
 
 has mkdn_path => (
@@ -69,7 +87,7 @@ has entries => (
         my $self = shift;
         [
             rev_sort_by { $_->created_at }
-            grep        { !$_->is_draft }
+            grep        { $_ && !$_->is_draft }
             map         { $self->entry($_->basename) }
             grep        { -f -r $_ && /\.md$/ }
             $self->mkdn_path->children

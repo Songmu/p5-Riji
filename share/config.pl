@@ -1,5 +1,5 @@
 {
     author => 'Songmu',
     title  => q{Songmu's Riji},
-    fqdn   => 'riji.songmu.jp',
+    site_url => 'http://riji.songmu.jp/riji/',
 }

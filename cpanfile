@@ -6,6 +6,7 @@ requires 'Mouse';
 requires 'Path::Tiny';
 requires 'Puncheur';
 requires 'Text::Markdown::Discount';
+requires 'URI';
 requires 'URI::tag';
 requires 'XML::FeedPP';
 requires 'YAML::Tiny';

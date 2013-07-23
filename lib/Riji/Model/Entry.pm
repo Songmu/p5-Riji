@@ -20,7 +20,7 @@ has blog => (
     is       => 'ro',
     isa      => 'Riji::Model::Blog',
     required => 1,
-    handles  => [qw/base_dir fqdn author mkdn_dir url_root mkdn_path repo/],
+    handles  => [qw/base_dir fqdn author mkdn_dir site_url mkdn_path repo/],
 );
 
 has md => (
@@ -104,7 +104,7 @@ has url => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        my $root = $self->url_root;
+        my $root = $self->site_url;
         $root =~ s!/+$!!;
         $root . $self->entry_path;
     },
@@ -119,7 +119,7 @@ has tag_uri => (
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
         $tag_uri->date(localtime($self->file_history->last_modified_at)->strftime('%Y-%m-%d'));
-        $tag_uri->specific(join('-', grep {$_ ne ''} split(m{/}, $self->entry_path)));
+        $tag_uri->specific($self->blog->tag_uri_specific_prefix . join('-', grep {$_ ne ''} split(m{/}, $self->entry_path)));
 
         $tag_uri;
     },
