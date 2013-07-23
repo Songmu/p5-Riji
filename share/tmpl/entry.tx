@@ -2,10 +2,10 @@
 : around content -> {
 <ul>
 : if $entry.prev() {
-<li>prev: <a href="<: $entry.prev().entry_path :>"><: $entry.prev().title :></a>
+<li>prev: <a href="<: $entry.prev.entry_path :>"><: $entry.prev.title :></a>
 : }
 : if $entry.next() {
-<li>next: <a href="<: $entry.next().entry_path :>"><: $entry.next().title :></a>
+<li>next: <a href="<: $entry.next.entry_path :>"><: $entry.next.title :></a>
 : }
 </ul>
 <article>
