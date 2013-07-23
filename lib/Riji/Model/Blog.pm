@@ -84,10 +84,13 @@ no Mouse;
 sub entry {
     my ($self, $file) = @_;
 
-    Riji::Model::Entry->new(
+    my $entry = Riji::Model::Entry->new(
         file    => $file,
         setting => $self->setting,
     );
+    return () unless -f -r $entry->file_path;
+
+    $entry;
 }
 
 1;

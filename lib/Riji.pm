@@ -22,14 +22,12 @@ get '/archives.html' => sub {
     });
 };
 
-get '/entry/:name.html' => sub {
+get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     my ($c, $args) = @_;
 
     my $name = $args->{name};
-    return $c->res_404 if $name =~ /[^-_.a-zA-Z0-9]/;
-
     my $entry = $c->model('Blog')->entry("$name.md");
-    return $c->res_404 unless -f -r $entry->file_path;
+    return $c->res_404 unless $entry;
 
     $c->render('entry.tx', {
         title   => $entry->title,
