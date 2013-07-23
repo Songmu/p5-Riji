@@ -15,7 +15,7 @@ has title    => (is => 'ro', required => 1);
 has mkdn_dir => (is => 'ro', required => 1);
 has url_root => (
     is      => 'ro',
-    default => sub { "http://@{[shift->fqdn]}/"},
+    default => sub { "http://@{[shift->fqdn]}"},
 );
 
 has mkdn_path => (

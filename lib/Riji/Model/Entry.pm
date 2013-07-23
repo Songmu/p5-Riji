@@ -95,7 +95,7 @@ has entry_path => (
     default => sub {
         my $entry_path = shift->file_path->basename;
         $entry_path =~ s/\.md$//;
-        "entry/$entry_path.html";
+        "/entry/$entry_path.html";
     },
 );
 
@@ -105,7 +105,7 @@ has url => (
     default => sub {
         my $self = shift;
         my $root = $self->url_root;
-        $root .= '/' unless $root =~ m!/$!;
+        $root =~ s!/+$!!;
         $root . $self->entry_path;
     },
 );
@@ -119,7 +119,7 @@ has tag_uri => (
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
         $tag_uri->date(localtime($self->file_history->last_modified_at)->strftime('%Y-%m-%d'));
-        $tag_uri->specific(join('-',split(m{/},$self->entry_path)));
+        $tag_uri->specific(join('-', grep {$_ ne ''} split(m{/}, $self->entry_path)));
 
         $tag_uri;
     },
