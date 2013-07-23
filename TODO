@@ -1,0 +1,6 @@
+- FQDNどうするか問題
+- Text::Markup::Any対応?
+- markdown決め打ちは辞めたい感
+- 「前の記事へ」「次の記事へ」とか
+- pager
+- 静的配信機能(wget)

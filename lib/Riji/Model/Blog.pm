@@ -21,13 +21,13 @@ has fqdn => (
 );
 
 has author => (
-    is      => 'ro',
-    default => 'Masayuki Matsuki',
+    is       => 'ro',
+    required => 1,
 );
 
 has title => (
-    is      => 'ro',
-    default => "Songmu's Riji",
+    is       => 'ro',
+    required => 1,
 );
 
 has mkdn_dir => (

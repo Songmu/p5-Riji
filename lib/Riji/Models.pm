@@ -6,9 +6,12 @@ use Object::Container -base;
 
 register Blog => sub {
     my $self = shift;
+    my $conf = $self->get('config');
     $self->ensure_class_loaded('Riji::Model::Blog')->new(
         base_dir => $self->get('base_dir'),
-        fqdn     => 'riji.songmu.jp',
+        fqdn     => $conf->{fqdn},
+        author   => $conf->{author},
+        title    => $conf->{title},
     );
 };
 
