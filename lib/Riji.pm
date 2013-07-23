@@ -30,12 +30,7 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     return $c->res_404 unless $entry;
 
     $c->render('entry.tx', {
-        title   => $entry->title,
-        article => $entry->body_as_html,
-        last_modified_at => $entry->last_modified_at,
-        last_modified_by => $entry->last_modified_by,
-        created_at       => $entry->created_at,
-        created_by       => $entry->created_by,
+        entry   => $entry,
     });
 };
 
