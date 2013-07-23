@@ -29,10 +29,10 @@ has entry_datas => (
             map { +{
                 title       => $_->title,
                 description => \$_->body_as_html, #pass scalar ref for CDATA
-                pubDate     => $_->last_modified_at,
+                pubDate     => $_->last_modified_at->epoch,
                 author      => $_->created_by,
                 guid        => $_->tag_uri->as_string,
-                published   => $_->created_at,
+                published   => $_->created_at->strftime('%Y-%m-%dT%M:%M:%S%z'),
                 link        => $_->url,
             } } @{ $self->entries }
         ]
@@ -44,7 +44,7 @@ has feed => (
     default => sub {
         my $self = shift;
 
-        my $last_modified_at = $self->repo->file_history($self->mkdn_dir)->last_modified_at;
+        my $last_modified_at = $self->repo->file_history($self->mkdn_dir, {branch => $self->blog->git_branch})->last_modified_at;
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
         $tag_uri->date(gmtime($last_modified_at)->strftime('%Y-%m-%d'));

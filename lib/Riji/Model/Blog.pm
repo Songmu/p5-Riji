@@ -7,8 +7,8 @@ use Git::Repository 'FileHistory';
 use List::UtilsBy qw/rev_sort_by/;
 use Path::Tiny 'path';
 
-use Riji::Model::BlogSetting;
 use Riji::Model::Atom;
+use Riji::Model::Entry;
 
 use Mouse;
 
@@ -43,6 +43,11 @@ has repo => (
         my $self = shift;
         Git::Repository->new(work_tree => $self->base_dir);
     },
+);
+
+has git_branch => (
+    is      => 'ro',
+    default => 'master',
 );
 
 has atom => (

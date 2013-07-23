@@ -84,7 +84,7 @@ has file_history => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        $self->repo->file_history($self->repo_path);
+        $self->repo->file_history($self->repo_path, {branch => $self->blog->git_branch});
     },
     handles => [qw/created_by last_modified_by/],
 );
@@ -151,12 +151,12 @@ sub headers {
 
 sub last_modified_at {
     my $self = shift;
-    $self->{last_modified_at} //= localtime($self->file_history->last_modified_at)->datetime;
+    $self->{last_modified_at} //= localtime($self->file_history->last_modified_at);
 }
 
 sub created_at {
     my $self = shift;
-    $self->{created_at} //= localtime($self->file_history->created_at)->datetime;
+    $self->{created_at} //= localtime($self->file_history->created_at);
 }
 
 sub tags {...}
