@@ -69,6 +69,16 @@ has html_body => (
     },
 );
 
+has html_body_without_title => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $html = shift->html_body;
+        $html =~ s!\A\s*<h[1-6].*?</h[1-6]>!!ms;
+        $html;
+    },
+);
+
 has site_path => (
     is      => 'ro',
     lazy    => 1,
