@@ -1,11 +1,9 @@
 : cascade base
 : around content -> {
 <h1>Archives</h1>
-<ul>
+<ul class="archives">
 : for $blog.entries() -> $entry {
-<li><a href="<: uri_for($entry.entry_path()) :>"><: $entry.title :></a></li>
+<li><time><: $entry.created_at.strftime('%Y-%m-%d') :></time><a href="<: uri_for($entry.entry_path()) :>"><: $entry.title :></a></li>
 : }
 </ul>
-
 : }
-

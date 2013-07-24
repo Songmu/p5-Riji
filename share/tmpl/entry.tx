@@ -10,24 +10,26 @@
   : }
   </ul>
 </nav>
-<ul class="tags">
-: for $entry.tags() -> $tag {
-  <li><: $tag :></li>
-: }
-</ul>
 <article>
   <div class="entry">
     <: $entry.body_as_html() | mark_raw :>
   </div>
+  : if $entry.tags().size() {
+  <ul class="tags">
+    : for $entry.tags() -> $tag {
+    <li><: $tag :></li>
+    : }
+  </ul>
+  : }
   <dl class="meta">
-      <dt>created by</dt>
-      <dd><: $entry.created_by() :></dd>
-      <dt>created at</dt>
-      <dd><time><: $entry.created_at().strftime('%Y-%m-%d %H:%M') :></time></dd>
-      <dt>last modified by</dt>
-      <dd><: $entry.last_modified_by() :></dd>
-      <dt>last modified at</dt>
-      <dd><: $entry.last_modified_at().strftime('%Y-%m-%d %H:%M') :></dd>
+      <dt class="author">created by</dt>
+      <dd class="author"><: $entry.created_by() :></dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time><: $entry.created_at().strftime('%Y-%m-%d %H:%M') :></time></dd>
+      <dt class="author">last modified by</dt>
+      <dd class="author"><: $entry.last_modified_by() :></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time"><: $entry.last_modified_at().strftime('%Y-%m-%d %H:%M') :></dd>
   </dl>
 </article>
 : }

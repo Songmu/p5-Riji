@@ -10,13 +10,11 @@
   </header>
   <nav>
     <ul>
-        <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
+      <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
     </ul>
   </nav>
-
   <section>
 : block content -> { }
   <section>
-
 </body>
 </html>
