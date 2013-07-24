@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use utf8;
 
+use File::Spec;
 use Git::Repository 'FileHistory';
 use List::UtilsBy qw/rev_sort_by/;
 use Path::Tiny 'path';
@@ -90,7 +91,7 @@ has entries => (
             grep        { $_ && !$_->is_draft }
             map         { $self->entry($_->basename) }
             grep        { -f -r }
-            $self->article_path->children
+            $self->article_path->child('entry')->children
         ]
     },
 );
@@ -101,7 +102,7 @@ sub entry {
     my ($self, $file) = @_;
 
     my $entry = Riji::Model::Entry->new(
-        file => $file,
+        file => File::Spec->catfile('entry', $file),
         blog => $self,
     );
     return () unless -f -r $entry->file_path;

@@ -9,7 +9,7 @@ use Text::Markup::Any ();
 use Mouse;
 
 has file    => (
-    is       => 'ro',
+    is       => 'rw',
     required => 1,
 );
 
@@ -27,11 +27,11 @@ has markupper => (
     handles => [qw/markup/],
 );
 
-our $ARTICLE_EXT = 'md';
-has article_ext => (is => 'ro', default => $ARTICLE_EXT);
+has article_ext => (is => 'ro', default => 'md');
 
 has file_path => (
-    is => 'ro',
+    is      => 'ro',
+    lazy    => 1,
     default => sub {
         my $self = shift;
         path($self->base_dir, $self->article_dir, $self->file);
@@ -99,19 +99,23 @@ has tags => (
     },
 );
 
-around BUILDARGS => sub {
-    my $orig  = shift;
-    my $class = shift;
-    my $args = $class->$orig(@_);
-
-    $args->{file} .= ".$ARTICLE_EXT" unless $args->{file} =~ /\.\Q$ARTICLE_EXT\E$/;
-    $args;
-};
+has template => (
+    is  => 'ro',
+    lazy => 1,
+    default => sub {
+        shift->header('template');
+    },
+);
 
 no Mouse;
 
 sub BUILD {
     my $self = shift;
+
+    my $ext = $self->article_ext;
+    unless ($self->file =~ /\.\Q$ext\E$/) {
+        $self->file($self->file . ".$ext");
+    }
     return unless -f -r $self->file_path;
     $self->_parse_content;
 }

@@ -11,7 +11,8 @@ use Mouse;
 extends 'Riji::Model::Article';
 
 has repo_path => (
-    is => 'ro',
+    is      => 'ro',
+    lazy    => 1,
     default => sub {
         my $self = shift;
         $self->file_path->relative($self->base_dir)
@@ -20,6 +21,7 @@ has repo_path => (
 
 has file_history => (
     is      => 'ro',
+    lazy    => 1,
     default => sub {
         my $self = shift;
         $self->repo->file_history($self->repo_path, {branch => $self->blog->git_branch});
@@ -89,6 +91,7 @@ has prev => (
 
 has last_modified_at => (
     is      => 'ro',
+    lazy    => 1,
     default => sub {
         localtime($_[0]->file_history->last_modified_at);
     },
@@ -96,17 +99,9 @@ has last_modified_at => (
 
 has created_at => (
     is      => 'ro',
+    lazy    => 1,
     default => sub {
         localtime($_[0]->file_history->created_at);
-    },
-);
-
-
-has template => (
-    is  => 'ro',
-    lazy => 1,
-    default => sub {
-        shift->header('template');
     },
 );
 
