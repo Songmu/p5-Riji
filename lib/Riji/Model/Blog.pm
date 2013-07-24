@@ -106,7 +106,7 @@ has entries => (
 has tag_map => (
     is      => 'ro',
     isa     => 'HashRef[Riji::Model::Tag]',
-    lasy    => 1,
+    lazy    => 1,
     default => sub {
         my $self = shift;
         my %map;
