@@ -10,18 +10,26 @@ __PACKAGE__->setting(
 );
 __PACKAGE__->load_plugin(qw/Model/);
 
-get '/{index:(?:index.html)?}' => sub {
-    my $c = shift;
-    $c->render('index.tx', {
-        blog => $c->model('Blog'),
-    });
-};
+get '/{page:(?:[-_a-zA-Z0-9]+.html)?}' => sub {
+    my ($c, $args) = @_;
+    my $page = $args->{page} || 'index.html';
+    my $tmpl = $page;
+       $tmpl =~ s/html$/tx/;
 
-get '/archives.html' => sub {
-    my $c = shift;
-    $c->render('archives.tx', {
-        blog => $c->model('Blog'),
-    });
+    local $@;
+    my $res = eval {
+        $c->render($tmpl, {
+            blog => $c->model('Blog'),
+        });
+    };
+    return $res unless my $err = $@;
+
+    if ($err =~ /^Text::Xslate: LoadError: Cannot find/) {
+        return $c->res_404;
+    }
+    else {
+        die $err;
+    }
 };
 
 get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
@@ -32,10 +40,10 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     my $entry = $blog->entry($name);
     return $c->res_404 unless $entry;
 
-    my $template = $entry->template // 'entry';
-    $template .= '.tx';
+    my $tmpl = $entry->template // 'entry';
+    $tmpl .= '.tx';
 
-    $c->render($template, {
+    $c->render($tmpl, {
         blog  => $blog,
         entry => $entry,
     });
