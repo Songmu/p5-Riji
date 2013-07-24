@@ -15,7 +15,7 @@ has blog => (
     is       => 'ro',
     isa      => 'Riji::Model::Blog',
     required => 1,
-    handles  => [qw/base_dir fqdn author title mkdn_dir site_url mkdn_path repo entries/],
+    handles  => [qw/base_dir fqdn author title article_dir site_url article_path repo entries/],
     weak_ref => 1,
 );
 
@@ -44,7 +44,7 @@ has feed => (
     default => sub {
         my $self = shift;
 
-        my $last_modified_at = $self->repo->file_history($self->mkdn_dir, {branch => $self->blog->git_branch})->last_modified_at;
+        my $last_modified_at = $self->repo->file_history($self->article_dir, {branch => $self->blog->git_branch})->last_modified_at;
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
         $tag_uri->date(gmtime($last_modified_at)->strftime('%Y-%m-%d'));

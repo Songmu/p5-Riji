@@ -20,7 +20,7 @@ has blog => (
     is       => 'ro',
     isa      => 'Riji::Model::Blog',
     required => 1,
-    handles  => [qw/base_dir fqdn author mkdn_dir site_url mkdn_path repo/],
+    handles  => [qw/base_dir fqdn author article_dir site_url article_path repo/],
 );
 
 has markupper => (
@@ -33,7 +33,7 @@ has file_path => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        path($self->base_dir, $self->mkdn_dir, $self->file);
+        path($self->base_dir, $self->article_dir, $self->file);
     },
 );
 
@@ -86,7 +86,6 @@ has body_as_html => (
 
 has file_history => (
     is      => 'ro',
-    lazy    => 1,
     default => sub {
         my $self = shift;
         $self->repo->file_history($self->repo_path, {branch => $self->blog->git_branch});

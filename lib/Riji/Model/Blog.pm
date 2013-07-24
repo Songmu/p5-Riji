@@ -40,17 +40,17 @@ has tag_uri_specific_prefix => (
     },
 );
 
-has mkdn_dir => (
+has article_dir => (
     is => 'ro',
-    default => 'docs/entry',
+    default => 'article',
 );
 
-has mkdn_path => (
+has article_path => (
     is      => 'ro',
     lazy    => 1,
     default => sub {
         my $self = shift;
-        path($self->base_dir, $self->mkdn_dir);
+        path($self->base_dir, $self->article_dir);
     },
 );
 
@@ -90,7 +90,7 @@ has entries => (
             grep        { $_ && !$_->is_draft }
             map         { $self->entry($_->basename) }
             grep        { -f -r $_ && /\.md$/ }
-            $self->mkdn_path->children
+            $self->article_path->children
         ]
     },
 );
