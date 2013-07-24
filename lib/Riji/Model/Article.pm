@@ -20,6 +20,11 @@ has blog => (
     handles  => [qw/base_dir fqdn author article_dir site_url repo/],
 );
 
+has page => (
+    is  => 'ro',
+    isa => 'Int',
+);
+
 has markupper => (
     is      => 'ro',
     isa     => 'Text::Markup::Any',
@@ -58,6 +63,7 @@ has body_as_html => (
         my $body = $self->_pre_proccessor->render_string($self->body, {
             $key => $self,
             blog => $self->blog,
+            page => $self->page,
         });
         $self->markup($body);
     },

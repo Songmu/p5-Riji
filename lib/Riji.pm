@@ -18,7 +18,7 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my ($basename, $page) = $match =~ m!^([-_a-zA-Z0-9]+)(?:\.([0-9]+))?\.html$!;
 
     my $blog    = $c->model('Blog');
-    my $article = $blog->article($basename);
+    my $article = $blog->article($basename, {$page ? (page => $page) : ()});
 
     my $tmpl = "$basename.tx";
     $tmpl = $article->template if $article && $article->template;
