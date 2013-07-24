@@ -58,28 +58,6 @@ has repo_path => (
 
 has body => (is => 'rw');
 
-has title => (
-    is      => 'ro',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        $self->headers('title') // sub {
-            for my $line ( split /\n/, $self->body ){
-                if ( $line =~ /^#/ ){
-                    $line =~ s/^[#\s]+//;
-                    $line =~ s/[#\s]+$//;
-                    return $line;
-                }
-            }
-            my $ext = quotemeta $self->article_ext;
-            my $title = $self->file;
-            $title =~ s/\.$ext$//;
-            $title =~ s/-/ /g;
-            $title;
-        }->() // 'unknown';
-    },
-);
-
 has body_as_html => (
     is      => 'ro',
     lazy    => 1,
@@ -158,25 +136,6 @@ has prev => (
     },
 );
 
-has is_draft => (
-    is  => 'ro',
-    lazy => 1,
-    default => sub {
-        shift->headers('draft');
-    },
-);
-
-has tags => (
-    is  => 'ro',
-    lazy => 1,
-    default => sub {
-        my $tags = shift->headers('tags');
-        return [] unless $tags;
-        $tags = [split /,\s*/, $tags] unless ref $tags;
-        $tags;
-    },
-);
-
 has last_modified_at => (
     is      => 'ro',
     default => sub {
@@ -190,6 +149,57 @@ has created_at => (
         localtime($_[0]->file_history->created_at);
     },
 );
+
+# Meta datas:
+has title => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        $self->header('title') // sub {
+            for my $line ( split /\n/, $self->body ){
+                if ( $line =~ /^#/ ){
+                    $line =~ s/^[#\s]+//;
+                    $line =~ s/[#\s]+$//;
+                    return $line;
+                }
+            }
+            my $ext = quotemeta $self->article_ext;
+            my $title = $self->file;
+            $title =~ s/\.$ext$//;
+            $title =~ s/-/ /g;
+            $title;
+        }->() // 'unknown';
+    },
+);
+
+has is_draft => (
+    is  => 'ro',
+    lazy => 1,
+    default => sub {
+        shift->header('draft');
+    },
+);
+
+has tags => (
+    is  => 'ro',
+    lazy => 1,
+    default => sub {
+        my $tags = shift->header('tags');
+        return [] unless $tags;
+        $tags = [split /,\s*/, $tags] unless ref $tags;
+        $tags;
+    },
+);
+
+has template => (
+    is  => 'ro',
+    lazy => 1,
+    default => sub {
+        shift->header('template');
+    },
+);
+
 
 around BUILDARGS => sub {
     my $orig  = shift;
@@ -208,7 +218,7 @@ sub BUILD {
     $self->_parse_content;
 }
 
-sub headers {
+sub header {
     my ($self, $key) = @_;
     if (defined $key){
         return $self->{headers}{$key};

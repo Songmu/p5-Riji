@@ -2,7 +2,7 @@
 : around content -> {
 <h1>Archives</h1>
 <ul>
-: for $entries -> $entry {
+: for $blog.entries() -> $entry {
 <li><a href="<: uri_for($entry.entry_path()) :>"><: $entry.title :></a></li>
 : }
 </ul>

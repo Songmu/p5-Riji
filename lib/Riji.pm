@@ -12,13 +12,15 @@ __PACKAGE__->load_plugin(qw/Model/);
 
 get '/{index:(?:index.html)?}' => sub {
     my $c = shift;
-    $c->render('index.tx', { greeting => "Hello" });
+    $c->render('index.tx', {
+        blog => $c->model('Blog'),
+    });
 };
 
 get '/archives.html' => sub {
     my $c = shift;
     $c->render('archives.tx', {
-        entries => $c->model('Blog')->entries,
+        blog => $c->model('Blog'),
     });
 };
 
@@ -26,11 +28,16 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     my ($c, $args) = @_;
 
     my $name = $args->{name};
-    my $entry = $c->model('Blog')->entry($name);
+    my $blog = $c->model('Blog');
+    my $entry = $blog->entry($name);
     return $c->res_404 unless $entry;
 
-    $c->render('entry.tx', {
-        entry   => $entry,
+    my $template = $entry->template // 'entry';
+    $template .= '.tx';
+
+    $c->render($template, {
+        blog  => $blog,
+        entry => $entry,
     });
 };
 
