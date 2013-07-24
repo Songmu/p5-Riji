@@ -41,11 +41,12 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     my $entry = $blog->entry($name);
     return $c->res_404 unless $entry;
 
-    my $xslate = Text::Xslate->new(
+    my $app_name = $c->app_name;
+    state $xslate = Text::Xslate->new(
         type => 'text',
         function => {
-            c         => sub { $c },
-            uri_for   => sub { $c->uri_for(@_) },
+            c         => sub { $app_name->context },
+            uri_for   => sub { $app_name->context->uri_for(@_) },
         }
     );
     my $body = $xslate->render_string($entry->body, {
