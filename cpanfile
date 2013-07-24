@@ -7,6 +7,7 @@ requires 'Path::Tiny';
 requires 'Puncheur';
 requires 'Text::Markdown::Discount';
 requires 'Text::Markup::Any';
+requires 'Text::Xslate';
 requires 'URI';
 requires 'URI::tag';
 requires 'XML::FeedPP';
