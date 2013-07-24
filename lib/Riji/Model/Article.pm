@@ -78,6 +78,7 @@ has site_path => (
         my $path = '/' . $self->file_path->relative($self->base_dir);
         my $ext = quotemeta $self->article_ext;
         $path =~ s/\.$ext$//;
+        $path .= '.' . $self->page if $self->page;
         $path . '.html';
     },
 );
