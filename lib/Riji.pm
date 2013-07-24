@@ -18,6 +18,7 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my ($basename, $page) = $match =~ m!^([-_a-zA-Z0-9]+)(?:\.([0-9]+))?\.html$!;
     my $tmpl = "$basename.tx";
 
+    # 対応するarticleがあったらそれを使うパターンでもいいかも
     local $@;
     my $res = eval {
         $c->render($tmpl, {
