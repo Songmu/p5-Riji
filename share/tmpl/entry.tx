@@ -14,7 +14,7 @@
 : }
 </ul>
 <article>
-<: $entry.body_as_html() | mark_raw :>
+<: $article | mark_raw :>
 <address><!-- address is not valid -->
     <span>作成者</span><: $entry.created_by() :><br>
     <span>作成時</span><: $entry.created_at().strftime('%Y-%m-%d %H:%M') :><br>
