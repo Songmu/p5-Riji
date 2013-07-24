@@ -11,16 +11,18 @@ __PACKAGE__->setting(
 );
 __PACKAGE__->load_plugin(qw/Model ShareDir/);
 
-get '/{page:(?:[-_a-zA-Z0-9]+.html)?}' => sub {
+get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my ($c, $args) = @_;
-    my $page = $args->{page} || 'index.html';
-    my $tmpl = $page;
-       $tmpl =~ s/html$/tx/;
+
+    my $match = $args->{match} || 'index.html';
+    my ($basename, $page) = $match =~ m!^([-_a-zA-Z0-9]+)(?:\.([0-9]+))?\.html$!;
+    my $tmpl = "$basename.tx";
 
     local $@;
     my $res = eval {
         $c->render($tmpl, {
             blog => $c->model('Blog'),
+            page => $page,
         });
     };
     return $res unless my $err = $@;
