@@ -44,8 +44,10 @@ has feed => (
     default => sub {
         my $self = shift;
 
-        my $last_modified_at = $self->repo->file_history($self->article_dir, {branch => $self->blog->git_branch})->last_modified_at;
-        my $created_at       = $self->repo->file_history($self->article_dir, {branch => $self->blog->git_branch})->created_at;
+        my $file_history = $self->repo->file_history($self->entry_dir, {branch => $self->blog->git_branch});
+
+        my $last_modified_at = $file_history->last_modified_at;
+        my $created_at       = $file_history->created_at;
 
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);

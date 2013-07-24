@@ -41,9 +41,15 @@ has tag_uri_specific_prefix => (
     },
 );
 
+
 has article_dir => (
     is => 'ro',
     default => 'article',
+);
+
+has entry_dir => (
+    is => 'ro',
+    default => 'article/entry',
 );
 
 has article_path => (
