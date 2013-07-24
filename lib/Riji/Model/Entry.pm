@@ -5,7 +5,7 @@ use utf8;
 
 use Path::Tiny;
 use YAML::Tiny;
-use Text::Markdown::Discount;
+use Text::Markup::Any ();
 use Time::Piece;
 use URI::tag;
 
@@ -23,9 +23,10 @@ has blog => (
     handles  => [qw/base_dir fqdn author mkdn_dir site_url mkdn_path repo/],
 );
 
-has md => (
-    is => 'ro',
-    default => sub { Text::Markdown::Discount->new },
+has markupper => (
+    is      => 'ro',
+    isa     => 'Text::Markup::Any',
+    default => sub { Text::Markup::Any->new('Text::Markdown::Discount')},
 );
 
 has file_path => (
@@ -79,7 +80,7 @@ has body_as_html => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        $self->md->markdown($self->body);
+        $self->markupper->markup($self->body);
     },
 );
 

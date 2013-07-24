@@ -2,3 +2,4 @@
 - markdown決め打ちは辞めたい感
 - pager
 - 静的配信機能(wget)
+- template指定できるようにする
