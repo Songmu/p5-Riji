@@ -29,15 +29,15 @@ has file_history => (
     handles => [qw/created_by last_modified_by/],
 );
 
-has entry_path => (
+has site_path => (
     is      => 'ro',
     lazy    => 1,
     default => sub {
         my $self = shift;
         my $ext = quotemeta $self->article_ext;
-        my $entry_path = $self->file_path->basename;
-        $entry_path =~ s/\.$ext$//;
-        "/entry/$entry_path.html";
+        my $site_path = $self->file_path->basename;
+        $site_path =~ s/\.$ext$//;
+        "/entry/$site_path.html";
     },
 );
 
@@ -48,7 +48,7 @@ has url => (
         my $self = shift;
         my $root = $self->site_url;
         $root =~ s!/+$!!;
-        $root . $self->entry_path;
+        $root . $self->site_path;
     },
 );
 
@@ -61,7 +61,7 @@ has tag_uri => (
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
         $tag_uri->date($self->created_at->strftime('%Y-%m-%d'));
-        $tag_uri->specific($self->blog->tag_uri_specific_prefix . join('-', grep {$_ ne ''} split(m{/}, $self->entry_path)));
+        $tag_uri->specific($self->blog->tag_uri_specific_prefix . join('-', grep {$_ ne ''} split(m{/}, $self->site_path)));
 
         $tag_uri;
     },

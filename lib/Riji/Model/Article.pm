@@ -69,6 +69,19 @@ has body_as_html => (
     },
 );
 
+has site_path => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+
+        my $path = '/' . $self->file_path->relative($self->base_dir);
+        my $ext = quotemeta $self->article_ext;
+        $path =~ s/\.$ext$//;
+        $path . '.html';
+    },
+);
+
 # Meta datas:
 has title => (
     is      => 'ro',
