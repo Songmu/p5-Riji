@@ -26,7 +26,7 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     my ($c, $args) = @_;
 
     my $name = $args->{name};
-    my $entry = $c->model('Blog')->entry("$name.md");
+    my $entry = $c->model('Blog')->entry($name);
     return $c->res_404 unless $entry;
 
     $c->render('entry.tx', {

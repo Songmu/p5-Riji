@@ -89,7 +89,7 @@ has entries => (
             rev_sort_by { $_->created_at }
             grep        { $_ && !$_->is_draft }
             map         { $self->entry($_->basename) }
-            grep        { -f -r $_ && /\.md$/ }
+            grep        { -f -r }
             $self->article_path->children
         ]
     },

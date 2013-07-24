@@ -29,6 +29,9 @@ has markupper => (
     default => sub { Text::Markup::Any->new('Text::Markdown::Discount')},
 );
 
+our $ARTICLE_EXT = 'md';
+has article_ext => (is => 'ro', default => $ARTICLE_EXT);
+
 has file_path => (
     is => 'ro',
     default => sub {
@@ -38,7 +41,8 @@ has file_path => (
 );
 
 has content_raw => (
-    is => 'ro',
+    is      => 'ro',
+    lazy    => 1,
     default => sub {
         shift->file_path->slurp_utf8;
     },
@@ -67,8 +71,9 @@ has title => (
                     return $line;
                 }
             }
+            my $ext = quotemeta $self->article_ext;
             my $title = $self->file;
-            $title =~ s/\.md$//;
+            $title =~ s/\.$ext$//;
             $title =~ s/-/ /g;
             $title;
         }->() // 'unknown';
@@ -97,8 +102,10 @@ has entry_path => (
     is      => 'ro',
     lazy    => 1,
     default => sub {
-        my $entry_path = shift->file_path->basename;
-        $entry_path =~ s/\.md$//;
+        my $self = shift;
+        my $ext = quotemeta $self->article_ext;
+        my $entry_path = $self->file_path->basename;
+        $entry_path =~ s/\.$ext$//;
         "/entry/$entry_path.html";
     },
 );
@@ -184,10 +191,21 @@ has created_at => (
     },
 );
 
+around BUILDARGS => sub {
+    my $orig  = shift;
+    my $class = shift;
+    my $args = $class->$orig(@_);
+
+    $args->{file} .= ".$ARTICLE_EXT" unless $args->{file} =~ /\.\Q$ARTICLE_EXT\E$/;
+    $args;
+};
+
 no Mouse;
 
 sub BUILD {
-    shift->_parse_content;
+    my $self = shift;
+    return unless -f -r $self->file_path;
+    $self->_parse_content;
 }
 
 sub headers {
