@@ -107,7 +107,7 @@ has tag_uri => (
 
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
-        $tag_uri->date($self->last_modified_at->strftime('%Y-%m-%d'));
+        $tag_uri->date($self->created_at->strftime('%Y-%m-%d'));
         $tag_uri->specific($self->blog->tag_uri_specific_prefix . join('-', grep {$_ ne ''} split(m{/}, $self->entry_path)));
 
         $tag_uri;

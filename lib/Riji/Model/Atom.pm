@@ -45,9 +45,11 @@ has feed => (
         my $self = shift;
 
         my $last_modified_at = $self->repo->file_history($self->article_dir, {branch => $self->blog->git_branch})->last_modified_at;
+        my $created_at       = $self->repo->file_history($self->article_dir, {branch => $self->blog->git_branch})->created_at;
+
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
-        $tag_uri->date(gmtime($last_modified_at)->strftime('%Y-%m-%d'));
+        $tag_uri->date(gmtime($created_at)->strftime('%Y-%m-%d'));
         $tag_uri->specific($self->blog->tag_uri_specific_prefix);
         my $feed = XML::FeedPP::Atom::Atom10->new(
             link    => $self->site_url,
