@@ -14,7 +14,9 @@
     </ul>
   </nav>
   <section>
-: block content -> { }
+  : block content -> { }
   <section>
+  <footer>
+  </footer>
 </body>
 </html>
