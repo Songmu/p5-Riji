@@ -44,28 +44,12 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     my $entry = $blog->entry($name);
     return $c->res_404 unless $entry;
 
-    my $app_name = $c->app_name;
-    state $xslate = Text::Xslate->new(
-        type => 'text',
-        function => {
-            c         => sub { $app_name->context },
-            uri_for   => sub { $app_name->context->uri_for(@_) },
-        }
-    );
-    my $body = $xslate->render_string($entry->body, {
-        entry => $entry,
-        blog  => $blog,
-    });
-    $entry->body($body);
-    my $article = $entry->body_as_html;
-
     my $tmpl = $entry->template // 'entry';
     $tmpl .= '.tx';
 
     $c->render($tmpl, {
         blog    => $blog,
         entry   => $entry,
-        article => $article,
     });
 };
 

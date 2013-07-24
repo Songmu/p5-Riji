@@ -53,7 +53,13 @@ has body_as_html => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        $self->markup($self->body);
+
+        my $key = $self->isa('Riji::Model::Entry') ? 'entry' : 'article';
+        my $body = $self->_pre_proccessor->render_string($self->body, {
+            $key => $self,
+            blog => $self->blog,
+        });
+        $self->markup($body);
     },
 );
 
@@ -152,6 +158,16 @@ sub _parse_content {
     $self->{header_raw} = $header_raw;
     $self->{headers}    = $headers;
     $self;
+}
+
+sub _pre_proccessor {
+    state $xslate = Text::Xslate->new(
+        type => 'text',
+        function => {
+            c         => sub { Riji->context },
+            uri_for   => sub { Riji->context->uri_for(@_) },
+        }
+    );
 }
 
 1;
