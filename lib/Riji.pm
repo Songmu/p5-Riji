@@ -16,14 +16,19 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
 
     my $match = $args->{match} || 'index.html';
     my ($basename, $page) = $match =~ m!^([-_a-zA-Z0-9]+)(?:\.([0-9]+))?\.html$!;
-    my $tmpl = "$basename.tx";
 
-    # 対応するarticleがあったらそれを使うパターンでもいいかも
+    my $blog    = $c->model('Blog');
+    my $article = $blog->article($basename);
+
+    my $tmpl = "$basename.tx";
+    $tmpl = $article->template if $article && $article->template;
+
     local $@;
     my $res = eval {
         $c->render($tmpl, {
-            blog => $c->model('Blog'),
-            page => $page,
+            blog    => $blog,
+            page    => $page,
+            article => $article,
         });
     };
     return $res unless my $err = $@;

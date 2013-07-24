@@ -116,4 +116,16 @@ sub entry {
     $entry;
 }
 
+sub article {
+    my ($self, $file) = @_;
+
+    my $article = Riji::Model::Article->new(
+        file => $file,
+        blog => $self,
+    );
+    return () unless -f -r $article->file_path;
+
+    $article;
+}
+
 1;
