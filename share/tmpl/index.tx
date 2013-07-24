@@ -1,5 +1,13 @@
 : cascade base
 : around content -> {
-<h1><: $blog.title() :></h1>
-: }
+<ul>
+    <a href="<: uri_for('/archives.html') :>">archives</a>
+</ul>
 
+<h1><: $blog.title() :></h1>
+:   for $blog.entries -> $entry {
+<article>
+<: $entry.body_as_html() | mark_raw :>
+</article>
+:   }
+: }
