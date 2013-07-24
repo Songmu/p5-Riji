@@ -1,0 +1,9 @@
+: cascade base
+: around content -> {
+<h1>Tag: <: $tag.name :></h1>
+<ul class="archives">
+: for $tag.entries() -> $entry {
+<li><time><: $entry.created_at.strftime('%Y-%m-%d') :></time><a href="<: uri_for($entry.site_path()) :>"><: $entry.title :></a></li>
+: }
+</ul>
+: }

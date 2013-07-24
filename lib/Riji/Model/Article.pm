@@ -124,7 +124,7 @@ has is_draft => (
     },
 );
 
-has tags => (
+has raw_tags => (
     is  => 'ro',
     lazy => 1,
     default => sub {

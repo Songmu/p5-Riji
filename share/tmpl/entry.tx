@@ -17,7 +17,7 @@
   : if $entry.tags().size() {
   <ul class="tags">
     : for $entry.tags() -> $tag {
-    <li><: $tag :></li>
+    <li><a href="<: uri_for($tag.site_path) :>"><: $tag.name :></a></li>
     : }
   </ul>
   : }

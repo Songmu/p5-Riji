@@ -58,6 +58,20 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     });
 };
 
+get '/tag/:tag.html' => sub {
+    my ($c, $args) = @_;
+
+    my $tag = $args->{tag};
+    my $blog = $c->model('Blog');
+    $tag = $blog->tag($tag);
+    return $c->res_404 unless $tag;
+
+    $c->render('tag.tx', {
+        blog  => $blog,
+        tag   => $tag,
+    });
+};
+
 get '/atom.xml' => sub {
     my $c = shift;
 

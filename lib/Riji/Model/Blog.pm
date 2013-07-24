@@ -5,11 +5,12 @@ use utf8;
 
 use File::Spec;
 use Git::Repository 'FileHistory';
-use List::UtilsBy qw/rev_sort_by/;
+use List::UtilsBy qw/rev_sort_by rev_nsort_by/;
 use Path::Tiny 'path';
 
 use Riji::Model::Atom;
 use Riji::Model::Entry;
+use Riji::Model::Tag;
 
 use Mouse;
 
@@ -102,6 +103,32 @@ has entries => (
     },
 );
 
+has tag_map => (
+    is      => 'ro',
+    isa     => 'HashRef[Riji::Model::Tag]',
+    lasy    => 1,
+    default => sub {
+        my $self = shift;
+        my %map;
+        for my $entry (@{ $self->entries }) {
+            for my $tag (@{ $entry->raw_tags }) {
+                $map{$tag} ||= Riji::Model::Tag->new(name => $tag);
+                push @{$map{$tag}->entries}, $entry;
+            }
+        }
+        \%map;
+    },
+);
+
+has tags => (
+    is      => 'ro',
+    isa     => 'ArrayRef[Riji::Model::Tag]',
+    lazy    => 1,
+    default => sub {
+        [rev_nsort_by {$_->count} values %{ shift->tag_map }]
+    },
+);
+
 no Mouse;
 
 sub entry {
@@ -127,6 +154,11 @@ sub article {
     return () unless -f -r $article->file_path;
 
     $article;
+}
+
+sub tag {
+    my ($self, $tag) = @_;
+    $self->tag_map->{$tag};
 }
 
 1;
