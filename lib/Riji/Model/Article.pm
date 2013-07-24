@@ -100,7 +100,7 @@ has tags => (
     default => sub {
         my $tags = shift->header('tags');
         return [] unless $tags;
-        $tags = [split /,\s*/, $tags] unless ref $tags;
+        $tags = [map {split /\s+/, $_} split /,\s*/, $tags] unless ref $tags;
         $tags;
     },
 );
