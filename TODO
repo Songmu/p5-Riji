@@ -1,5 +1,4 @@
-- Text::Markup::Any対応?
-- markdown決め打ちは辞めたい感
 - pager
 - 静的配信機能(wget)
 - template指定できるようにする
+- mdの中でXslate記述できるように？
