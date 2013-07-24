@@ -2,7 +2,7 @@
 : around content -> {
 :   for $blog.entries -> $entry {
 <article>
-<: $entry.body_as_html() | mark_raw :>
+<: $entry.html_body() | mark_raw :>
 </article>
 :   }
 : }

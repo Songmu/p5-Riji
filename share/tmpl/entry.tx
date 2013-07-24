@@ -12,7 +12,7 @@
 </nav>
 <article>
   <div class="entry">
-    <: $entry.body_as_html() | mark_raw :>
+    <: $entry.html_body() | mark_raw :>
   </div>
   : if $entry.tags().size() {
   <ul class="tags">

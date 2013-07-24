@@ -53,7 +53,7 @@ has content_raw => (
 
 has body => (is => 'rw');
 
-has body_as_html => (
+has html_body => (
     is      => 'ro',
     lazy    => 1,
     default => sub {
