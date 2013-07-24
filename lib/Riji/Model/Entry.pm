@@ -107,6 +107,15 @@ has created_at => (
 
 no Mouse;
 
+sub BUILD {
+    my $self = shift;
+    return unless $self->file_history;
+
+    # surely assign them
+    $self->last_modified_at;
+    $self->created_at;
+}
+
 sub _search_prev_and_next {
     my $self = shift;
     my ($prev, $next);
