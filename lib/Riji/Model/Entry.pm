@@ -123,7 +123,7 @@ has tag_uri => (
 
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
-        $tag_uri->date(localtime($self->file_history->last_modified_at)->strftime('%Y-%m-%d'));
+        $tag_uri->date($self->last_modified_at->strftime('%Y-%m-%d'));
         $tag_uri->specific($self->blog->tag_uri_specific_prefix . join('-', grep {$_ ne ''} split(m{/}, $self->entry_path)));
 
         $tag_uri;
@@ -171,6 +171,20 @@ has tags => (
     },
 );
 
+has last_modified_at => (
+    is      => 'ro',
+    default => sub {
+        localtime($_[0]->file_history->last_modified_at);
+    },
+);
+
+has created_at => (
+    is      => 'ro',
+    default => sub {
+        localtime($_[0]->file_history->created_at);
+    },
+);
+
 no Mouse;
 
 sub BUILD {
@@ -185,16 +199,6 @@ sub headers {
     else{
         return $self->{headers};
     }
-}
-
-sub last_modified_at {
-    my $self = shift;
-    $self->{last_modified_at} //= localtime($self->file_history->last_modified_at);
-}
-
-sub created_at {
-    my $self = shift;
-    $self->{created_at} //= localtime($self->file_history->created_at);
 }
 
 sub _parse_content {
