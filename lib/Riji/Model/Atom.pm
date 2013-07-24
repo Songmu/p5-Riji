@@ -15,7 +15,7 @@ has blog => (
     is       => 'ro',
     isa      => 'Riji::Model::Blog',
     required => 1,
-    handles  => [qw/base_dir fqdn author title article_dir site_url article_path repo entries/],
+    handles  => [qw/fqdn author title entry_dir site_url repo entries/],
     weak_ref => 1,
 );
 
