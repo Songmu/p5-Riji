@@ -7,14 +7,16 @@
 <body>
   <header>
     <h1><a href="<: uri_for('/') :>"><: $blog.title :></a></h1>
-    <ul class="nav">
+  </header>
+  <nav>
+    <ul>
         <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
     </ul>
-  </header>
+  </nav>
 
-  <div class="container">
+  <section>
 : block content -> { }
-  </div> <!-- /container -->
+  <section>
 
 </body>
 </html>

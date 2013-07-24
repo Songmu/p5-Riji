@@ -1,25 +1,33 @@
 : cascade base
 : around content -> {
-<ul>
-: if $entry.prev() {
-<li>prev: <a href="<: $entry.prev.entry_path :>"><: $entry.prev.title :></a>
-: }
-: if $entry.next() {
-<li>next: <a href="<: $entry.next.entry_path :>"><: $entry.next.title :></a>
-: }
-</ul>
-<ul>
+<nav>
+  <ul>
+  : if $entry.prev() {
+    <li class="prev"><a href="<: $entry.prev.entry_path :>"><: $entry.prev.title :></a>
+  : }
+  : if $entry.next() {
+    <li class="next">next: <a href="<: $entry.next.entry_path :>"><: $entry.next.title :></a>
+  : }
+  </ul>
+</nav>
+<ul class="tags">
 : for $entry.tags() -> $tag {
-<li><: $tag :></li>
+  <li><: $tag :></li>
 : }
 </ul>
 <article>
-<: $entry.body_as_html() | mark_raw :>
-<address><!-- address is not valid -->
-    <span>created by</span><: $entry.created_by() :><br>
-    <span>created at</span><: $entry.created_at().strftime('%Y-%m-%d %H:%M') :><br>
-    <span>last modified by</span><: $entry.last_modified_by() :><br>
-    <span>last modified at</span><: $entry.last_modified_at().strftime('%Y-%m-%d %H:%M') :>
-</address>
+  <div class="entry">
+    <: $entry.body_as_html() | mark_raw :>
+  </div>
+  <dl class="meta">
+      <dt>created by</dt>
+      <dd><: $entry.created_by() :></dd>
+      <dt>created at</dt>
+      <dd><time><: $entry.created_at().strftime('%Y-%m-%d %H:%M') :></time></dd>
+      <dt>last modified by</dt>
+      <dd><: $entry.last_modified_by() :></dd>
+      <dt>last modified at</dt>
+      <dd><: $entry.last_modified_at().strftime('%Y-%m-%d %H:%M') :></dd>
+  </dl>
 </article>
 : }
