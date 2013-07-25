@@ -20,8 +20,9 @@ get '/{match:(?:[a-zA-Z0-9][-_a-zA-Z0-9]*(?:\.[0-9]+)?.html)?}' => sub {
     my $blog    = $c->model('Blog');
     my $article = $blog->article($basename, {$page ? (page => $page) : ()});
 
-    my $tmpl = "$basename.tx";
+    my $tmpl = $basename;
     $tmpl = $article->template if $article && $article->template;
+    $tmpl .= '.tx';
 
     local $@;
     my $res = eval {
