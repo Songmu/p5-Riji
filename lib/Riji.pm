@@ -11,7 +11,7 @@ __PACKAGE__->setting(
 );
 __PACKAGE__->load_plugin(qw/Model ShareDir/);
 
-get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
+get '/{match:(?:[a-zA-Z0-9][-_a-zA-Z0-9]*(?:\.[0-9]+)?.html)?}' => sub {
     my ($c, $args) = @_;
 
     my $match = $args->{match} || 'index.html';
@@ -49,7 +49,7 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     my $entry = $blog->entry($name);
     return $c->res_404 unless $entry;
 
-    my $tmpl = $entry->template // 'entry';
+    my $tmpl = $entry->template // '_entry';
     $tmpl .= '.tx';
 
     $c->render($tmpl, {
@@ -66,7 +66,7 @@ get '/tag/:tag.html' => sub {
     $tag = $blog->tag($tag);
     return $c->res_404 unless $tag;
 
-    $c->render('tag.tx', {
+    $c->render('_tag.tx', {
         blog  => $blog,
         tag   => $tag,
     });

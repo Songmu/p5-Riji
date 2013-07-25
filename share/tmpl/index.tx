@@ -1,4 +1,4 @@
-: cascade base
+: cascade _base
 : around content -> {
 :   for $blog.entries -> $entry {
 <article>

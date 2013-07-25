@@ -1,4 +1,4 @@
-: cascade base
+: cascade _base
 : around content -> {
 <h1>Tag: <: $tag.name :></h1>
 <ul class="archives">

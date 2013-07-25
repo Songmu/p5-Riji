@@ -1,4 +1,4 @@
-: cascade base
+: cascade _base
 : around content -> {
 <h1>Archives</h1>
 <ul class="archives">
