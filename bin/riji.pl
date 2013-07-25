@@ -5,4 +5,6 @@ use utf8;
 
 use Puncheur::Runner;
 
-Puncheur::Runner->new('Riji')->run;
+Puncheur::Runner->new('Riji', {
+    port => 3650,
+})->run;

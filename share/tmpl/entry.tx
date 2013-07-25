@@ -6,7 +6,7 @@
     <li class="prev"><a href="<: $entry.prev.site_path :>"><: $entry.prev.title :></a>
   : }
   : if $entry.next() {
-    <li class="next">next: <a href="<: $entry.next.site_path :>"><: $entry.next.title :></a>
+    <li class="next"><a href="<: $entry.next.site_path :>"><: $entry.next.title :></a>
   : }
   </ul>
 </nav>
