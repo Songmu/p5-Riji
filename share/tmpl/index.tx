@@ -2,7 +2,8 @@
 : around content -> {
 :   for $blog.entries -> $entry {
 <article>
-<: $entry.html_body() | mark_raw :>
+<h1><a href="<: uri_for($entry.site_path) :>"><: $entry.title :></a></h1>
+<: $entry.html_body_without_title() | mark_raw :>
 </article>
 :   }
 :   if $blog.tags().size() {
