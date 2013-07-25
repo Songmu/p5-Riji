@@ -1,7 +1,7 @@
 : cascade _base
 : around content -> {
 <nav>
-  <ul>
+  <ul class="paginate">
   : if $entry.prev() {
     <li class="prev"><a href="<: $entry.prev.site_path :>"><: $entry.prev.title :></a>
   : }
@@ -10,10 +10,8 @@
   : }
   </ul>
 </nav>
+
 <article>
-  <div class="entry">
-    <: $entry.html_body() | mark_raw :>
-  </div>
   : if $entry.tags().size() {
   <ul class="tags">
     : for $entry.tags() -> $tag {
@@ -21,6 +19,9 @@
     : }
   </ul>
   : }
+  <div class="entry">
+    <: $entry.html_body() | mark_raw :>
+  </div>
   <dl class="meta">
       <dt class="author">created by</dt>
       <dd class="author"><: $entry.created_by() :></dd>
