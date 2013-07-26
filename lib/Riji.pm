@@ -2,7 +2,8 @@ package Riji;
 use Puncheur::Lite;
 
 use Encode;
-use Text::Xslate;
+use File::Spec;
+use YAML::Tiny ();
 
 our $VERSION = 0.01;
 
@@ -10,6 +11,16 @@ __PACKAGE__->setting(
     handle_static => 1,
 );
 __PACKAGE__->load_plugin(qw/Model ShareDir/);
+
+sub load_config {
+    my $self = shift;
+    my $file = File::Spec->catfile($self->base_dir, 'riji.yml');
+    unless (-e $file) {
+        warn 'config file not found';
+        return +{};
+    }
+    YAML::Tiny::LoadFile($file);
+}
 
 get '/{match:(?:[a-zA-Z0-9][-_a-zA-Z0-9]*(?:\.[0-9]+)?.html)?}' => sub {
     my ($c, $args) = @_;

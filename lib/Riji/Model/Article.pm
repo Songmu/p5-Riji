@@ -3,7 +3,7 @@ use 5.010;
 use warnings;
 
 use Path::Tiny;
-use YAML::Tiny;
+use YAML::Tiny ();
 use Text::Markup::Any ();
 
 use Mouse;
