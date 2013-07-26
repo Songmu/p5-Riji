@@ -5,6 +5,7 @@ use warnings;
 use Path::Tiny;
 use YAML::Tiny ();
 use Text::Markup::Any ();
+use Text::Xslate;
 
 use Mouse;
 
