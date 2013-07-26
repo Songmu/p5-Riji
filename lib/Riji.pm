@@ -22,6 +22,7 @@ sub load_config {
     YAML::Tiny::LoadFile($file);
 }
 
+my @special_pages = qw/index archives/;
 get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my ($c, $args) = @_;
 
@@ -31,26 +32,22 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my $blog    = $c->model('Blog');
     my $article = $blog->article($basename, {$page ? (page => $page) : ()});
 
-    my $tmpl = $basename;
-    $tmpl = $article->template if $article && $article->template;
-    $tmpl .= '.tx';
-
-    local $@;
-    my $res = eval {
-        $c->render($tmpl, {
-            blog    => $blog,
-            page    => $page,
-            article => $article,
-        });
-    };
-    return $res unless my $err = $@;
-
-    if ($err =~ /^Text::Xslate: LoadError: Cannot find/) {
+    if (!$article && !(grep {$_ eq $basename} @special_pages) ) {
         return $c->res_404;
     }
-    else {
-        die $err;
+
+    my $tmpl = $article && $article->template;
+    unless (defined $tmpl) {
+        $tmpl   = $basename if grep {$basename eq $_} @special_pages;
+        $tmpl //= 'default';
     }
+    $tmpl .= '.tx';
+
+    $c->render($tmpl, {
+        blog    => $blog,
+        page    => $page,
+        article => $article,
+    });
 };
 
 get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
