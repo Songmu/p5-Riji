@@ -118,16 +118,16 @@ has title => (
 );
 
 has is_draft => (
-    is  => 'ro',
-    lazy => 1,
+    is      => 'ro',
+    lazy    => 1,
     default => sub {
         shift->header('draft');
     },
 );
 
 has raw_tags => (
-    is  => 'ro',
-    lazy => 1,
+    is      => 'ro',
+    lazy    => 1,
     default => sub {
         my $tags = shift->header('tags');
         return [] unless $tags;
@@ -137,10 +137,18 @@ has raw_tags => (
 );
 
 has template => (
-    is  => 'ro',
-    lazy => 1,
+    is      => 'ro',
+    lazy    => 1,
     default => sub {
         shift->header('template');
+    },
+);
+
+has paginate => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        shift->header('paginate');
     },
 );
 

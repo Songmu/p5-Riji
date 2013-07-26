@@ -152,6 +152,7 @@ sub article {
         %$opt,
     );
     return () unless -f -r $article->file_path;
+    return () if !$article->paginate && $article->page;
 
     $article;
 }
