@@ -3,6 +3,7 @@ use 5.010;
 use warnings;
 use utf8;
 
+use HTTP::Date;
 use Time::Piece;
 use URI::tag;
 
@@ -93,7 +94,11 @@ has last_modified_at => (
     is      => 'ro',
     lazy    => 1,
     default => sub {
-        localtime($_[0]->file_history->last_modified_at);
+        my $self = shift;
+
+        my $updated_at   = $self->updated_at;
+        my $published_at = $self->published_at;
+        $published_at > $updated_at ? $published_at : $updated_at;
     },
 );
 
@@ -103,6 +108,26 @@ has created_at => (
     default => sub {
         localtime($_[0]->file_history->created_at);
     },
+);
+
+has updated_at => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        localtime($_[0]->file_history->updated_at);
+    },
+);
+
+has published_at => (
+    is   => 'ro',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        if (my $pubdate = $self->header('pubdate')) {
+            return localtime(str2time($pubdate));
+        }
+        $self->created_at;
+    }
 );
 
 has raw_tags => (
