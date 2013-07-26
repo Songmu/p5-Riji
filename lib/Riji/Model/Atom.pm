@@ -32,7 +32,7 @@ has entry_datas => (
                 pubDate     => $_->last_modified_at->epoch,
                 author      => $_->created_by,
                 guid        => $_->tag_uri->as_string,
-                published   => $_->created_at->strftime('%Y-%m-%dT%M:%M:%S%z'),
+                published   => $_->published_at->strftime('%Y-%m-%dT%M:%M:%S%z'),
                 link        => $_->url,
             } } @{ $self->entries }
         ]
@@ -46,8 +46,8 @@ has feed => (
 
         my $file_history = $self->repo->file_history($self->entry_dir, {branch => $self->blog->git_branch});
 
-        my $last_modified_at = $file_history->last_modified_at;
-        my $created_at       = $file_history->created_at;
+        my $updated_at = $file_history->updated_at;
+        my $created_at = $file_history->created_at;
 
         my $tag_uri = URI->new('tag:');
         $tag_uri->authority($self->fqdn);
@@ -57,7 +57,7 @@ has feed => (
             link    => $self->site_url,
             author  => $self->author,
             title   => $self->title,
-            pubDate => $last_modified_at,
+            pubDate => $updated_at,
             id      => $tag_uri->as_string,
         );
         $feed->add_item(%$_) for @{ $self->entry_datas };

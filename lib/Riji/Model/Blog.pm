@@ -94,7 +94,7 @@ has entries => (
     default => sub {
         my $self = shift;
         [
-            rev_sort_by { $_->created_at->datetime . $_->file }
+            rev_sort_by { $_->published_at->datetime . $_->file }
             grep        { $_ && !$_->is_draft }
             map         { $self->entry($_->basename) }
             grep        { -f -r }

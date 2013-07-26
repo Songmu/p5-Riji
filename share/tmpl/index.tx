@@ -3,7 +3,7 @@
 :   for $blog.entries -> $entry {
 <article>
   <h1><a href="<: uri_for($entry.site_path) :>"><: $entry.title :></a></h1>
-  <time pubdate><: $entry.created_at().strftime('%Y-%m-%d %H:%M') :></time>
+  <time pubdate><: $entry.published_at().strftime('%Y-%m-%d %H:%M') :></time>
   <: $entry.html_body_without_title() | mark_raw :>
 </article>
 :   }
