@@ -110,6 +110,8 @@ Riji - Simple, git based blog tool
 
 Riji is a simple blog tool.
 
+'riji' means diary in Chinese.
+
 =head1 LICENSE
 
 Copyright (C) Masayuki Matsuki.
