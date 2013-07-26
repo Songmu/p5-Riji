@@ -1,6 +1,5 @@
 - 静的配信機能(wget) riji-build
 - 雛形作成 riji-setup
-- 設定ファイルはTOML or YAMLにするか問題
 - テンプレの仕様
  - アンスコ区切りネーミングデフォルトなのはつらい
  - article有りきにしたほうが良いか？ article見に行く -> default.tx
