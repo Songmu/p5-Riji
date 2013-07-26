@@ -4,7 +4,7 @@ requires 'List::UtilsBy';
 requires 'Object::Container';
 requires 'Mouse';
 requires 'Path::Tiny';
-requires 'Puncheur';
+requires 'Puncheur::Lite';
 requires 'Text::Markdown::Discount';
 requires 'Text::Markup::Any';
 requires 'Text::Xslate';
