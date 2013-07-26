@@ -1,11 +1,12 @@
-- 静的配信機能(wget) riji-build
+- 静的配信機能(wget) riji-build LWPのmirror機能とか使う?
 - 雛形作成 riji-setup
 - テンプレの仕様
  - アンスコ区切りネーミングデフォルトなのはつらい
  - article有りきにしたほうが良いか？ article見に行く -> default.tx
-  - articleに直接txを置けるようにするのが良さげな気がする
-  - ただ、そうすると、defaultであんま動かなくなる
-   - index.txとarchives.txは特別なテンプレ扱いにするかなー(そういう特別扱う増やすのはイケてなさそう)
-   - ちゃんとriji-setup 作るかねー
-- 時限公開とかあった方が良い気がするからheaderにpubdate指定できるといいのかも
+  - articleに直接txを置けるようにする(?)
+  - article有りきにする
+  - ちゃんとriji-setup 作る
+  - index.txとarchives.txだけ特別扱いする(?)
+   - default.txを使ってそれを一律見るようにしてtemplate指定で対応か？
+   - 逆にarticleと同名のtemplateを見るようにするか？
 - entry.summary 出せるようにすると良いかも
