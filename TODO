@@ -6,4 +6,6 @@
  - article有りきにしたほうが良いか？ article見に行く -> default.tx
   - articleに直接txを置けるようにするのが良さげな気がする
   - ただ、そうすると、defaultであんま動かなくなる
+   - index.txとarchives.txは特別なテンプレ扱いにするかなー(イケてなさそう)
+   - ちゃんとriji-setup 作るかねー
 - 時限公開とかあった方が良い気がするからheaderにpubdate指定できるといいのかも
