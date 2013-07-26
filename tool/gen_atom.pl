@@ -1,11 +1,13 @@
 #!/usr/bin/env perl
-use strict;
+use 5.010;
 use warnings;
 use utf8;
+use Encode;
 use FindBin::libs;
 
 use Path::Tiny;
 use Riji;
 
+# uri_forが呼べなくてpreprocessできない問題ある
 my $atom = Riji->new->model('Blog')->atom;
-path('atom.xml')->spew_utf8($atom->feed->to_string);
+say encode_utf8 $atom->feed->to_string;
