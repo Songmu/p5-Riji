@@ -1,4 +1,4 @@
-: cascade _base
+: cascade base
 : around content -> {
 <nav>
   <ul class="paginate">

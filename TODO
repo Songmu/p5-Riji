@@ -10,3 +10,4 @@
    - default.txを使ってそれを一律見るようにしてtemplate指定で対応か？
    - 逆にarticleと同名のtemplateを見るようにするか？
 - entry.summary 出せるようにすると良いかも
+- /entry.html /tag.html にアクセスできる問題
