@@ -59,6 +59,10 @@ has feed => (
             title   => $self->title,
             pubDate => $updated_at,
             id      => $tag_uri->as_string,
+            generator => {
+                '#text'  => 'Perl Riji',
+                -version => $Riji::VERSION,
+            },
         );
         $feed->add_item(%$_) for @{ $self->entry_datas };
         $feed->sort_item;
