@@ -82,3 +82,33 @@ get '/atom.xml' => sub {
 };
 
 1;
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+Riji - Simple, git based blog tool
+
+=head1 SYNOPSIS
+
+    % rjji-setup
+    % riji-server
+
+=head1 DESCRIPTION
+
+Riji is a simple blog tool.
+
+=head1 LICENSE
+
+Copyright (C) Masayuki Matsuki.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+Masayuki Matsuki E<lt>y.songmu@gmail.comE<gt>
+
+=cut
+
