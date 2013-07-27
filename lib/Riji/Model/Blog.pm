@@ -162,4 +162,51 @@ sub tag {
     $self->tag_map->{$tag};
 }
 
+# search_entries(tag => 'hoge', sort_by => 'last_updated_at', sort_order => 'desc', limit => 10);
+sub search_entries {
+    my $self = shift;
+    my %opt = @_ == 1 ? %{$_[0]} : @_;
+    my @entries = @{ $self->entries };
+
+    if (my $tag = $opt{tag}) {
+        @entries = grep { grep {$_ eq $tag} @{ $_->raw_tags } } @entries;
+    }
+
+    if (my $sort_by = $opt{sort_by}) {
+        my @enable_fields = qw/published_at last_modified_at title/;
+        if (grep {$sort_by eq $_} @enable_fields) {
+            if ($sort_by eq 'last_modified_at') {
+                @entries = rev_sort_by {$_->last_modified_at->datetime . $_->title} @entries;
+            }
+            elsif ($sort_by ne 'published_at') {
+                @entries = rev_sort_by {$_->title} @entries;
+            }
+        }
+        else {
+            warn "$sort_by is unknown sort item";
+        }
+    }
+
+    my $sort_order = lc $opt{sort_order};
+    if ($sort_order && ! grep {$sort_order eq $_} qw/asc desc/) {
+        warn "$sort_order is unknown sort_order";
+        $sort_order = undef;
+    }
+    if ($opt{sort_by} && !$sort_order) {
+        $sort_order = {
+            last_modified_at => 'desc',
+            published_at     => 'desc',
+            title            => 'asc',
+        }->{$opt{sort_by}};
+    }
+    $sort_order ||= 'desc';
+    @entries = reverse @entries if $sort_order eq 'asc';
+
+    if (my $limit = $opt{limit}) {
+        @entries = @entries[0..$limit-1];
+    }
+
+    [@entries];
+}
+
 1;
