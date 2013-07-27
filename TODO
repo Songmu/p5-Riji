@@ -1,4 +1,6 @@
 - 静的配信機能(wget) riji-build LWPのmirror機能とか使う?
 - 雛形作成 riji-setup
+- さすがにページングとか考えないといけない感
+- Atom全件問題
 - entry.summary 出せるようにすると良いかも
 - Markdown::Discount以外も使えるように
