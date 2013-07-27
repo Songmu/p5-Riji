@@ -1,6 +1,4 @@
 - 静的配信機能(wget) riji-build LWPのmirror機能とか使う?
 - 雛形作成 riji-setup
-- テンプレの仕様
- - articleに直接txを置けるようにする
- - indexとarchivesの特別扱いをどうするか？ riji-setupでカバーの方が良いか？
 - entry.summary 出せるようにすると良いかも
+- Markdown::Discount以外も使えるように

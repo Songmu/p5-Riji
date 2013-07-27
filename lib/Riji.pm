@@ -31,7 +31,7 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my $blog    = $c->model('Blog');
     my $article = $blog->article($basename, {$page ? (page => $page) : ()});
 
-    if (!$article && $basename ne 'index') ) {
+    if (!$article && $basename ne 'index') {
         return $c->res_404;
     }
 

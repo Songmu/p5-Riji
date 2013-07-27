@@ -1,10 +1,10 @@
 : cascade base
 : around content -> {
-  <nav>
-    <ul>
-      <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
-    </ul>
-  </nav>
+<nav>
+  <ul>
+    <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
+  </ul>
+</nav>
 :   for $blog.entries -> $entry {
 <article>
   <h1><a href="<: uri_for($entry.site_path) :>"><: $entry.title :></a></h1>
@@ -13,10 +13,13 @@
 </article>
 :   }
 :   if $blog.tags().size() {
-<ul class="tags">
-:     for $blog.tags() -> $tag {
-<li><a href="<: uri_for($tag.site_path) :>"><: $tag.name :>(<: $tag.count :>)</a></li>
-:      }
-</ul>
+<aside class="tags">
+  <h1>Tags</h1>
+  <ul class="tags">
+  :     for $blog.tags() -> $tag {
+  <li><a href="<: uri_for($tag.site_path) :>"><: $tag.name :>(<: $tag.count :>)</a></li>
+  :      }
+  </ul>
+</aside>
 :   }
 : }
