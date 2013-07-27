@@ -17,7 +17,7 @@
   </nav>
   <section>
   : block content -> { }
-  <section>
+  </section>
   <footer>
   </footer>
 </body>
