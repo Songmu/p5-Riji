@@ -10,11 +10,6 @@
   <header>
     <h1><a href="<: uri_for('/') :>"><: $blog.title :></a></h1>
   </header>
-  <nav>
-    <ul>
-      <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
-    </ul>
-  </nav>
   <section>
   : block content -> { }
   </section>

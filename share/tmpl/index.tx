@@ -1,5 +1,10 @@
 : cascade base
 : around content -> {
+  <nav>
+    <ul>
+      <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
+    </ul>
+  </nav>
 :   for $blog.entries -> $entry {
 <article>
   <h1><a href="<: uri_for($entry.site_path) :>"><: $entry.title :></a></h1>

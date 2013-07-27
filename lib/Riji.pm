@@ -22,7 +22,6 @@ sub load_config {
     YAML::Tiny::LoadFile($file);
 }
 
-my @special_pages = qw/index archives/;
 get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my ($c, $args) = @_;
 
@@ -32,13 +31,13 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     my $blog    = $c->model('Blog');
     my $article = $blog->article($basename, {$page ? (page => $page) : ()});
 
-    if (!$article && !(grep {$_ eq $basename} @special_pages) ) {
+    if (!$article && $basename ne 'index') ) {
         return $c->res_404;
     }
 
     my $tmpl = $article && $article->template;
     unless (defined $tmpl) {
-        $tmpl   = $basename if grep {$basename eq $_} @special_pages;
+        $tmpl   = $basename if $basename eq 'index';
         $tmpl //= 'default';
     }
     $tmpl .= '.tx';
