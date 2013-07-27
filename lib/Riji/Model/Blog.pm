@@ -187,7 +187,7 @@ sub search_entries {
         }
     }
 
-    my $sort_order = lc $opt{sort_order};
+    my $sort_order = lc($opt{sort_order} || '');
     if ($sort_order && ! grep {$sort_order eq $_} qw/asc desc/) {
         warn "$sort_order is unknown sort_order";
         $sort_order = undef;
@@ -203,9 +203,8 @@ sub search_entries {
     @entries = reverse @entries if $sort_order eq 'asc';
 
     if (my $limit = $opt{limit}) {
-        @entries = @entries[0..$limit-1];
+        @entries = splice @entries, 0, $limit;
     }
-
     [@entries];
 }
 

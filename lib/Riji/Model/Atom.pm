@@ -15,7 +15,7 @@ has blog => (
     is       => 'ro',
     isa      => 'Riji::Model::Blog',
     required => 1,
-    handles  => [qw/fqdn author title entry_dir site_url repo entries/],
+    handles  => [qw/fqdn author title entry_dir site_url repo/],
     weak_ref => 1,
 );
 
@@ -34,7 +34,7 @@ has entry_datas => (
                 guid        => $_->tag_uri->as_string,
                 published   => $_->published_at->strftime('%Y-%m-%dT%M:%M:%S%z'),
                 link        => $_->url,
-            } } @{ $self->entries }
+            } } @{ $self->blog->search_entries(sort_by => 'last_modified_at', limit => 20) }
         ]
     },
 );
