@@ -10,7 +10,7 @@ our $VERSION = 0.01;
 __PACKAGE__->setting(
     handle_static => 1,
 );
-__PACKAGE__->load_plugin(qw/Model ShareDir/);
+__PACKAGE__->load_plugins(qw/Model ShareDir/);
 
 sub load_config {
     my $self = shift;
