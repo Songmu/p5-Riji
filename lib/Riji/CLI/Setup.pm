@@ -6,6 +6,7 @@ use Cwd qw/getcwd/;
 use File::Copy qw/copy/;
 use File::Copy::Recursive qw/dircopy/;
 use File::Spec;
+use File::Which qw/which/;
 
 use Riji;
 
@@ -30,9 +31,9 @@ sub run {
         $setup_dir
     );
 
-    my $repo = Riji->new->model('Blog')->repo;
-    $repo->run('init');
-    $repo->run('add .');
+    my $git = which 'git' or die 'git not found';
+    system($git, qw!init!);
+    system($git, qw!add .!);
 }
 
 1;
