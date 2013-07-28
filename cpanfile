@@ -1,18 +1,36 @@
+requires 'Encode';
 requires 'File::Copy::Recursive';
 requires 'File::Which';
+requires 'Getopt::Long';
 requires 'Git::Repository';
 requires 'Git::Repository::FileHistory', '0.03';
 requires 'HTTP::Date';
 requires 'List::UtilsBy';
-requires 'Object::Container';
 requires 'Mouse';
+requires 'Net::EmptyPort';
+requires 'Object::Container';
 requires 'Path::Tiny';
+requires 'Plack::Loader';
+requires 'Plack::Util';
 requires 'Puncheur::Lite';
+requires 'Puncheur::Runner';
 requires 'String::CamelCase';
 requires 'Text::Markdown::Discount';
 requires 'Text::Markup::Any';
 requires 'Text::Xslate';
+requires 'Time::Piece';
 requires 'URI';
 requires 'URI::tag';
 requires 'XML::FeedPP';
 requires 'YAML::Tiny';
+requires 'perl', '5.010';
+
+on configure => sub {
+    requires 'CPAN::Meta';
+    requires 'CPAN::Meta::Prereqs';
+    requires 'Module::Build';
+};
+
+on test => sub {
+    requires 'Test::More';
+};
