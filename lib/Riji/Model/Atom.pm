@@ -1,7 +1,6 @@
 package Riji::Model::Atom;
 use strict;
 use warnings;
-use utf8;
 
 use Time::Piece;
 use URI::tag;

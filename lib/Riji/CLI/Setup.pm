@@ -1,5 +1,6 @@
 package Riji::CLI::Setup;
 use 5.010;
+use strict;
 use warnings;
 
 use Cwd qw/getcwd/;

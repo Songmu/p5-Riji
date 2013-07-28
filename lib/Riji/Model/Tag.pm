@@ -1,7 +1,7 @@
 package Riji::Model::Tag;
 use 5.010;
+use strict;
 use warnings;
-use utf8;
 
 use Mouse;
 
