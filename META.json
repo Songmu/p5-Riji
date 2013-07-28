@@ -42,24 +42,37 @@
       },
       "runtime" : {
          "requires" : {
+            "Encode" : "0",
             "File::Copy::Recursive" : "0",
             "File::Which" : "0",
+            "Getopt::Long" : "0",
             "Git::Repository" : "0",
             "Git::Repository::FileHistory" : "0.03",
             "HTTP::Date" : "0",
             "List::UtilsBy" : "0",
             "Mouse" : "0",
+            "Net::EmptyPort" : "0",
             "Object::Container" : "0",
             "Path::Tiny" : "0",
+            "Plack::Loader" : "0",
+            "Plack::Util" : "0",
             "Puncheur::Lite" : "0",
+            "Puncheur::Runner" : "0",
             "String::CamelCase" : "0",
             "Text::Markdown::Discount" : "0",
             "Text::Markup::Any" : "0",
             "Text::Xslate" : "0",
+            "Time::Piece" : "0",
             "URI" : "0",
             "URI::tag" : "0",
             "XML::FeedPP" : "0",
-            "YAML::Tiny" : "0"
+            "YAML::Tiny" : "0",
+            "perl" : "5.010"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0"
          }
       }
    },
