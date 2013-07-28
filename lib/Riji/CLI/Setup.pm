@@ -7,6 +7,7 @@ use File::Copy qw/copy/;
 use File::Copy::Recursive qw/dircopy/;
 use File::Spec;
 use File::Which qw/which/;
+use Path::Tiny;
 
 use Riji;
 
@@ -15,6 +16,10 @@ sub run {
 
     my $share_dir = Riji->share_dir;
     my $setup_dir = getcwd;
+
+    if (path($setup_dir)->children) {
+        die "you must run `riji setup` in empty directory. aborted.\n";
+    }
 
     my $tmpl_dir = File::Spec->catdir($share_dir, 'tmpl');
 
@@ -31,9 +36,10 @@ sub run {
         $setup_dir
     );
 
-    my $git = which 'git' or die 'git not found';
+    my $git = which 'git' or die "git not found.\n";
     system($git, qw!init!);
     system($git, qw!add .!);
+    system($git, qw!commit -m!, "initial commit");
 }
 
 1;
