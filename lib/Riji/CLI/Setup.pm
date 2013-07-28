@@ -36,6 +36,10 @@ sub run {
         File::Spec->catfile($share_dir, 'riji.yml'),
         $setup_dir
     );
+    copy(
+        File::Spec->catfile($share_dir, 'README.md'),
+        $setup_dir
+    );
 
     my $git = which 'git' or die "git not found.\n";
     system($git, qw!init!);
