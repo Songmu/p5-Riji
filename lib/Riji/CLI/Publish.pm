@@ -1,5 +1,5 @@
 package Riji::CLI::Publish;
-use 5.010;
+use feature ':5.10';
 use strict;
 use warnings;
 
