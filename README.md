@@ -4,12 +4,14 @@ Riji - Simple, git based blog tool
 
 # SYNOPSIS
 
-    % rjji-setup
-    % riji-server
+    % rjji setup
+    % riji server
 
 # DESCRIPTION
 
-Riji is a simple blog tool.
+Riji is a simple and git based blog tool.
+
+'Riji' means diary in Chinese.
 
 # LICENSE
 
