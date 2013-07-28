@@ -1,5 +1,4 @@
-- 静的配信機能(wget) riji-build LWPのmirror機能とか使う?
-- 雛形作成 riji-setup
+- 静的配信機能のwget依存を無くしたい
 - entry.summary 出せるようにすると良いかも
 - pageの仕様とかを考えたい。page prev nextを持つオブジェクトを定義するとかなんとか
 - Markdown::Discount以外も使えるように
