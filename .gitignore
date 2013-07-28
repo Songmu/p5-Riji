@@ -1,7 +1,10 @@
 /Riji-*
 /.build
-/_build_params
+/_build
 /Build
+/blib
 !Build/
 !META.json
 !LICENSE
+MYMETA.*
+
