@@ -72,7 +72,7 @@
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0"
+            "Test::More" : "0.98"
          }
       }
    },
@@ -82,5 +82,5 @@
          "url" : "ssh://git@bitbucket.org/Songmu/riji.git"
       }
    },
-   "version" : "0.01"
+   "version" : "0.0.1"
 }
