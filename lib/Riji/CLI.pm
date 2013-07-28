@@ -2,6 +2,7 @@ package Riji::CLI;
 use 5.010;
 use warnings;
 
+use File::Which ();
 use Getopt::Long ();
 use Plack::Util ();
 use String::CamelCase ();
@@ -26,6 +27,10 @@ sub run {
     push @commands, @ARGV;
 
     my $cmd = shift @commands || 'help';
+    if (my $cmd = File::Which::which("riji-$cmd")) {
+        exec $cmd, @commands;
+    }
+
     $cmd =~ s/-/_/g;
     my $class = String::CamelCase::camelize $cmd;
 

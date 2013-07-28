@@ -1,5 +1,6 @@
+requires 'File::Which';
 requires 'Git::Repository';
-requires 'Git::Repository::FileHistory';
+requires 'Git::Repository::FileHistory', '0.03';
 requires 'HTTP::Date';
 requires 'List::UtilsBy';
 requires 'Object::Container';
