@@ -14,13 +14,14 @@ use Riji;
 sub run {
     my ($class, @argv) = @_;
 
+    my $force = grep {$_ eq '--force'} @argv;
+
     my $share_dir = Riji->share_dir;
     my $setup_dir = getcwd;
 
-    if (path($setup_dir)->children) {
-        die "you must run `riji setup` in empty directory. aborted.\n";
+    if (!$force && path($setup_dir)->children) {
+        die "you must run `riji setup` in empty directory or `riji setup --force`.\n";
     }
-
     my $tmpl_dir = File::Spec->catdir($share_dir, 'tmpl');
 
     dircopy(
@@ -39,7 +40,7 @@ sub run {
     my $git = which 'git' or die "git not found.\n";
     system($git, qw!init!);
     system($git, qw!add .!);
-    system($git, qw!commit -m!, "initial commit");
+    system($git, qw/commit -m/, "initial blog commit");
 }
 
 1;
