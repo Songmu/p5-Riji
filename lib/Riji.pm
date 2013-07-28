@@ -99,12 +99,12 @@ Riji - Simple, git based blog tool
 
 =head1 SYNOPSIS
 
-    % rjji-setup
-    % riji-server
+    % rjji setup
+    % riji server
 
 =head1 DESCRIPTION
 
-Riji is a simple blog tool.
+Riji is a simple and git based blog tool.
 
 'riji' means diary in Chinese.
 
