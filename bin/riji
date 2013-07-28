@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Riji::CLI;
+
+Riji::CLI->run(@ARGV);

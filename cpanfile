@@ -6,6 +6,7 @@ requires 'Object::Container';
 requires 'Mouse';
 requires 'Path::Tiny';
 requires 'Puncheur::Lite';
+requires 'String::CamelCase';
 requires 'Text::Markdown::Discount';
 requires 'Text::Markup::Any';
 requires 'Text::Xslate';
