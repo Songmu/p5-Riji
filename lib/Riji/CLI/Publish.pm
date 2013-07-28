@@ -52,7 +52,7 @@ sub run {
     };
     $walk->($work_dir);
 
-    rmove $work_dir, 'site';
+    rmove $work_dir, 'blog';
     say "done.";
 }
 
