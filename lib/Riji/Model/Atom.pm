@@ -34,7 +34,7 @@ has entry_datas => (
                 guid        => $_->tag_uri->as_string,
                 published   => $_->published_at->strftime('%Y-%m-%dT%M:%M:%S%z'),
                 link        => $_->url,
-            } } @{ $self->blog->search_entries(sort_by => 'last_modified_at', limit => 20) }
+            } } @{ $self->blog->entries(sort_by => 'last_modified_at', limit => 20) }
         ]
     },
 );

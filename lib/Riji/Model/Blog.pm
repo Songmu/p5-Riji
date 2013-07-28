@@ -87,22 +87,6 @@ has atom => (
     },
 );
 
-has entries => (
-    is      => 'ro',
-    isa     => 'ArrayRef[Riji::Model::Entry]',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        [
-            rev_sort_by { $_->published_at->datetime . $_->file }
-            grep        { $_ && !$_->is_draft }
-            map         { $self->entry($_->basename) }
-            grep        { -f -r }
-            $self->article_path->child('entry')->children
-        ]
-    },
-);
-
 has tag_map => (
     is      => 'ro',
     isa     => 'HashRef[Riji::Model::Tag]',
@@ -130,6 +114,21 @@ has tags => (
 );
 
 no Mouse;
+
+sub entries {
+    my ($self, @args) = @_;
+
+    $self->{entries} ||= [
+        rev_sort_by { $_->published_at->datetime . $_->file }
+        grep        { $_ && !$_->is_draft }
+        map         { $self->entry($_->basename) }
+        grep        { -f -r }
+        $self->article_path->child('entry')->children
+    ];
+    return $self->{entries} unless @args;
+
+    $self->_search_entries(@args);
+}
 
 sub entry {
     my ($self, $file) = @_;
@@ -162,8 +161,8 @@ sub tag {
     $self->tag_map->{$tag};
 }
 
-# search_entries(tag => 'hoge', sort_by => 'last_updated_at', sort_order => 'desc', limit => 10);
-sub search_entries {
+# _search_entries(tag => 'hoge', sort_by => 'last_updated_at', sort_order => 'desc', limit => 10);
+sub _search_entries {
     my $self = shift;
     my %opt = @_ == 1 ? %{$_[0]} : @_;
     my @entries = @{ $self->entries };

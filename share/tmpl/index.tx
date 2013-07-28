@@ -5,7 +5,7 @@
     <li><a href="<: uri_for('/archives.html') :>">Archives</a></li>
   </ul>
 </nav>
-:   for $blog.search_entries(limit => 10) -> $entry {
+:   for $blog.entries(limit => 10) -> $entry {
 <article>
   <h1><a href="<: uri_for($entry.site_path) :>"><: $entry.title :></a></h1>
   <time pubdate><: $entry.published_at().strftime('%Y-%m-%d %H:%M') :></time>
