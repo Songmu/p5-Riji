@@ -19,18 +19,20 @@ sub run {
 
     dircopy(
         File::Spec->catdir($share_dir, 'tmpl'),
-        File::Spec->catdir($setup_dir, 'share', 'tmpl'),
+        File::Spec->catdir($setup_dir, 'share', 'tmpl')
     );
     dircopy(
         File::Spec->catdir($share_dir, 'article'),
-        File::Spec->catdir($setup_dir, 'article'),
+        File::Spec->catdir($setup_dir, 'article')
     );
     copy(
         File::Spec->catfile($share_dir, 'riji.yml'),
-        $setup_dir,
+        $setup_dir
     );
 
-    # TODO git init
+    my $repo = Riji->new->model('Blog')->repo;
+    $repo->run('init');
+    $repo->run('add .');
 }
 
 1;
