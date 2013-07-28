@@ -12,8 +12,7 @@ use Riji;
 sub run {
     my ($class, @argv) = @_;
 
-    my $riji = Riji->new;
-    my $share_dir = $riji->share_dir;
+    my $share_dir = Riji->share_dir;
     my $setup_dir = getcwd;
 
     my $tmpl_dir = File::Spec->catdir($share_dir, 'tmpl');

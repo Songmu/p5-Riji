@@ -7,8 +7,6 @@ use Getopt::Long ();
 use Plack::Util ();
 use String::CamelCase ();
 
-use Riji;
-
 sub run {
     my ($self, @args) = @_;
 
@@ -22,6 +20,7 @@ sub run {
         'version!' => \my $version,
     );
     if ($version) {
+        require Riji;
         say "Riji: $Riji::VERSION"; exit 0;
     }
     push @commands, @ARGV;
