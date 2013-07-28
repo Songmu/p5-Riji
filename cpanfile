@@ -1,3 +1,4 @@
+requires 'File::Copy::Recursive';
 requires 'File::Which';
 requires 'Git::Repository';
 requires 'Git::Repository::FileHistory', '0.03';
