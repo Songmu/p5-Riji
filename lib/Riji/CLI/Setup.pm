@@ -46,7 +46,10 @@ sub run {
     copy(File::Spec->catfile($share_dir, 'README.md'), $setup_dir);
 
     my $git = which 'git' or die "git not found.\n";
-    system($git, qw!init!);
+
+    unless (-e path($setup_dir)->child('.git')) {
+        system($git, qw!init!);
+    }
     system($git, qw!add .!);
     system($git, qw/commit -m/, "initial blog commit");
 }
