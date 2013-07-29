@@ -62,6 +62,7 @@ has feed => (
             generator => {
                 '#text'  => 'Perl Riji',
                 -version => $Riji::VERSION,
+                -uri     => 'https://github.com/Songmu/p5-Riji',
             },
         );
         $feed->add_item(%$_) for @{ $self->entry_datas };
