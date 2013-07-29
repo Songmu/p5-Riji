@@ -1,0 +1,6 @@
+: cascade base
+: around content -> {
+<article>
+<: $article.html_body() | mark_raw :>
+</article>
+: }

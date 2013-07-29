@@ -1,0 +1,39 @@
+: cascade base
+: around content -> {
+<nav>
+  <ul class="paginate">
+  : if $entry.prev() {
+    <li class="prev">prev: <a href="<: $entry.prev.site_path | uri_for :>"><: $entry.prev.title :></a>
+  : }
+  : if $entry.next() {
+    <li class="next">next: <a href="<: $entry.next.site_path | uri_for :>"><: $entry.next.title :></a>
+  : }
+  </ul>
+</nav>
+
+<article>
+  : if $entry.tags().size() {
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      : for $entry.tags() -> $tag {
+      <li><a href="<: $tag.site_path | uri_for :>"><: $tag.name :></a></li>
+      : }
+    </ul>
+  </aside>
+  : }
+  <div class="entry">
+    <: $entry.html_body() | mark_raw :>
+  </div>
+  <dl class="meta">
+      <dt class="author">created by</dt>
+      <dd class="author"><: $entry.created_by() :></dd>
+      <dt class="time">created at</dt>
+      <dd class="time"><time><: $entry.published_at().strftime('%Y-%m-%d %H:%M') :></time></dd>
+      <dt class="author">last modified by</dt>
+      <dd class="author"><: $entry.last_modified_by() :></dd>
+      <dt class="time">last modified at</dt>
+      <dd class="time"><: $entry.last_modified_at().strftime('%Y-%m-%d %H:%M') :></dd>
+  </dl>
+</article>
+: }
