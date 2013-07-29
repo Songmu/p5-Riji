@@ -23,13 +23,13 @@ sub run {
     if (!$force && path($setup_dir)->children) {
         die "you must run `riji setup` in empty directory or `riji setup --force`.\n";
     }
-    my $tmpl_dir = File::Spec->catdir($share_dir, 'tmpl');
-
 
     my $recurse644; $recurse644 = sub {
         my $dir = shift;
         for my $file ($dir->children) {
-            $recurse644->($file) if -d $file;
+            if (-d $file) {
+                $recurse644->($file); next;
+            }
             chmod 0644, $file;
         }
     };
