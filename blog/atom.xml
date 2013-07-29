@@ -5,17 +5,238 @@
 <author>Songmu</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.3">Perl Riji</generator>
 <id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:</id>
-<updated>2013-07-29T23:15:09+09:00</updated>
+<updated>2013-07-30T03:51:00+09:00</updated>
 <entry>
-<title type="text">Sample</title>
-<link href="http://songmu.github.io/p5-Riji/blog/entry/sample.html" />
+<title type="text">003. Blogの書き出し</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/003_publish.html" />
 <author>
 <name>Masayuki Matsuki</name>
 </author>
-<content><![CDATA[<h1>Sample</h1>
+<content><![CDATA[<h1>003. Blogの書き出し</h1>
+
+<p>前回勿体つけて「Blogの書き出し」などといいましたが、Blogの書き出しは実に簡単で以下のコマンドを実行するだけです。</p>
+
+<pre><code>% riji publish
+</code></pre>
+
+<p>上手く行けばblog/というディレクトリが作られ、その中にサイト一式が格納されているはずです。atom.xmlも入っていますね。</p>
+
+<p>もしかしたら、wgetが無いことを怒られるかもしれません。その場合はwgetをインストールしてください。なんでwgetを使ってるかは実装を見て察してください。</p>
+
+<p>あとは、blog/ディレクトリをどこかにアップロードするだけです。せっかくgitリポジトリになっているので、そのままGitHub Pages等にpushしてしまっても良いんじゃないかと思います。</p>
+
+<h2>publishディレクトリの変更</h2>
+
+<p>上のようにデフォルトでは blog/ にサイトが作られますが、これを変更したいという要望もあるかと思います。その場合は、riji.ymlにpublish_dirというキーを追加して設定を書いてください。'.' に設定したらカレントディレクトリにドバっと作られます。</p>
+
+<h2>GitHub Pagesについて</h2>
+
+<p>githubで"[username].github.io"というリポジトリを作成するとそれを自分のサイトとして運用することが可能になります。git pushすればすぐにサイトに反映されるので非常に楽ちんです。Rijiで作成したblogの配信先として検討しても良いと思います。</p>
+
+<h2>Githubリポジトリへのページ設置について</h2>
+
+<p>[username].github.ioに関してはよく知られるところですが、自分のリポジトリで<code>gh-pages</code>というブランチを作るとそれもGitHub Pagesとして運用可能であることはご存知でしょうか？これで作られたサイトは http://[username].github.io/[repositoryname]/ というURLでアクセスが可能になります。</p>
+
+<p>具体的には以下の手順で作成します。</p>
+
+<dl>
+<dt>親のないブランチを作成</dt>
+<dd><code>% git checkout --orphan gh-pages</code></dd>
+<dt>ファイルを全て削除</dt>
+<dd><code>% git rm -rf *</code></dd>
+<dt>空じゃないディレクトリにセットアップするので--forceをつけてriji setup</dt>
+<dd><code>% riji setup --force</code></dd>
+<dt>追随するブランチがmasterブランチではないので、riji.ymlに追随ブランチの設定をする</dt>
+<dd><code>% echo 'branch: gh-pages' &gt;&gt; riji.yml</code></dd>
+<dt>pushする</dt>
+<dd><code>% git push --set-upstream origin gh-pages</code></dd>
+</dl>
+
+<p>あとはこれまで学んできたようにRijiを運用するだけです。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>とりあえず、公開するところまではできましたが、デザインの調整等がしたくなってきている頃かと思います。
+次回は、静的ファイルの配信について説明します。</p>
 ]]></content>
-<id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:entry-sample.html</id>
-<published>2013-07-29T15:15:09+0900</published>
-<updated>2013-07-29T23:15:09+09:00</updated>
+<id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-003_publish.html</id>
+<published>2013-07-30T51:51:00+0900</published>
+<updated>2013-07-30T03:51:00+09:00</updated>
+</entry>
+<entry>
+<title type="text">002. Blog設定と記事の作成</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/002_edit.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
+<content><![CDATA[<h1>002. Blog設定と記事の作成</h1>
+
+<p>さて、前回はRijiのセットアップを行いました。<code>riji</code>というコマンドを使ってBlogを操作することを覚えているかと思います。また前回作ったリポジトリが手元にあると思うので引き続き、Rijiを使っていきましょう。</p>
+
+<h2>Blogの設定</h2>
+
+<p>リポジトリにはriji.ymlが作られていますが、これの中身は以下のようになっています。</p>
+
+<pre><code>author:   'Your name'
+title:    "Your Blog Title"
+site_url: 'http://yourblog.example.com/'
+</code></pre>
+
+<p>完全に仮の初期設定なので、自分の環境にあわせて変更してみましょう。<code>site_url</code>は最終的にアップするサイトのURLに合わせてください。特に決まってないのであれば仮のままで大丈夫です。</p>
+
+<p>変更した状態で<code>% riji server</code>を起動してBlogを確認してみて下さい。変更内容が反映されているでしょうか？反映されていればriji.ymlをコミットしましょう。これでBlogの設定は完了です。</p>
+
+<p>余談ですが、設定ファイルはTOMLにしようかとも考えたのですが、日和ってYAMLにしました。今後TOMLに対応するかもしれません。</p>
+
+<h2>Blog記事の作成</h2>
+
+<p>早速記事を作成してみましょう。…と言いたいところですが、まずはsampleのファイルは必要ないので消してしまいましょう。</p>
+
+<pre><code>% git rm article/entry/sample.md
+% git commit -m "remove sample.md"
+</code></pre>
+
+<p>次に、記事を作成しましょう。article/entry/ 以下に配置されていて拡張子が.mdになっていればなんでも良いのですが、今回はstart.mdという名前にして編集してみましょう。</p>
+
+<pre><code>% $EDITOR article/entry/start.md
+% cat article/entry/start.md
+# blog開設
+
+Rijiを使ってBlogを開設しました。
+</code></pre>
+
+<p>編集はMarkdown形式でおこないます。<a href="http://www.pell.portland.or.us/~orc/Code/discount/">Discount</a>というMarkdownパーサーがデフォルトで使われます。github flavored markdownと比較的互換があると思います。</p>
+
+<p>さて、編集を終えたら、例に因って記事をコミットしてください。それから<code>riji server</code>をたちあげて、http://localhost:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。</p>
+
+<p><img src="http://songmu.github.io/p5-Riji/blog/static/002edit.png" alt="edit" /></p>
+
+<h2>Blog記事の追加</h2>
+
+<p>さて、もう一つ記事を追加してみましょう。ただ、毎回.mdファイルの名前を考えるのは面倒です。そこで以下のコマンドを使いましょう。</p>
+
+<pre><code>% riji new-entry
+</code></pre>
+
+<p>今日の日付をもとに、エントリーファイルが作られ、環境変数<code>$EDITOR</code>が正しく設定されて入ればエディタも起動します。それを適宜編集して保存してコミットしましょう。これで２つ目のエントリーが作られました。<code>riji server</code>を使って確認してみてください。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>これまでは<code>riji server</code>を使った手元での確認だけでしたが、次回は実際にBlogの書き出しを行います。</p>
+
+<p><a href="http://songmu.github.io/p5-Riji/blog/entry/003_publish.html">003. Blogの書き出し</a></p>
+]]></content>
+<id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-002_edit.html</id>
+<published>2013-07-30T00:00:07+0900</published>
+<updated>2013-07-30T03:51:00+09:00</updated>
+</entry>
+<entry>
+<title type="text">001. Rijiのセットアップ</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/001_setup.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
+<content><![CDATA[<h1>001. Rijiのセットアップ</h1>
+
+<p>RijiはシンプルなBlogツールです。「日記」の中国語のピンイン発音表記が<span lang="zh-cn">rìjì</span>であることに由来しています。以下の様な特色があります。</p>
+
+<ul>
+<li>Markdownがサイトになる</li>
+<li>gitで管理する</li>
+<li>gitの情報を元にRSS(Atom)が自動的に作られる</li>
+</ul>
+
+
+<p>何はともあれまずは使ってみましょう。</p>
+
+<h2>インストール</h2>
+
+<p>Perl5.10以降の環境があればインストールは以下のコマンド一発で入ります。</p>
+
+<pre><code>% cpanm Riji
+</code></pre>
+
+<p>上記の操作を行うと、<code>riji</code>というコマンドがインストールされます。以降このコマンドを使ってBlogの操作を行います。</p>
+
+<h2>セットアップ</h2>
+
+<p>適当な空のディレクトリを作り、その中で以下のコマンドを実行すると雛形が作られ、gitのリポジトリ作成、コミットまで自動で行われます。</p>
+
+<pre><code>% riji setup
+</code></pre>
+
+<p>この状態でディレクトリを見ると以下のようになっていると思います。</p>
+
+<pre><code>% tree
+.
+|-- README.md
+|-- article
+|   |-- archives.md
+|   |-- entry
+|   |   `-- sample.md
+|   `-- index.md
+|-- riji.yml
+`-- share
+    `-- tmpl
+            |-- base.tx
+            |-- default.tx
+            |-- entry.tx
+            |-- index.tx
+            `-- tag.tx
+</code></pre>
+
+<h2>ディレクトリ構成</h2>
+
+<h3>riji.yml</h3>
+
+<p>設定ファイルです</p>
+
+<h3>article/</h3>
+
+<p>コンテンツ用のmdファイルを配置します。mdファイルを作るとそれに対応したURLでアクセス可能になります。</p>
+
+<p>article直下のmdファイルはデフォルトで share/tmpl/default.tx がテンプレートに使われます。indexのみ例外でindex.txがテンプレートで使われるようになっています。</p>
+
+<h3>article/entry/</h3>
+
+<p>ブログエントリーのmdファイルを配置するディレクトリです。デフォルトでentry.txがテンプレートに使われます。</p>
+
+<h3>share/tmpl/</h3>
+
+<p>テンプレートが配置されています。Text::Xslate形式です</p>
+
+<h3>share/static/</h3>
+
+<p>静的ファイルを配置します。static/... でアクセス可能になります。</p>
+
+<h2>起動</h2>
+
+<p>何はともあれこの状態で一旦サーバーを起動してみましょう。Rijiには組込のサーバーが付属しており簡単に動作確認可能です。</p>
+
+<pre><code>% riji server
+HTTP::Server::PSGI: Accepting connections at http://0:3650/
+</code></pre>
+
+<p>3650番ポートでサーバーが起動するので、http://localhost:3650 にアクセスしてみてください。以下の様に表示されればOKです。</p>
+
+<p><img src="http://songmu.github.io/p5-Riji/blog/static/001setup.png" alt="setup" /></p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>次回は新たにblogの設定と記事の作成を行います。</p>
+
+<p>また、今回は空のディレクトリへのセットアップを行いましたが、既存のgithub pagesなどと連携してページを作ることも可能なので、そのあたりも次回説明出来ればと思います。</p>
+
+<p><a href="http://songmu.github.io/p5-Riji/blog/entry/002_edit.html">002. Blog設定と記事の作成</a></p>
+]]></content>
+<id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-001_setup.html</id>
+<published>2013-07-30T22:22:26+0900</published>
+<updated>2013-07-30T03:51:00+09:00</updated>
 </entry>
 </feed>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://songmu.github.io/p5-Riji/blog/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <title>Riji tutorial</title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://songmu.github.io/p5-Riji/blog/">Riji tutorial</a></h1>
+  </header>
+  <section>
+<article>
+  <div class="entry">
+    <h1>001. Rijiのセットアップ</h1>
+
+<p>RijiはシンプルなBlogツールです。「日記」の中国語のピンイン発音表記が<span lang="zh-cn">rìjì</span>であることに由来しています。以下の様な特色があります。</p>
+
+<ul>
+<li>Markdownがサイトになる</li>
+<li>gitで管理する</li>
+<li>gitの情報を元にRSS(Atom)が自動的に作られる</li>
+</ul>
+
+
+<p>何はともあれまずは使ってみましょう。</p>
+
+<h2>インストール</h2>
+
+<p>Perl5.10以降の環境があればインストールは以下のコマンド一発で入ります。</p>
+
+<pre><code>% cpanm Riji
+</code></pre>
+
+<p>上記の操作を行うと、<code>riji</code>というコマンドがインストールされます。以降このコマンドを使ってBlogの操作を行います。</p>
+
+<h2>セットアップ</h2>
+
+<p>適当な空のディレクトリを作り、その中で以下のコマンドを実行すると雛形が作られ、gitのリポジトリ作成、コミットまで自動で行われます。</p>
+
+<pre><code>% riji setup
+</code></pre>
+
+<p>この状態でディレクトリを見ると以下のようになっていると思います。</p>
+
+<pre><code>% tree
+.
+|-- README.md
+|-- article
+|   |-- archives.md
+|   |-- entry
+|   |   `-- sample.md
+|   `-- index.md
+|-- riji.yml
+`-- share
+    `-- tmpl
+            |-- base.tx
+            |-- default.tx
+            |-- entry.tx
+            |-- index.tx
+            `-- tag.tx
+</code></pre>
+
+<h2>ディレクトリ構成</h2>
+
+<h3>riji.yml</h3>
+
+<p>設定ファイルです</p>
+
+<h3>article/</h3>
+
+<p>コンテンツ用のmdファイルを配置します。mdファイルを作るとそれに対応したURLでアクセス可能になります。</p>
+
+<p>article直下のmdファイルはデフォルトで share/tmpl/default.tx がテンプレートに使われます。indexのみ例外でindex.txがテンプレートで使われるようになっています。</p>
+
+<h3>article/entry/</h3>
+
+<p>ブログエントリーのmdファイルを配置するディレクトリです。デフォルトでentry.txがテンプレートに使われます。</p>
+
+<h3>share/tmpl/</h3>
+
+<p>テンプレートが配置されています。Text::Xslate形式です</p>
+
+<h3>share/static/</h3>
+
+<p>静的ファイルを配置します。static/... でアクセス可能になります。</p>
+
+<h2>起動</h2>
+
+<p>何はともあれこの状態で一旦サーバーを起動してみましょう。Rijiには組込のサーバーが付属しており簡単に動作確認可能です。</p>
+
+<pre><code>% riji server
+HTTP::Server::PSGI: Accepting connections at http://0:3650/
+</code></pre>
+
+<p>3650番ポートでサーバーが起動するので、http://localhost:3650 にアクセスしてみてください。以下の様に表示されればOKです。</p>
+
+<p><img src="http://songmu.github.io/p5-Riji/blog/static/001setup.png" alt="setup" /></p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>次回は新たにblogの設定と記事の作成を行います。</p>
+
+<p>また、今回は空のディレクトリへのセットアップを行いましたが、既存のgithub pagesなどと連携してページを作ることも可能なので、そのあたりも次回説明出来ればと思います。</p>
+
+<p><a href="http://songmu.github.io/p5-Riji/blog/entry/002_edit.html">002. Blog設定と記事の作成</a></p>
+
+  </div>
+</article>
+  </section>
+  <footer>
+    <p>author: Songmu</p>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');prettyPrint();});</script>
+</body>
+</html>
