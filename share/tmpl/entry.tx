@@ -3,10 +3,10 @@
 <nav>
   <ul class="paginate">
   : if $entry.prev() {
-    <li class="prev"><a href="<: $entry.prev.site_path :>"><: $entry.prev.title :></a>
+    <li class="prev"><a href="<: $entry.prev.site_path | uri_for :>"><: $entry.prev.title :></a>
   : }
   : if $entry.next() {
-    <li class="next"><a href="<: $entry.next.site_path :>"><: $entry.next.title :></a>
+    <li class="next"><a href="<: $entry.next.site_path | uri_for :>"><: $entry.next.title :></a>
   : }
   </ul>
 </nav>
@@ -15,7 +15,7 @@
   : if $entry.tags().size() {
   <ul class="tags">
     : for $entry.tags() -> $tag {
-    <li><a href="<: uri_for($tag.site_path) :>"><: $tag.name :></a></li>
+    <li><a href="<: $tag.site_path | uri_for :>"><: $tag.name :></a></li>
     : }
   </ul>
   : }
