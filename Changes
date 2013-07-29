@@ -2,6 +2,15 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.4 2013-07-29T16:54:18Z
+
+    - set max_wait to 5 seconds for Net::EmptyPort::wait_port in CLI::Publish
+    - add $config->{publish_dir}
+    - arrangement cpanfile
+    - not git init if .git exists
+    - add $config->{branch}
+    - fix template
+
 0.0.3 2013-07-29T10:45:14Z
 
     - add subcommand `% riji new-entry`
