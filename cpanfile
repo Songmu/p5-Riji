@@ -1,7 +1,6 @@
-requires 'Encode';
+requires 'Exporter::AutoClean';
 requires 'File::Copy::Recursive';
 requires 'File::Which';
-requires 'Getopt::Long';
 requires 'Git::Repository';
 requires 'Git::Repository::FileHistory', '0.03';
 requires 'HTTP::Date';
@@ -10,8 +9,6 @@ requires 'Mouse';
 requires 'Net::EmptyPort';
 requires 'Object::Container';
 requires 'Path::Tiny';
-requires 'Plack::Loader';
-requires 'Plack::Util';
 requires 'Puncheur::Lite';
 requires 'Puncheur::Runner';
 requires 'String::CamelCase';
