@@ -14,6 +14,8 @@
 
 変更した状態で`% riji server`を起動してBlogを確認してみて下さい。変更内容が反映されているでしょうか？反映されていればriji.ymlをコミットしましょう。これでBlogの設定は完了です。
 
+余談ですが、設定ファイルはTOMLにしようかとも考えたのですが、日和ってYAMLにしました。今後TOMLに対応するかもしれません。
+
 ## Blog記事の作成
 
 早速記事を作成してみましょう。…と言いたいところですが、まずはsampleのファイルは必要ないので消してしまいましょう。
@@ -28,6 +30,8 @@
     # blog開設
     
     Rijiを使ってBlogを開設しました。
+
+編集はMarkdown形式でおこないます。[Discount](http://www.pell.portland.or.us/~orc/Code/discount/)というMarkdownパーサーがデフォルトで使われます。github flavored markdownと比較的互換があると思います。
 
 さて、編集を終えたら、例に因って記事をコミットしてください。それから`riji server`をたちあげて、http://localhost:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。
 
@@ -46,3 +50,5 @@
 ## 次回の内容
 
 これまでは`riji server`を使った手元での確認だけでしたが、次回は実際にBlogの書き出しを行います。
+
+[003. Blogの書き出し](<: '/entry/003_publish.html' | uri_for :>)

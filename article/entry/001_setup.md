@@ -84,4 +84,4 @@ article直下のmdファイルはデフォルトで share/tmpl/default.tx がテ
 
 また、今回は空のディレクトリへのセットアップを行いましたが、既存のgithub pagesなどと連携してページを作ることも可能なので、そのあたりも次回説明出来ればと思います。
 
-[002. Blog設定と記事の作成](<: '/article/entry/002_edit.html' | uri_for :>)
+[002. Blog設定と記事の作成](<: '/entry/002_edit.html' | uri_for :>)
