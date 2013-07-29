@@ -44,7 +44,7 @@ has feed => (
     default => sub {
         my $self = shift;
 
-        my $file_history = $self->repo->file_history($self->entry_dir, {branch => $self->blog->git_branch});
+        my $file_history = $self->repo->file_history($self->entry_dir, {branch => $self->blog->branch});
 
         my $updated_at = $file_history->updated_at;
         my $created_at = $file_history->created_at;

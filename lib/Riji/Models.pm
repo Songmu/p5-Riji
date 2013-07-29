@@ -21,6 +21,7 @@ register Blog => sub {
         site_url => $site_url,
         author   => $conf->{author},
         title    => $conf->{title},
+        ($conf->{branch} ? (branch => $conf->{branch}) : ()),
     );
 };
 

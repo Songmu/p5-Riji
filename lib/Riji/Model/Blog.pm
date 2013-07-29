@@ -71,7 +71,7 @@ has repo => (
     },
 );
 
-has git_branch => (
+has branch => (
     is      => 'ro',
     default => 'master',
 );
