@@ -3,21 +3,24 @@
 <nav>
   <ul class="paginate">
   : if $entry.prev() {
-    <li class="prev"><a href="<: $entry.prev.site_path | uri_for :>"><: $entry.prev.title :></a>
+    <li class="prev">prev: <a href="<: $entry.prev.site_path | uri_for :>"><: $entry.prev.title :></a>
   : }
   : if $entry.next() {
-    <li class="next"><a href="<: $entry.next.site_path | uri_for :>"><: $entry.next.title :></a>
+    <li class="next">next: <a href="<: $entry.next.site_path | uri_for :>"><: $entry.next.title :></a>
   : }
   </ul>
 </nav>
 
 <article>
   : if $entry.tags().size() {
-  <ul class="tags">
-    : for $entry.tags() -> $tag {
-    <li><a href="<: $tag.site_path | uri_for :>"><: $tag.name :></a></li>
-    : }
-  </ul>
+  <aside class="tags">
+    <h1 class="tags">tags</h1>
+    <ul class="tags">
+      : for $entry.tags() -> $tag {
+      <li><a href="<: $tag.site_path | uri_for :>"><: $tag.name :></a></li>
+      : }
+    </ul>
+  </aside>
   : }
   <div class="entry">
     <: $entry.html_body() | mark_raw :>
