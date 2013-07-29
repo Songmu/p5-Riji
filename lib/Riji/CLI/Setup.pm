@@ -25,22 +25,25 @@ sub run {
     }
     my $tmpl_dir = File::Spec->catdir($share_dir, 'tmpl');
 
-    dircopy(
-        File::Spec->catdir($share_dir, 'tmpl'),
-        File::Spec->catdir($setup_dir, 'share', 'tmpl')
-    );
-    dircopy(
-        File::Spec->catdir($share_dir, 'article'),
-        File::Spec->catdir($setup_dir, 'article')
-    );
-    copy(
-        File::Spec->catfile($share_dir, 'riji.yml'),
-        $setup_dir
-    );
-    copy(
-        File::Spec->catfile($share_dir, 'README.md'),
-        $setup_dir
-    );
+
+    my $recurse644; $recurse644 = sub {
+        my $dir = shift;
+        for my $file ($dir->children) {
+            $recurse644->($file) if -d $file;
+            chmod 0644, $file;
+        }
+    };
+
+    my $target_dir = File::Spec->catdir($setup_dir, 'share', 'tmpl');
+    dircopy(File::Spec->catdir($share_dir, 'tmpl'), $target_dir);
+    $recurse644->(path($target_dir));
+
+    $target_dir = File::Spec->catdir($setup_dir, 'article');
+    dircopy(File::Spec->catdir($share_dir, 'article'), $target_dir);
+    $recurse644->(path($target_dir));
+
+    copy(File::Spec->catfile($share_dir, 'riji.yml'), $setup_dir);
+    copy(File::Spec->catfile($share_dir, 'README.md'), $setup_dir);
 
     my $git = which 'git' or die "git not found.\n";
     system($git, qw!init!);
