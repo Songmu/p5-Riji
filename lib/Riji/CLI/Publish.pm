@@ -36,8 +36,9 @@ sub run {
     my $work_dir = path("localhost:$port");
     die 'downloading failed' unless -e $work_dir;
     say "start replace urls";
+    my $conf = Riji->new->config;
     my $replace_from = quotemeta "http://localhost:$port";
-    my $replace_to   = Riji->new->config->{site_url};
+    my $replace_to   = $conf->{site_url};
        $replace_to =~ s!/+$!!;
     my $walk; $walk = sub {
         my $dir = shift;
@@ -52,7 +53,7 @@ sub run {
     };
     $walk->($work_dir);
 
-    rmove $work_dir, 'blog';
+    rmove $work_dir, $conf->{publish_dir} // 'blog';
     say "done.";
 }
 
