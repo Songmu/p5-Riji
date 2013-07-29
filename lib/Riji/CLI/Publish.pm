@@ -17,7 +17,7 @@ sub run {
     say "detecting empty port";
     my $port = empty_port;
     if (my $pid = fork) {
-        if (Net::EmptyPort::wait_port($port)) {
+        if (Net::EmptyPort::wait_port($port, 5)) {
             say "start downloading";
             system $wget, qw/-r -np -q/, "http://localhost:$port";
         }
