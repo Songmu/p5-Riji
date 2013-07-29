@@ -2,6 +2,13 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.2 2013-07-29T00:49:06Z
+
+    - add uri attrribute to generator element in Atom
+    - update repository information
+    - not use 5.010, use feature ':5.10' instead
+    - use strict and remove use utf8
+
 0.0.1 2013-07-28T17:49:58Z
 
     - original version
