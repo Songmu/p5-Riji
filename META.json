@@ -78,8 +78,14 @@
    },
    "release_status" : "unstable",
    "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/Songmu/p5-Riji/issues"
+      },
+      "homepage" : "https://github.com/Songmu/p5-Riji",
       "repository" : {
-         "url" : "ssh://git@bitbucket.org/Songmu/riji.git"
+         "type" : "git",
+         "url" : "git://github.com/Songmu/p5-Riji.git",
+         "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
    "version" : "0.0.1"
