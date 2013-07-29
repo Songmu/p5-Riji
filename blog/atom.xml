@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Riji tutorial</title>
+<link rel="alternate" href="http://songmu.github.io/p5-Riji/blog/" />
+<author>Songmu</author>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.3">Perl Riji</generator>
+<id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:</id>
+<updated>2013-07-29T23:15:09+09:00</updated>
+<entry>
+<title type="text">Sample</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/sample.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
+<content><![CDATA[<h1>Sample</h1>
+]]></content>
+<id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:entry-sample.html</id>
+<published>2013-07-29T15:15:09+0900</published>
+<updated>2013-07-29T23:15:09+09:00</updated>
+</entry>
+</feed>
