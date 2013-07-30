@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://songmu.github.io/p5-Riji/blog/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <title>Riji tutorial</title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://songmu.github.io/p5-Riji/blog/">Riji tutorial</a></h1>
+  </header>
+  <section>
+<article>
+  <div class="entry">
+    <h1>004. 静的ファイルの配置と配信</h1>
+
+<p>サイトは公開したものの、デフォルトのイケてないデザインを画像やCSSを使って調整したいと思うでしょう。今回は静的ファイルの配置について説明します。</p>
+
+<h2>配置ディレクトリ</h2>
+
+<p>静的ファイルは share/static ディレクトリ以下に配置するルールになっています。そこに配置したファイルは /static/image.jpg と言ったURLでアクセス可能となります。share/static/img, share/static/css, share/static/jsなどとディレクトリを掘るのがお行儀が良いかも知れません。</p>
+
+<p>配置した画像は以下のようにすれば、Blogエントリーから参照可能です。</p>
+
+<pre><code>![画像](&lt;: '/static/hoge.png' | uri_for :&gt;)
+</code></pre>
+
+<p>なんとテンプレートに使われているXslateの記法をmdファイル内でも使えるのが無理矢理なおしゃれポイントです。<code>uri_for</code>を使う必要は必ずしもありませんが、ディレクトリの深さが異なる環境で動かした場合にリンクが切れたりする可能性があるので、なるべく丁寧に指定したほうが良いでしょう。</p>
+
+<h2>デフォルトテンプレートで使われているCSS, JSについて</h2>
+
+<p>デフォルトのテンプレートでは以下のライブラリが使われています。</p>
+
+<ul>
+<li>jQuery</li>
+<li>Google Code Prettify</li>
+<li>Boogstrap</li>
+</ul>
+
+
+<p>色々めんどくさいので同梱はせずにCDNに向ける形になっています。パーソナルユースだったら十分かなと思います。BootstrapのCDNは公式じゃなかったりして若干不安もありますが、気になるようでしたら自分で適宜テンプレートを調整して下さい。</p>
+
+<h2>favicon.ico</h2>
+
+<p>ちょっとした例外として、favicon.icoはtmpl/static/favicon.ico に配置すれば<code>'/favicon.ico' | uri_for</code>で参照できるようになっています。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>静的ファイルを配置したら、今度はhtmlを編集したくなると思います。次回はテンプレートの編集について説明します。</p>
+
+  </div>
+</article>
+  </section>
+  <footer>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');prettyPrint();});</script>
+</body>
+</html>
