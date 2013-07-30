@@ -3,12 +3,15 @@
 <title>Riji tutorial</title>
 <link rel="alternate" href="http://songmu.github.io/p5-Riji/blog/" />
 <author>Songmu</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.3">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.4">Perl Riji</generator>
 <id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:</id>
-<updated>2013-07-31T02:32:41+09:00</updated>
+<updated>2013-07-31T02:33:00+09:00</updated>
 <entry>
 <title type="text">007. 落穂拾い</title>
 <link href="http://songmu.github.io/p5-Riji/blog/entry/007_gleaning.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
 <content><![CDATA[<h1>007. 落穂拾い</h1>
 
 <h2>下書きの管理はどうすればよいか？</h2>
@@ -50,8 +53,8 @@
 <p>もし、ここまで読んでいただけた方がいると大変嬉しいです。ぜひRijiを使ってみてください。フィードバックをいただけると作者は泣いて喜びます。</p>
 ]]></content>
 <id>tag:songmu.github.io,2013-07-31:p5-Riji-blog:entry-007_gleaning.html</id>
-<published>2013-07-31T32:32:45+0900</published>
-<updated>2013-07-31T02:32:45+09:00</updated>
+<published>2013-07-31T33:33:00+0900</published>
+<updated>2013-07-31T02:33:00+09:00</updated>
 </entry>
 <entry>
 <title type="text">006. ヘッダーセクションを利用したブログ記事へのタグやメタ情報の追加</title>
