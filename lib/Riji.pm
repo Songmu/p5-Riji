@@ -40,7 +40,7 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
         $tmpl   = $basename if $basename eq 'index';
         $tmpl //= 'default';
     }
-    $tmpl .= '.tx';
+    $tmpl .= '.tx' unless $tmpl =~ /\.tx$/;
 
     $c->render($tmpl, {
         blog    => $blog,
@@ -58,7 +58,7 @@ get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
     return $c->res_404 unless $entry;
 
     my $tmpl = $entry->template // 'entry';
-    $tmpl .= '.tx';
+    $tmpl .= '.tx' unless $tmpl =~ /\.tx$/;
 
     $c->render($tmpl, {
         blog    => $blog,
