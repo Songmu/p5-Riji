@@ -10,7 +10,7 @@ RijiはシンプルなBlogツールです。「日記」の中国語のピンイ
 
 ## インストール
 
-Perl5.10以降の環境があればインストールは以下のコマンド一発で入ります。
+Perl5.10以降の環境があれば以下のコマンド一発でインストールが完了します。
 
     % cpanm Riji
 
@@ -76,12 +76,14 @@ article直下のmdファイルはデフォルトで share/tmpl/default.tx がテ
 
 ![setup](<: '/static/001setup.png' | uri_for :>)
 
+## riji setup --force
+
+空じゃない既存のディレクトリに`riji setup`したい場合は`% riji setup --force`を指定して下さい。GitHub Pagesを使うときなどに便利です。
+
 今回はここまでです。
 
 ## 次回の内容
 
 次回は新たにblogの設定と記事の作成を行います。
-
-また、今回は空のディレクトリへのセットアップを行いましたが、既存のgithub pagesなどと連携してページを作ることも可能なので、そのあたりも次回説明出来ればと思います。
 
 [002. Blog設定と記事の作成](<: '/entry/002_edit.html' | uri_for :>)
