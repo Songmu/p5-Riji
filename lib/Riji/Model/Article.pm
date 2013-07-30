@@ -203,7 +203,7 @@ sub _parse_content {
 sub _pre_proccessor {
     state $xslate = Text::Xslate->new(
         type => 'text',
-        path => [Riji->template_dir],
+        path => Riji->template_dir,
         function => {
             uri_for   => sub { Riji->context->uri_for(@_) },
             config    => sub { Riji->config },
