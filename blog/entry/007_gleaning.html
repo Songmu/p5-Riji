@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://songmu.github.io/p5-Riji/blog/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <title>Riji tutorial</title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://songmu.github.io/p5-Riji/blog/">Riji tutorial</a></h1>
+  </header>
+  <section>
+<article>
+  <div class="entry">
+    <h1>007. 落穂拾い</h1>
+
+<h2>下書きの管理はどうすればよいか？</h2>
+
+<p>Rijiでは追随ブランチ(デフォルトではmaster)にコミットした記事は否応なしに公開されます。では公開したくない下書きの管理はどうすれば良いのでしょうか？</p>
+
+<p>書き上がるまではコミットしないで手元に保存しておく？それはあまりスマートではありません。せっかくgitを使っているのですから、下書き用のブランチ(例えばdraft)を作り、そちらにコミットしておけばよいのです。書き上がったら、そっちのブランチから追随ブランチへcheckoutしてくれば良いでしょう。</p>
+
+<h2>コメント機能について</h2>
+
+<p>Rijiではコメント機能を用意しておりません。DisqusのようなAjaxベースのコメント機能を利用するのが良いでしょう。</p>
+
+<h2>検索窓に関して</h2>
+
+<p>Googleのサイト内検索を使えば良いと思います</p>
+
+<h2>動的配信について</h2>
+
+<p>静的配信はめんどくさいから動的配信したいという人もいるかと思います。その場合は、自分のサーバーにリポジトリをpullして、<code>riji server</code>を直接動かしても良いでしょう。実は<code>riji server</code>は<code>plackup</code>と同じ引数を受け取ることができるので、<code>riji server -s Starman -p 9999</code>などと指定することも可能になっています。</p>
+
+<p>注意点としては、コンテンツを追加しても、プロセスの再起動をしないと変更が反映されない部分があるということです。</p>
+
+<p>コミットフック等を利用してサーバーがgraceful restartできるようになっていたりすると美しいですね。その辺り、うまい運用のやり方を編み出して作者に教えてもらえると嬉しいです。</p>
+
+<h2>トラックバックに関して</h2>
+
+<p>残念ながらトラックバックはオワコンになりました。概念としては個人的に好きだったのですが、多くの人に誤った理解をされ誤った使い方をされた挙句廃れてしまったのは非常に残念に思っています。Rijiにはトラックバック機能はありません。</p>
+
+<h2>その他機能追加要望に関して</h2>
+
+<p>使っているうちにXslateに関数を追加したい、プラグイン機構を入れたい、等色々要望は出てくるかと思います。</p>
+
+<p>開発は以下で行なっているので随時pull requestやissueを投げていただけると非常に嬉しいです。</p>
+
+<p><a href="https://github.com/Songmu/p5-Riji">https://github.com/Songmu/p5-Riji</a></p>
+
+<h2>終わりに</h2>
+
+<p>もし、ここまで読んでいただけた方がいると大変嬉しいです。ぜひRijiを使ってみてください。フィードバックをいただけると作者は泣いて喜びます。</p>
+
+  </div>
+</article>
+  </section>
+  <footer>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');prettyPrint();});</script>
+</body>
+</html>
