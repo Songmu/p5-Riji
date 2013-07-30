@@ -1,8 +1,15 @@
 : cascade base
 : around content -> {
 <ul class="archives">
-: for $blog.entries(sort_by => 'title') -> $entry {
+:   for $blog.entries(sort_by => 'title') -> $entry {
 <li><a href="<: $entry.site_path() | uri_for :>"><: $entry.title :></a></li>
-: }
+:   }
 </ul>
+
+:   for $blog.entries(sort_by => 'title') -> $entry {
+<article>
+<: $entry.html_body() | mark_raw :>
+</article>
+:   }
+
 : }
