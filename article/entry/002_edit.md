@@ -51,4 +51,4 @@
 
 これまでは`riji server`を使った手元での確認だけでしたが、次回は実際にBlogの書き出しを行います。
 
-[003. Blogの書き出し](<: '/entry/003_publish.html' | uri_for :>)
+[003. Blogの書き出しと公開](<: '/entry/003_publish.html' | uri_for :>)
