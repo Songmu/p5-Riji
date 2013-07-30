@@ -5,7 +5,67 @@
 <author>Songmu</author>
 <generator uri="https://github.com/Songmu/p5-Riji" version="0.0.3">Perl Riji</generator>
 <id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:</id>
-<updated>2013-07-31T01:23:54+09:00</updated>
+<updated>2013-07-31T01:53:54+09:00</updated>
+<entry>
+<title type="text">006. ヘッダーセクションを利用したブログ記事へのタグやメタ情報の追加</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/006_header.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
+<content><![CDATA[<h1>006. ヘッダーセクションを利用したブログ記事へのタグやメタ情報の追加</h1>
+
+<h2>ヘッダーセクション</h2>
+
+<p>各Blogエントリーのmdファイルの先頭にYAML形式でヘッダーセクションを記述でき、記事に関するメタ情報を記載することができます。</p>
+
+<p>ヘッダーセクションと本文は'---'で区切られます。以下のように記述します。</p>
+
+<pre><code>tags: tag1 tag2
+template: entry2
+title: title
+pubdate: 2013-07-21
+paginate: ~
+---
+# 本文開始
+...
+</code></pre>
+
+<p>ヘッダーセクションは任意記述で、記述する場合もきつような項目のみで、すべての項目を記載する必要はありません。各項目の内容は以下のとおりです。</p>
+
+<h3>tags</h3>
+
+<p>記事にタグを設定出来ます。カンマ区切りかスペース区切り、もしくは配列で指定可能です。</p>
+
+<h3>template</h3>
+
+<p>ブログ記事の場合entry.tx、それ以外のarticle/直下のページはdefault.txがデフォルトで使われますが、それ以外のものを使いたい場合に記載します。拡張子は省略して指定します。</p>
+
+<h3>title</h3>
+
+<p>タイトルを指定します。タイトルを指定しない場合、本文中に最初に現れるヘッダ行がタイトルとして使われます。基本的には使用しなくてよいでしょう。</p>
+
+<h3>pubdate</h3>
+
+<p>公開時間を指定します。gitから自動的に情報が取得されるためあまり明示的に指定する必要はないでしょう。公開時間まで隠しておくとかそういうことも残念がらできません。</p>
+
+<h3>paginate</h3>
+
+<p>ページングするかどうかのフラグを設定出来ます。デフォルトfalseです。ページングに関してはまだ仕様が未確定です。</p>
+
+<h2>タグについて</h2>
+
+<p>タグが指定されたページが作られると、/tag/tagname.html というページにアクセスできるようになり、そのタグが付いた記事を一覧することができるようになります。ブログで使われているタグ一覧は、テンプレート変数である<code>$blog.tags()</code>でアクセス可能になっています。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>もうRiji全ての機能は説明したといっても良いでしょう。次回は本チュートリアルの最終回です。</p>
+]]></content>
+<id>tag:songmu.github.io,2013-07-31:p5-Riji-blog:entry-006_header.html</id>
+<published>2013-07-31T53:53:54+0900</published>
+<updated>2013-07-31T01:53:54+09:00</updated>
+</entry>
 <entry>
 <title type="text">005. テンプレートファイルの編集</title>
 <link href="http://songmu.github.io/p5-Riji/blog/entry/005_template.html" />
@@ -86,11 +146,13 @@ share/tmpl
 
 <h2>次回の内容</h2>
 
-<p>テンプレートの編集まで終わり、ひと通りサイトを編集できるようになったと思います。次回はブログ記事にメタ情報を付加する方法について説明します。今回触れられなかったタグについても少し取り上げます。</p>
+<p>テンプレートの編集まで終わり、ひと通りサイトを編集できるようになったと思います。次回はブログ記事にメタ情報を付加する方法について説明します。今回触れられなかったタグについても取り上げます。</p>
+
+<p><a href="http://songmu.github.io/p5-Riji/blog/entry/006_header.html">006. ヘッダーセクションを利用したブログ記事へのタグやメタ情報の追加</a></p>
 ]]></content>
 <id>tag:songmu.github.io,2013-07-31:p5-Riji-blog:entry-005_template.html</id>
 <published>2013-07-31T23:23:54+0900</published>
-<updated>2013-07-31T01:23:54+09:00</updated>
+<updated>2013-07-31T01:53:54+09:00</updated>
 </entry>
 <entry>
 <title type="text">004. 静的ファイルの配置と配信</title>
