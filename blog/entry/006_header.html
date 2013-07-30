@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://songmu.github.io/p5-Riji/blog/atom.xml">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+  <title>Riji tutorial</title>
+</head>
+<body>
+  <header>
+    <h1><a href="http://songmu.github.io/p5-Riji/blog/">Riji tutorial</a></h1>
+  </header>
+  <section>
+<article>
+  <div class="entry">
+    <h1>006. ヘッダーセクションを利用したブログ記事へのタグやメタ情報の追加</h1>
+
+<h2>ヘッダーセクション</h2>
+
+<p>各Blogエントリーのmdファイルの先頭にYAML形式でヘッダーセクションを記述でき、記事に関するメタ情報を記載することができます。</p>
+
+<p>ヘッダーセクションと本文は'---'で区切られます。以下のように記述します。</p>
+
+<pre><code>tags: tag1 tag2
+template: entry2
+title: title
+pubdate: 2013-07-21
+paginate: ~
+---
+# 本文開始
+...
+</code></pre>
+
+<p>ヘッダーセクションは任意記述で、記述する場合もきつような項目のみで、すべての項目を記載する必要はありません。各項目の内容は以下のとおりです。</p>
+
+<h3>tags</h3>
+
+<p>記事にタグを設定出来ます。カンマ区切りかスペース区切り、もしくは配列で指定可能です。</p>
+
+<h3>template</h3>
+
+<p>ブログ記事の場合entry.tx、それ以外のarticle/直下のページはdefault.txがデフォルトで使われますが、それ以外のものを使いたい場合に記載します。拡張子は省略して指定します。</p>
+
+<h3>title</h3>
+
+<p>タイトルを指定します。タイトルを指定しない場合、本文中に最初に現れるヘッダ行がタイトルとして使われます。基本的には使用しなくてよいでしょう。</p>
+
+<h3>pubdate</h3>
+
+<p>公開時間を指定します。gitから自動的に情報が取得されるためあまり明示的に指定する必要はないでしょう。公開時間まで隠しておくとかそういうことも残念がらできません。</p>
+
+<h3>paginate</h3>
+
+<p>ページングするかどうかのフラグを設定出来ます。デフォルトfalseです。ページングに関してはまだ仕様が未確定です。</p>
+
+<h2>タグについて</h2>
+
+<p>タグが指定されたページが作られると、/tag/tagname.html というページにアクセスできるようになり、そのタグが付いた記事を一覧することができるようになります。ブログで使われているタグ一覧は、テンプレート変数である<code>$blog.tags()</code>でアクセス可能になっています。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>もうRiji全ての機能は説明したといっても良いでしょう。次回は本チュートリアルの最終回です。</p>
+
+  </div>
+</article>
+  </section>
+  <footer>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+  <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');prettyPrint();});</script>
+</body>
+</html>
