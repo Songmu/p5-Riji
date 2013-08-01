@@ -2,6 +2,11 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.5 2013-08-01T17:09:23Z
+
+    - update default template
+    - include another template file in md file
+
 0.0.4 2013-07-29T16:54:18Z
 
     - set max_wait to 5 seconds for Net::EmptyPort::wait_port in CLI::Publish
