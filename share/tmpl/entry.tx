@@ -1,4 +1,9 @@
 : cascade base
+
+: around title -> {
+<: $entry.title :> | <: $blog.title :>
+: }
+
 : around content -> {
 <nav>
   <ul class="paginate">
