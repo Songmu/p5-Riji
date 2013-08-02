@@ -1,4 +1,4 @@
-requires 'Exporter::AutoClean';
+requires 'Data::Section::Simple';
 requires 'File::Copy::Recursive';
 requires 'File::Which';
 requires 'Git::Repository';
@@ -9,6 +9,7 @@ requires 'Mouse';
 requires 'Net::EmptyPort';
 requires 'Object::Container';
 requires 'Path::Tiny';
+requires 'Plack';
 requires 'Puncheur::Lite';
 requires 'Puncheur::Runner';
 requires 'String::CamelCase';

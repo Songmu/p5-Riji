@@ -1,4 +1,6 @@
 package Riji;
+use strict;
+use warnings;
 use Puncheur::Lite;
 
 use Encode;

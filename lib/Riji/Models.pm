@@ -25,4 +25,5 @@ register Blog => sub {
     );
 };
 
+no Object::Container;
 1;
