@@ -2,6 +2,9 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+    - fix deps
+    - fix infinite loop in CLI::NewEntry
+
 0.0.5 2013-08-01T17:09:23Z
 
     - update default template
