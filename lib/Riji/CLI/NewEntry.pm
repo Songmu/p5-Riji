@@ -21,8 +21,7 @@ sub run {
     }
     else {
         my $seq = 1;
-        my $seq_str = sprintf '%02d', $seq++;
-        $file = path(sprintf $file_format, $seq_str) while !$file || -e $file;
+        $file = path(sprintf $file_format, sprintf('%02d', $seq++)) while !$file || -e $file;
     }
 
     $file->spew(<<'...') unless -e $file;
