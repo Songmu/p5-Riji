@@ -158,6 +158,8 @@ sub article {
 
 sub tag {
     my ($self, $tag) = @_;
+
+    $tag = Riji::Model::Tag->normalize_tag($tag);
     $self->tag_map->{$tag};
 }
 
