@@ -12,6 +12,7 @@ requires 'Path::Tiny';
 requires 'Plack';
 requires 'Puncheur::Lite';
 requires 'Puncheur::Runner';
+requires 'Router::Simple::Sinatraish';
 requires 'String::CamelCase';
 requires 'Text::Markdown::Discount';
 requires 'Text::Markup::Any';
