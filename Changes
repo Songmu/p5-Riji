@@ -2,6 +2,11 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.7 2013-08-05T13:06:37Z
+
+    - fix deps
+    - support multibyte tags (Experimental)
+
 0.0.6 2013-08-03T15:22:56Z
 
     - fix deps

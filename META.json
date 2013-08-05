@@ -4,7 +4,7 @@
       "Masayuki Matsuki <y.songmu@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.5.6, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Minilla/v0.5.6, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -49,6 +49,7 @@
             "Git::Repository::FileHistory" : "0.03",
             "HTTP::Date" : "0",
             "List::UtilsBy" : "0",
+            "MIME::Base32" : "0",
             "Mouse" : "0",
             "Net::EmptyPort" : "0",
             "Object::Container" : "0",
@@ -56,6 +57,7 @@
             "Plack" : "0",
             "Puncheur::Lite" : "0",
             "Puncheur::Runner" : "0",
+            "Router::Simple::Sinatraish" : "0",
             "String::CamelCase" : "0",
             "Text::Markdown::Discount" : "0",
             "Text::Markup::Any" : "0",
@@ -86,5 +88,5 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "0.0.6"
+   "version" : "0.0.7"
 }
