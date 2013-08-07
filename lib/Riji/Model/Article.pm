@@ -102,12 +102,17 @@ has title => (
     default => sub {
         my $self = shift;
         $self->header('title') // sub {
-            for my $line ( split /\n/, $self->body ){
+            my $prev;
+            for my $line ( split /\r?\n/, $self->body ){
                 if ( $line =~ /^#/ ){
                     $line =~ s/^[#\s]+//;
                     $line =~ s/[#\s]+$//;
                     return $line;
                 }
+                if ( $line =~ /^(?:(?:-+)|(?:=+))$/ ) {
+                    return $prev if $prev && $prev =~ /[^\s]/;
+                }
+                $prev = $line;
             }
             my $ext = quotemeta $self->article_ext;
             my $title = $self->file_path->basename;
