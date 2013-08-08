@@ -8,6 +8,10 @@ Riji - Simple, git based blog tool
     % riji server
     % riji publish
 
+# TUTORIAL
+
+[http://songmu.github.io/p5-Riji/blog/](http://songmu.github.io/p5-Riji/blog/) japanese only...
+
 # DESCRIPTION
 
 Riji is a simple and git based blog tool.
