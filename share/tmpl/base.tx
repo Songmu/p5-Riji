@@ -25,6 +25,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
   <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
-  <script>$(function(){$('pre > code').addClass('prettyprint');prettyPrint();});</script>
+  <script>$(function(){$('pre > code').addClass('prettyprint');});</script>
 </body>
 </html>
