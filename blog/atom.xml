@@ -3,9 +3,88 @@
 <title>Riji tutorial</title>
 <link rel="alternate" href="http://songmu.github.io/p5-Riji/blog/" />
 <author>Songmu</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.8">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.7">Perl Riji</generator>
 <id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:</id>
-<updated>2013-07-31T10:22:29+09:00</updated>
+<updated>2013-08-10T19:53:54+09:00</updated>
+<entry>
+<title type="text">002. Blog設定と記事の作成</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/002_edit.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
+<content><![CDATA[<h1>002. Blog設定と記事の作成</h1>
+
+<p>さて、前回はRijiのセットアップを行いました。<code>riji</code>というコマンドを使ってBlogを操作することを覚えているかと思います。また前回作ったリポジトリが手元にあると思うので引き続き、Rijiを使っていきましょう。</p>
+
+<h2>Blogの設定</h2>
+
+<p>リポジトリにはriji.ymlが作られていますが、これの中身は以下のようになっています。</p>
+
+<pre><code>author:   'Your name'
+title:    "Your Blog Title"
+site_url: 'http://yourblog.example.com/'
+</code></pre>
+
+<p>完全に仮の初期設定なので、自分の環境にあわせて変更してみましょう。<code>site_url</code>は最終的にアップするサイトのURLに合わせてください。特に決まってないのであれば仮のままで大丈夫です。</p>
+
+<p>変更した状態で<code>% riji server</code>を起動してBlogを確認してみて下さい。変更内容が反映されているでしょうか？反映されていればriji.ymlをコミットしましょう。これでBlogの設定は完了です。</p>
+
+<p>余談ですが、設定ファイルはTOMLにしようかとも考えたのですが、日和ってYAMLにしました。今後TOMLに対応するかもしれません。</p>
+
+<h2>Blog記事の作成</h2>
+
+<p>早速記事を作成してみましょう。…と言いたいところですが、まずはsampleのファイルは必要ないので消してしまいましょう。</p>
+
+<pre><code>% git rm article/entry/sample.md
+% git commit -m "remove sample.md"
+</code></pre>
+
+<p>次に、記事を作成しましょう。article/entry/ 以下に配置されていて拡張子が.mdになっていればなんでも良いのですが、今回はstart.mdという名前にして編集してみましょう。</p>
+
+<pre><code>% $EDITOR article/entry/start.md
+% cat article/entry/start.md
+# blog開設
+
+Rijiを使ってBlogを開設しました。
+</code></pre>
+
+<p>編集はMarkdown形式でおこないます。<a href="http://www.pell.portland.or.us/~orc/Code/discount/">Discount</a>というMarkdownパーサーがデフォルトで使われます。github flavored markdownと比較的互換があると思います。</p>
+
+<p>さて、編集を終えたら、例に因って記事をコミットしてください。それから<code>riji server</code>をたちあげて、http://localhost:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。</p>
+
+<p><img src="http://songmu.github.io/p5-Riji/blog/static/002edit.png" alt="edit" /></p>
+
+<h2>Blog記事の追加</h2>
+
+<p>さて、もう一つ記事を追加してみましょう。ただ、毎回.mdファイルの名前を考えるのは面倒です。そこで以下のコマンドを使いましょう。</p>
+
+<pre><code>% riji new-entry
+</code></pre>
+
+<p>今日の日付をもとに、エントリーファイルが作られ、環境変数<code>$EDITOR</code>が正しく設定されて入ればエディタも起動します。</p>
+
+<p>ファイル名はローカルの日付を元に'%Y-%m-%d-$postfix'というルールで作られます。'$postfix'の位置には連番が自動で挿入されますが、<code>riji new-entry hoge</code>のようにして、自分の好みのpostfixをつけることも可能です。</p>
+
+<p>それを適宜編集して保存してコミットしましょう。これで2つ目のエントリーが作られました。<code>riji server</code>を使って確認してみてください。</p>
+
+<h2>Blog記事以外のコンテンツの追加</h2>
+
+<p>Blog記事ではないコンテンツをサイトに追加したい時もあるでしょう。例えば自身のプロフィールページなどです。</p>
+
+<p>そういったコンテンツは article/ 直下に配置します。プロフィールであれば、article/profile.md と言った具合になるでしょうか。この場合だと、article/profile.htmlにアクセスするとプロフィールページを閲覧できるようになるはずです。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>これまでは<code>riji server</code>を使った手元での確認だけでしたが、次回は実際にBlogの書き出しを行います。</p>
+
+<p><a href="http://songmu.github.io/p5-Riji/blog/entry/003_publish.html">003. Blogの書き出しと公開</a></p>
+]]></content>
+<id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-002_edit.html</id>
+<published>2013-07-30T00:00:07+0900</published>
+<updated>2013-08-10T19:53:54+09:00</updated>
+</entry>
 <entry>
 <title type="text">004. 静的ファイルの配置と配信</title>
 <link href="http://songmu.github.io/p5-Riji/blog/entry/004_static.html" />
@@ -362,81 +441,6 @@ share/tmpl
 <id>tag:songmu.github.io,2013-07-31:p5-Riji-blog:entry-005_template.html</id>
 <published>2013-07-31T23:23:54+0900</published>
 <updated>2013-07-31T01:53:54+09:00</updated>
-</entry>
-<entry>
-<title type="text">002. Blog設定と記事の作成</title>
-<link href="http://songmu.github.io/p5-Riji/blog/entry/002_edit.html" />
-<author>
-<name>Masayuki Matsuki</name>
-</author>
-<content><![CDATA[<h1>002. Blog設定と記事の作成</h1>
-
-<p>さて、前回はRijiのセットアップを行いました。<code>riji</code>というコマンドを使ってBlogを操作することを覚えているかと思います。また前回作ったリポジトリが手元にあると思うので引き続き、Rijiを使っていきましょう。</p>
-
-<h2>Blogの設定</h2>
-
-<p>リポジトリにはriji.ymlが作られていますが、これの中身は以下のようになっています。</p>
-
-<pre><code>author:   'Your name'
-title:    "Your Blog Title"
-site_url: 'http://yourblog.example.com/'
-</code></pre>
-
-<p>完全に仮の初期設定なので、自分の環境にあわせて変更してみましょう。<code>site_url</code>は最終的にアップするサイトのURLに合わせてください。特に決まってないのであれば仮のままで大丈夫です。</p>
-
-<p>変更した状態で<code>% riji server</code>を起動してBlogを確認してみて下さい。変更内容が反映されているでしょうか？反映されていればriji.ymlをコミットしましょう。これでBlogの設定は完了です。</p>
-
-<p>余談ですが、設定ファイルはTOMLにしようかとも考えたのですが、日和ってYAMLにしました。今後TOMLに対応するかもしれません。</p>
-
-<h2>Blog記事の作成</h2>
-
-<p>早速記事を作成してみましょう。…と言いたいところですが、まずはsampleのファイルは必要ないので消してしまいましょう。</p>
-
-<pre><code>% git rm article/entry/sample.md
-% git commit -m "remove sample.md"
-</code></pre>
-
-<p>次に、記事を作成しましょう。article/entry/ 以下に配置されていて拡張子が.mdになっていればなんでも良いのですが、今回はstart.mdという名前にして編集してみましょう。</p>
-
-<pre><code>% $EDITOR article/entry/start.md
-% cat article/entry/start.md
-# blog開設
-
-Rijiを使ってBlogを開設しました。
-</code></pre>
-
-<p>編集はMarkdown形式でおこないます。<a href="http://www.pell.portland.or.us/~orc/Code/discount/">Discount</a>というMarkdownパーサーがデフォルトで使われます。github flavored markdownと比較的互換があると思います。</p>
-
-<p>さて、編集を終えたら、例に因って記事をコミットしてください。それから<code>riji server</code>をたちあげて、http://localhost:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。</p>
-
-<p><img src="http://songmu.github.io/p5-Riji/blog/static/002edit.png" alt="edit" /></p>
-
-<h2>Blog記事の追加</h2>
-
-<p>さて、もう一つ記事を追加してみましょう。ただ、毎回.mdファイルの名前を考えるのは面倒です。そこで以下のコマンドを使いましょう。</p>
-
-<pre><code>% riji new-entry
-</code></pre>
-
-<p>今日の日付をもとに、エントリーファイルが作られ、環境変数<code>$EDITOR</code>が正しく設定されて入ればエディタも起動します。それを適宜編集して保存してコミットしましょう。これで２つ目のエントリーが作られました。<code>riji server</code>を使って確認してみてください。</p>
-
-<h2>Blog記事以外のコンテンツの追加</h2>
-
-<p>Blog記事ではないコンテンツをサイトに追加したい時もあるでしょう。例えば自身のプロフィールページなどです。</p>
-
-<p>そういったコンテンツは article/ 直下に配置します。プロフィールであれば、article/profile.md と言った具合になるでしょうか。この場合だと、article/profile.htmlにアクセスするとプロフィールページを閲覧できるようになるはずです。</p>
-
-<p>今回はここまでです。</p>
-
-<h2>次回の内容</h2>
-
-<p>これまでは<code>riji server</code>を使った手元での確認だけでしたが、次回は実際にBlogの書き出しを行います。</p>
-
-<p><a href="http://songmu.github.io/p5-Riji/blog/entry/003_publish.html">003. Blogの書き出しと公開</a></p>
-]]></content>
-<id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-002_edit.html</id>
-<published>2013-07-30T00:00:07+0900</published>
-<updated>2013-07-31T01:23:54+09:00</updated>
 </entry>
 <entry>
 <title type="text">003. Blogの書き出しと公開</title>
