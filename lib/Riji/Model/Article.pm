@@ -30,7 +30,11 @@ has page => (
 has markupper => (
     is      => 'ro',
     isa     => 'Text::Markup::Any',
-    default => sub { Text::Markup::Any->new('Text::Markdown::Discount', {html5 => 1})},
+    default => sub {
+        my $obj = Text::Markup::Any->new('Text::Markdown::Discount');
+        Text::Markdown::Discount::with_html5_tags();
+        $obj;
+    },
     handles => [qw/markup/],
 );
 

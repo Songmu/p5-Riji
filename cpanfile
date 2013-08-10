@@ -15,7 +15,7 @@ requires 'Puncheur::Lite';
 requires 'Puncheur::Runner';
 requires 'Router::Simple::Sinatraish';
 requires 'String::CamelCase';
-requires 'Text::Markdown::Discount';
+requires 'Text::Markdown::Discount', '0.10';
 requires 'Text::Markup::Any';
 requires 'Text::Xslate';
 requires 'Time::Piece';
