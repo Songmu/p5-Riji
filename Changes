@@ -2,6 +2,9 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.8 2013-08-10T06:40:35Z
+
+    - depend on Text::Markdown::Discount 0.10 and use `with_html5_tags()`
     - parse === --- style h1 h2 as blog entry title
 
 0.0.7 2013-08-05T13:06:37Z
