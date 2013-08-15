@@ -17,7 +17,7 @@ sub run {
     my ($class, @argv) = @_;
 
     my $app = Riji->new;
-    my $work_dir = tempdir;
+    my $work_dir = tempdir(CLEANUP => 1);
 
     say "start downloading";
     my $wallflower = Wallflower->new(
@@ -36,7 +36,7 @@ sub run {
         my ( $status, $headers, $file ) = @$response;
 
         # tell the world
-        printf "$status %s%s\n", $url->path, $file && " => $file [${\-s $file}]";
+        printf "$status %s %s\n", $url->path, $file && "[${\-s $file}]";
 
         # obtain links to resources
         if ( $status eq '200' ) {
@@ -49,19 +49,16 @@ sub run {
     my $replace_from = quotemeta "http://localhost";
     my $replace_to   = $conf->{site_url};
        $replace_to =~ s!/+$!!;
-    my $walk; $walk = sub {
-        my $dir = shift;
-        for my $file ($dir->children) {
-            $walk->($file) if -d $file;
-            next unless $file =~ /\.(?:js|css|html|xml)$/;
 
-            my $content = $file->slurp_utf8;
-            $content =~ s/$replace_from/$replace_to/msg;
-            $file->spew_utf8($content);
-        }
-    };
-    $walk->(path $work_dir);
+    my $itr = path($work_dir)->iterator({recurse => 1});
+    while (my $file = $itr->()) {
+        next if -d $file;
+        next unless $file =~ /\.(?:js|css|html|xml)$/;
 
+        my $content = $file->slurp_utf8;
+        $content =~ s/$replace_from/$replace_to/msg;
+        $file->spew_utf8($content);
+    }
     rmove $work_dir, $conf->{publish_dir} // 'blog';
     say "done.";
 }

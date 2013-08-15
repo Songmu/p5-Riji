@@ -8,7 +8,6 @@ requires 'HTTP::Date';
 requires 'List::UtilsBy';
 requires 'MIME::Base32';
 requires 'Mouse';
-requires 'Net::EmptyPort';
 requires 'Object::Container';
 requires 'Path::Tiny';
 requires 'Plack';
