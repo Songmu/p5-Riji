@@ -42,6 +42,7 @@
       },
       "runtime" : {
          "requires" : {
+            "App::Wallflower" : "0",
             "Data::Section::Simple" : "0",
             "File::Copy::Recursive" : "0",
             "File::Which" : "0",
@@ -51,7 +52,6 @@
             "List::UtilsBy" : "0",
             "MIME::Base32" : "0",
             "Mouse" : "0",
-            "Net::EmptyPort" : "0",
             "Object::Container" : "0",
             "Path::Tiny" : "0",
             "Plack" : "0",
@@ -88,5 +88,5 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "0.0.8"
+   "version" : "0.0.9"
 }

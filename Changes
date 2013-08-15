@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.9 2013-08-15T14:39:55Z
+
+    - depend on App::Wallflower for `riji publish`
+
 0.0.8 2013-08-10T06:40:35Z
 
     - depend on Text::Markdown::Discount 0.10 and use `with_html5_tags()`
