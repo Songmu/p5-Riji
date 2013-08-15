@@ -3,10 +3,8 @@ use feature ':5.10';
 use strict;
 use warnings;
 
-use File::Temp qw/tempdir/;
-use File::Copy::Recursive qw/rmove/;
-use Path::Tiny qw/path/;
-
+use Errno qw(:POSIX);
+use Path::Tiny;
 use Wallflower;
 use Wallflower::Util qw/links_from/;
 use URI;
@@ -17,12 +15,20 @@ sub run {
     my ($class, @argv) = @_;
 
     my $app = Riji->new;
-    my $work_dir = tempdir(CLEANUP => 1);
+    my $conf = $app->config;
 
     say "start downloading";
+    my $replace_from = quotemeta "http://localhost";
+    my $replace_to   = $conf->{site_url};
+       $replace_to =~ s!/+$!!;
+
+    my $dir = $conf->{publish_dir} // 'blog';
+    unless (mkdir $dir or $! == EEXIST ){
+        printf "can't create $dir: $!\n";
+    }
     my $wallflower = Wallflower->new(
         application => $app->to_psgi,
-        destination => $work_dir,
+        destination => $dir,
     );
     my %seen;
     my @queue = ('/');
@@ -42,24 +48,14 @@ sub run {
         if ( $status eq '200' ) {
             push @queue, links_from( $response => $url );
         }
+
+        if ($file && $file =~ /\.(?:js|css|html|xml)$/) {
+            $file = path($file);
+            my $content = $file->slurp_utf8;
+            $content =~ s/$replace_from/$replace_to/msg;
+            $file->spew_utf8($content);
+        }
     }
-
-    say "start replace urls";
-    my $conf = $app->config;
-    my $replace_from = quotemeta "http://localhost";
-    my $replace_to   = $conf->{site_url};
-       $replace_to =~ s!/+$!!;
-
-    my $itr = path($work_dir)->iterator({recurse => 1});
-    while (my $file = $itr->()) {
-        next if -d $file;
-        next unless $file =~ /\.(?:js|css|html|xml)$/;
-
-        my $content = $file->slurp_utf8;
-        $content =~ s/$replace_from/$replace_to/msg;
-        $file->spew_utf8($content);
-    }
-    rmove $work_dir, $conf->{publish_dir} // 'blog';
     say "done.";
 }
 
