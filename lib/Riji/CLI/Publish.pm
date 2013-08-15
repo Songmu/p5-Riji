@@ -3,41 +3,50 @@ use feature ':5.10';
 use strict;
 use warnings;
 
-use File::Which;
+use File::Temp qw/tempdir/;
 use File::Copy::Recursive qw/rmove/;
-use Net::EmptyPort;
-use Path::Tiny;
+use Path::Tiny qw/path/;
+
+use Wallflower;
+use Wallflower::Util qw/links_from/;
+use URI;
 
 use Riji;
 
 sub run {
     my ($class, @argv) = @_;
-    my $wget = which 'wget' or die "wget is required for publish\n";
 
-    say "detecting empty port";
-    my $port = empty_port;
-    if (my $pid = fork) {
-        if (Net::EmptyPort::wait_port($port, 5)) {
-            say "start downloading";
-            system $wget, qw/-r -np -q/, "http://localhost:$port";
+    my $app = Riji->new;
+    my $work_dir = tempdir;
+
+    say "start downloading";
+    my $wallflower = Wallflower->new(
+        application => $app->to_psgi,
+        destination => $work_dir,
+    );
+    my %seen;
+    my @queue = ('/');
+    while (@queue) {
+        my $url = URI->new( shift @queue );
+        next if $seen{ $url->path }++;
+        next if $url->scheme && ! eval { $url->host =~ /localhost/ };
+
+        # get the response
+        my $response = $wallflower->get($url);
+        my ( $status, $headers, $file ) = @$response;
+
+        # tell the world
+        printf "$status %s%s\n", $url->path, $file && " => $file [${\-s $file}]";
+
+        # obtain links to resources
+        if ( $status eq '200' ) {
+            push @queue, links_from( $response => $url );
         }
-        kill 'INT', $pid;
-        wait;
-    }
-    elsif ($pid == 0) {
-        require Plack::Loader;
-        my $loader = Plack::Loader->auto(port => $port);
-        $loader->run(Riji->to_psgi);
-    }
-    else {
-        die "fork failed: $!";
     }
 
-    my $work_dir = path("localhost:$port");
-    die 'downloading failed' unless -e $work_dir;
     say "start replace urls";
-    my $conf = Riji->new->config;
-    my $replace_from = quotemeta "http://localhost:$port";
+    my $conf = $app->config;
+    my $replace_from = quotemeta "http://localhost";
     my $replace_to   = $conf->{site_url};
        $replace_to =~ s!/+$!!;
     my $walk; $walk = sub {
@@ -51,7 +60,7 @@ sub run {
             $file->spew_utf8($content);
         }
     };
-    $walk->($work_dir);
+    $walk->(path $work_dir);
 
     rmove $work_dir, $conf->{publish_dir} // 'blog';
     say "done.";

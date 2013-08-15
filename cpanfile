@@ -1,3 +1,4 @@
+requires 'App::Wallflower';
 requires 'Data::Section::Simple';
 requires 'File::Copy::Recursive';
 requires 'File::Which';
