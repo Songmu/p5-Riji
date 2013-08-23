@@ -99,6 +99,7 @@ has site_path => (
     },
 );
 
+#############
 # Meta datas:
 has title => (
     is      => 'ro',
@@ -136,13 +137,23 @@ has is_draft => (
 );
 
 has raw_tags => (
-    is      => 'ro',
-    lazy    => 1,
+    is  => 'ro',
+    lazy => 1,
     default => sub {
         my $tags = shift->header('tags');
         return [] unless $tags;
-        $tags = [map {split /\s+/, $_} split /,\s*/, $tags] unless ref $tags;
+        $tags = [split /[,\s]+/, $tags] unless ref $tags;
         $tags;
+    },
+);
+
+has tags => (
+    is      => 'ro',
+    isa     => 'ArrayRef[Riji::Model::Tag]',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        [map {$self->blog->tag($_)} @{ $self->raw_tags }];
     },
 );
 

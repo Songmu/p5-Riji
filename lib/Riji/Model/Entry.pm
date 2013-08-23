@@ -130,27 +130,6 @@ has published_at => (
     }
 );
 
-has raw_tags => (
-    is  => 'ro',
-    lazy => 1,
-    default => sub {
-        my $tags = shift->header('tags');
-        return [] unless $tags;
-        $tags = [split /[,\s]+/, $tags] unless ref $tags;
-        $tags;
-    },
-);
-
-has tags => (
-    is      => 'ro',
-    isa     => 'ArrayRef[Riji::Model::Tag]',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        [map {$self->blog->tag($_)} @{ $self->raw_tags }];
-    },
-);
-
 no Mouse;
 
 sub BUILD {
