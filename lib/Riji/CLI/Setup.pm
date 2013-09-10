@@ -24,12 +24,11 @@ sub run {
         die "you must run `riji setup` in empty directory or `riji setup --force`.\n";
     }
 
-    my $recurse644; $recurse644 = sub {
+    my $recurse644 = sub {
         my $dir = shift;
-        for my $file ($dir->children) {
-            if (-d $file) {
-                $recurse644->($file); next;
-            }
+        my $itr = $dir->iterator({recurse => 1});
+        while (my $file = $itr->()) {
+            next unless -f $file;
             chmod 0644, $file;
         }
     };
