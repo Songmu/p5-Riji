@@ -25,7 +25,7 @@ has file_history => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        $self->repo->file_history($self->repo_path, {branch => $self->blog->branch});
+        $self->repo->file_history($self->repo_path.'', {branch => $self->blog->branch});
     },
     handles => [qw/created_by last_modified_by/],
 );
