@@ -2,6 +2,12 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.10 2013-09-10T03:17:24Z
+
+    - refactor CLI::Publish/CLI::Setup
+    - refactor tag handling in Model::Entry
+    - fix Entry#file_history
+
 0.0.9 2013-08-15T14:39:55Z
 
     - depend on App::Wallflower for `riji publish`
