@@ -105,7 +105,7 @@
 HTTP::Server::PSGI: Accepting connections at http://0:3650/
 </code></pre>
 
-<p>3650番ポートでサーバーが起動するので、http://localhost:3650 にアクセスしてみてください。以下の様に表示されればOKです。</p>
+<p>3650番ポートでサーバーが起動するので、http://songmu.github.io/p5-Riji/blog:3650 にアクセスしてみてください。以下の様に表示されればOKです。</p>
 
 <p><img src="http://songmu.github.io/p5-Riji/blog/static/001setup.png" alt="setup" /></p>
 
@@ -161,7 +161,7 @@ Rijiを使ってBlogを開設しました。
 
 <p>編集はMarkdown形式でおこないます。<a href="http://www.pell.portland.or.us/~orc/Code/discount/">Discount</a>というMarkdownパーサーがデフォルトで使われます。github flavored markdownと比較的互換があると思います。</p>
 
-<p>さて、編集を終えたら、例に因って記事をコミットしてください。それから<code>riji server</code>をたちあげて、http://localhost:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。</p>
+<p>さて、編集を終えたら、例に因って記事をコミットしてください。それから<code>riji server</code>をたちあげて、http://songmu.github.io/p5-Riji/blog:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。</p>
 
 <p><img src="http://songmu.github.io/p5-Riji/blog/static/002edit.png" alt="edit" /></p>
 
@@ -271,7 +271,7 @@ Rijiを使ってBlogを開設しました。
 <ul>
 <li>jQuery</li>
 <li>Google Code Prettify</li>
-<li>Boogstrap</li>
+<li>Bootstrap</li>
 </ul>
 
 
@@ -312,7 +312,7 @@ share/tmpl
 
 <h2>Kolonのシンタックスについて</h2>
 
-<p>詳しくは<a href="http://xslate.org/">公式ページ</a>から辿れるドキュメント等に説明を譲りますが、KolonはPerl6ライクな文法を提供するテンプレートエンジンになっています。各変数の頭には<code>$</code>がついています。一度代入した変数には最大入不可能であることに注意して下さい。以下のようにすることで変数の中見を描画することができます。</p>
+<p>詳しくは<a href="http://xslate.org/">公式ページ</a>から辿れるドキュメント等に説明を譲りますが、KolonはPerl6ライクな文法を提供するテンプレートエンジンになっています。各変数の頭には<code>$</code>がついています。一度代入した変数には再代入不可能であることに注意して下さい。以下のようにすることで変数の中見を描画することができます。</p>
 
 <pre><code>&lt;: $bar :&gt;
 </code></pre>

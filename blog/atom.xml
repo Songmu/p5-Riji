@@ -3,9 +3,147 @@
 <title>Riji tutorial</title>
 <link rel="alternate" href="http://songmu.github.io/p5-Riji/blog/" />
 <author>Songmu</author>
-<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.7">Perl Riji</generator>
+<generator uri="https://github.com/Songmu/p5-Riji" version="0.0.10">Perl Riji</generator>
 <id>tag:songmu.github.io,2013-07-29:p5-Riji-blog:</id>
-<updated>2013-08-10T19:53:54+09:00</updated>
+<updated>2013-09-22T13:16:57+09:00</updated>
+<entry>
+<title type="text">005. テンプレートファイルの編集</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/005_template.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
+<content><![CDATA[<h1>005. テンプレートファイルの編集</h1>
+
+<p>前回、静的ファイルを配置する方法について説明しましたが、今回はいよいよテンプレートファイルの編集を行います。これでひと通りRijiの基本機能をマスターして、自分のBlogサイトを構築できるようになるでしょう。</p>
+
+<h2>テンプレートディレクトリ</h2>
+
+<p>テンプレートはshare/tmplに配置します。初期状態では以下のようになっています。</p>
+
+<pre><code>% tree share/tmpl
+share/tmpl
+├── base.tx
+├── default.tx
+├── entry.tx
+├── index.tx
+└── tag.tx
+</code></pre>
+
+<p>テンプレートにはPerlの高速テンプレートエンジンである<a href="http://xslate.org/">Xslate</a>を採用しており、拡張子は.txとなっています。Xslateにはいくつかシンタックスがあるのですが、Rijiでは標準のシンタックスである"Kolon"を利用しています。</p>
+
+<h2>Kolonのシンタックスについて</h2>
+
+<p>詳しくは<a href="http://xslate.org/">公式ページ</a>から辿れるドキュメント等に説明を譲りますが、KolonはPerl6ライクな文法を提供するテンプレートエンジンになっています。各変数の頭には<code>$</code>がついています。一度代入した変数には再代入不可能であることに注意して下さい。以下のようにすることで変数の中見を描画することができます。</p>
+
+<pre><code>&lt;: $bar :&gt;
+</code></pre>
+
+<p>Rijiではテンプレート描画時にテンプレートに自動的にいくつかの変数が渡されます。</p>
+
+<h2>初期テンプレートの役割について</h2>
+
+<h3>base.tx</h3>
+
+<p>ベースのテンプレートです。Xslateにはテンプレート継承という概念があり、base.txはすべての継承元のテンプレートとして使うことが想定されています。もちろんそれに強制的に従う必要はありません。</p>
+
+<p>すべてのページには変数<code>$blog</code>が渡されますが、このページでもその変数を使うことができます。</p>
+
+<h3>default.tx</h3>
+
+<p>標準のテンプレートです。article直下のmdファイルに対応するコンテンツを描画するのに利用されます。<code>riji setup</code>でarticle/archives.md というファイルが作られて、archives.html というアドレスでアクセス可能になっているかと思いますが、それはこのテンプレートを使って描画されています。</p>
+
+<p><code>$blog</code>の他に<code>$article</code>という変数が渡されます。</p>
+
+<h3>entry.tx</h3>
+
+<p>ブログエントリー描画用のテンプレートです。中見を見るとわかると思いますが、標準で前後のエントリーへのリンクなどが記述されていることが分かるでしょう。</p>
+
+<p><code>$blog</code>の他に<code>$entry</code>という変数が渡されます。</p>
+
+<h3>index.tx</h3>
+
+<p>ブログの全体トップページ用のテンプレートです。</p>
+
+<p><code>$blog</code>の他に<code>$article</code>という変数が渡されます。</p>
+
+<h3>tag.tx</h3>
+
+<p>タグページ用のテンプレートです。タグとは何でしょうか？</p>
+
+<p>実はRijiではBlogエントリにタグを付けることができるのですが、今回はそれには触れません。</p>
+
+<p><code>$blog</code>の他に<code>$tag</code>という変数が渡されます。</p>
+
+<h2>変数について</h2>
+
+<p>自動的に渡されるそれぞれの変数には様々なプロパティやメソッドがぶら下がっています。どんなプロパティやメソッドがあるかはここでは細かくは触れませんが、初期テンプレートの中見を見て参考にしてみて下さい。余力があればRiji本体のソースコードを読んでみて下さい。</p>
+
+<h2>mdファイル内でのXslate記述について</h2>
+
+<p>MarkdownはHTMLを直接記載可能なマークアップ書式であり、かつ、mdファイルの中でXslateの記法も使えることは前回説明したとおりなので、結構複雑なテンプレートをmdファイルの上に書くことも可能です。あまりオススメはしません。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>テンプレートの編集まで終わり、ひと通りサイトを編集できるようになったと思います。次回はブログ記事にメタ情報を付加する方法について説明します。今回触れられなかったタグについても取り上げます。</p>
+
+<p><a href="http://songmu.github.io/p5-Riji/blog/entry/006_header.html">006. ヘッダーセクションを利用したブログ記事へのタグやメタ情報の追加</a></p>
+]]></content>
+<id>tag:songmu.github.io,2013-07-31:p5-Riji-blog:entry-005_template.html</id>
+<published>2013-07-31T23:23:54+0900</published>
+<updated>2013-09-22T13:16:57+09:00</updated>
+</entry>
+<entry>
+<title type="text">004. 静的ファイルの配置と配信</title>
+<link href="http://songmu.github.io/p5-Riji/blog/entry/004_static.html" />
+<author>
+<name>Masayuki Matsuki</name>
+</author>
+<content><![CDATA[<h1>004. 静的ファイルの配置と配信</h1>
+
+<p>サイトは公開したものの、デフォルトのイケてないデザインを画像やCSSを使って調整したいと思うでしょう。今回は静的ファイルの配置について説明します。</p>
+
+<h2>配置ディレクトリ</h2>
+
+<p>静的ファイルは share/static ディレクトリ以下に配置するルールになっています。そこに配置したファイルは /static/image.jpg と言ったURLでアクセス可能となります。share/static/img, share/static/css, share/static/jsなどとディレクトリを掘るのがお行儀が良いかも知れません。</p>
+
+<p>配置した画像は以下のようにすれば、Blogエントリーから参照可能です。</p>
+
+<pre><code>![画像](&lt;: '/static/hoge.png' | uri_for :&gt;)
+</code></pre>
+
+<p>なんとテンプレートに使われているXslateの記法をmdファイル内でも使えるのが無理矢理なおしゃれポイントです。<code>uri_for</code>を使う必要は必ずしもありませんが、ディレクトリの深さが異なる環境で動かした場合にリンクが切れたりする可能性があるので、なるべく丁寧に指定したほうが良いでしょう。</p>
+
+<h2>デフォルトテンプレートで使われているCSS, JSについて</h2>
+
+<p>デフォルトのテンプレートでは以下のライブラリが使われています。</p>
+
+<ul>
+<li>jQuery</li>
+<li>Google Code Prettify</li>
+<li>Bootstrap</li>
+</ul>
+
+
+<p>色々めんどくさいので同梱はせずに外部リソースに直接向ける形になっています。パーソナルユースだったら十分かなと思います。BootstrapのCDNは公式じゃなかったりして若干不安もありますが、気になるようでしたら自分で適宜テンプレートを調整して下さい。</p>
+
+<h2>favicon.ico</h2>
+
+<p>ちょっとした例外として、favicon.icoはtmpl/static/favicon.ico に配置すれば<code>'/favicon.ico' | uri_for</code>で参照できるようになっています。</p>
+
+<p>今回はここまでです。</p>
+
+<h2>次回の内容</h2>
+
+<p>静的ファイルを配置したら、今度はhtmlを編集したくなってくるでしょう。次回はテンプレートの編集について説明します。</p>
+
+<p><a href="http://songmu.github.io/p5-Riji/blog/entry/005_template.html">005. テンプレートファイルの編集</a></p>
+]]></content>
+<id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-004_static.html</id>
+<published>2013-07-30T21:21:51+0900</published>
+<updated>2013-09-22T13:16:57+09:00</updated>
+</entry>
 <entry>
 <title type="text">002. Blog設定と記事の作成</title>
 <link href="http://songmu.github.io/p5-Riji/blog/entry/002_edit.html" />
@@ -50,7 +188,7 @@ Rijiを使ってBlogを開設しました。
 
 <p>編集はMarkdown形式でおこないます。<a href="http://www.pell.portland.or.us/~orc/Code/discount/">Discount</a>というMarkdownパーサーがデフォルトで使われます。github flavored markdownと比較的互換があると思います。</p>
 
-<p>さて、編集を終えたら、例に因って記事をコミットしてください。それから<code>riji server</code>をたちあげて、http://localhost:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。</p>
+<p>さて、編集を終えたら、例に因って記事をコミットしてください。それから<code>riji server</code>をたちあげて、http://songmu.github.io/p5-Riji/blog:3650/entry/start.html にアクセスしてみましょう。以下の様な画面が表示されていればOKです。</p>
 
 <p><img src="http://songmu.github.io/p5-Riji/blog/static/002edit.png" alt="edit" /></p>
 
@@ -84,56 +222,6 @@ Rijiを使ってBlogを開設しました。
 <id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-002_edit.html</id>
 <published>2013-07-30T00:00:07+0900</published>
 <updated>2013-08-10T19:53:54+09:00</updated>
-</entry>
-<entry>
-<title type="text">004. 静的ファイルの配置と配信</title>
-<link href="http://songmu.github.io/p5-Riji/blog/entry/004_static.html" />
-<author>
-<name>Masayuki Matsuki</name>
-</author>
-<content><![CDATA[<h1>004. 静的ファイルの配置と配信</h1>
-
-<p>サイトは公開したものの、デフォルトのイケてないデザインを画像やCSSを使って調整したいと思うでしょう。今回は静的ファイルの配置について説明します。</p>
-
-<h2>配置ディレクトリ</h2>
-
-<p>静的ファイルは share/static ディレクトリ以下に配置するルールになっています。そこに配置したファイルは /static/image.jpg と言ったURLでアクセス可能となります。share/static/img, share/static/css, share/static/jsなどとディレクトリを掘るのがお行儀が良いかも知れません。</p>
-
-<p>配置した画像は以下のようにすれば、Blogエントリーから参照可能です。</p>
-
-<pre><code>![画像](&lt;: '/static/hoge.png' | uri_for :&gt;)
-</code></pre>
-
-<p>なんとテンプレートに使われているXslateの記法をmdファイル内でも使えるのが無理矢理なおしゃれポイントです。<code>uri_for</code>を使う必要は必ずしもありませんが、ディレクトリの深さが異なる環境で動かした場合にリンクが切れたりする可能性があるので、なるべく丁寧に指定したほうが良いでしょう。</p>
-
-<h2>デフォルトテンプレートで使われているCSS, JSについて</h2>
-
-<p>デフォルトのテンプレートでは以下のライブラリが使われています。</p>
-
-<ul>
-<li>jQuery</li>
-<li>Google Code Prettify</li>
-<li>Boogstrap</li>
-</ul>
-
-
-<p>色々めんどくさいので同梱はせずに外部リソースに直接向ける形になっています。パーソナルユースだったら十分かなと思います。BootstrapのCDNは公式じゃなかったりして若干不安もありますが、気になるようでしたら自分で適宜テンプレートを調整して下さい。</p>
-
-<h2>favicon.ico</h2>
-
-<p>ちょっとした例外として、favicon.icoはtmpl/static/favicon.ico に配置すれば<code>'/favicon.ico' | uri_for</code>で参照できるようになっています。</p>
-
-<p>今回はここまでです。</p>
-
-<h2>次回の内容</h2>
-
-<p>静的ファイルを配置したら、今度はhtmlを編集したくなってくるでしょう。次回はテンプレートの編集について説明します。</p>
-
-<p><a href="http://songmu.github.io/p5-Riji/blog/entry/005_template.html">005. テンプレートファイルの編集</a></p>
-]]></content>
-<id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-004_static.html</id>
-<published>2013-07-30T21:21:51+0900</published>
-<updated>2013-07-31T10:22:29+09:00</updated>
 </entry>
 <entry>
 <title type="text">007. 落穂拾い</title>
@@ -334,7 +422,7 @@ paginate: ~
 HTTP::Server::PSGI: Accepting connections at http://0:3650/
 </code></pre>
 
-<p>3650番ポートでサーバーが起動するので、http://localhost:3650 にアクセスしてみてください。以下の様に表示されればOKです。</p>
+<p>3650番ポートでサーバーが起動するので、http://songmu.github.io/p5-Riji/blog:3650 にアクセスしてみてください。以下の様に表示されればOKです。</p>
 
 <p><img src="http://songmu.github.io/p5-Riji/blog/static/001setup.png" alt="setup" /></p>
 
@@ -353,94 +441,6 @@ HTTP::Server::PSGI: Accepting connections at http://0:3650/
 <id>tag:songmu.github.io,2013-07-30:p5-Riji-blog:entry-001_setup.html</id>
 <published>2013-07-30T22:22:26+0900</published>
 <updated>2013-07-31T02:32:41+09:00</updated>
-</entry>
-<entry>
-<title type="text">005. テンプレートファイルの編集</title>
-<link href="http://songmu.github.io/p5-Riji/blog/entry/005_template.html" />
-<author>
-<name>Masayuki Matsuki</name>
-</author>
-<content><![CDATA[<h1>005. テンプレートファイルの編集</h1>
-
-<p>前回、静的ファイルを配置する方法について説明しましたが、今回はいよいよテンプレートファイルの編集を行います。これでひと通りRijiの基本機能をマスターして、自分のBlogサイトを構築できるようになるでしょう。</p>
-
-<h2>テンプレートディレクトリ</h2>
-
-<p>テンプレートはshare/tmplに配置します。初期状態では以下のようになっています。</p>
-
-<pre><code>% tree share/tmpl
-share/tmpl
-├── base.tx
-├── default.tx
-├── entry.tx
-├── index.tx
-└── tag.tx
-</code></pre>
-
-<p>テンプレートにはPerlの高速テンプレートエンジンである<a href="http://xslate.org/">Xslate</a>を採用しており、拡張子は.txとなっています。Xslateにはいくつかシンタックスがあるのですが、Rijiでは標準のシンタックスである"Kolon"を利用しています。</p>
-
-<h2>Kolonのシンタックスについて</h2>
-
-<p>詳しくは<a href="http://xslate.org/">公式ページ</a>から辿れるドキュメント等に説明を譲りますが、KolonはPerl6ライクな文法を提供するテンプレートエンジンになっています。各変数の頭には<code>$</code>がついています。一度代入した変数には最大入不可能であることに注意して下さい。以下のようにすることで変数の中見を描画することができます。</p>
-
-<pre><code>&lt;: $bar :&gt;
-</code></pre>
-
-<p>Rijiではテンプレート描画時にテンプレートに自動的にいくつかの変数が渡されます。</p>
-
-<h2>初期テンプレートの役割について</h2>
-
-<h3>base.tx</h3>
-
-<p>ベースのテンプレートです。Xslateにはテンプレート継承という概念があり、base.txはすべての継承元のテンプレートとして使うことが想定されています。もちろんそれに強制的に従う必要はありません。</p>
-
-<p>すべてのページには変数<code>$blog</code>が渡されますが、このページでもその変数を使うことができます。</p>
-
-<h3>default.tx</h3>
-
-<p>標準のテンプレートです。article直下のmdファイルに対応するコンテンツを描画するのに利用されます。<code>riji setup</code>でarticle/archives.md というファイルが作られて、archives.html というアドレスでアクセス可能になっているかと思いますが、それはこのテンプレートを使って描画されています。</p>
-
-<p><code>$blog</code>の他に<code>$article</code>という変数が渡されます。</p>
-
-<h3>entry.tx</h3>
-
-<p>ブログエントリー描画用のテンプレートです。中見を見るとわかると思いますが、標準で前後のエントリーへのリンクなどが記述されていることが分かるでしょう。</p>
-
-<p><code>$blog</code>の他に<code>$entry</code>という変数が渡されます。</p>
-
-<h3>index.tx</h3>
-
-<p>ブログの全体トップページ用のテンプレートです。</p>
-
-<p><code>$blog</code>の他に<code>$article</code>という変数が渡されます。</p>
-
-<h3>tag.tx</h3>
-
-<p>タグページ用のテンプレートです。タグとは何でしょうか？</p>
-
-<p>実はRijiではBlogエントリにタグを付けることができるのですが、今回はそれには触れません。</p>
-
-<p><code>$blog</code>の他に<code>$tag</code>という変数が渡されます。</p>
-
-<h2>変数について</h2>
-
-<p>自動的に渡されるそれぞれの変数には様々なプロパティやメソッドがぶら下がっています。どんなプロパティやメソッドがあるかはここでは細かくは触れませんが、初期テンプレートの中見を見て参考にしてみて下さい。余力があればRiji本体のソースコードを読んでみて下さい。</p>
-
-<h2>mdファイル内でのXslate記述について</h2>
-
-<p>MarkdownはHTMLを直接記載可能なマークアップ書式であり、かつ、mdファイルの中でXslateの記法も使えることは前回説明したとおりなので、結構複雑なテンプレートをmdファイルの上に書くことも可能です。あまりオススメはしません。</p>
-
-<p>今回はここまでです。</p>
-
-<h2>次回の内容</h2>
-
-<p>テンプレートの編集まで終わり、ひと通りサイトを編集できるようになったと思います。次回はブログ記事にメタ情報を付加する方法について説明します。今回触れられなかったタグについても取り上げます。</p>
-
-<p><a href="http://songmu.github.io/p5-Riji/blog/entry/006_header.html">006. ヘッダーセクションを利用したブログ記事へのタグやメタ情報の追加</a></p>
-]]></content>
-<id>tag:songmu.github.io,2013-07-31:p5-Riji-blog:entry-005_template.html</id>
-<published>2013-07-31T23:23:54+0900</published>
-<updated>2013-07-31T01:53:54+09:00</updated>
 </entry>
 <entry>
 <title type="text">003. Blogの書き出しと公開</title>
