@@ -31,8 +31,9 @@ has markupper => (
     is      => 'ro',
     isa     => 'Text::Markup::Any',
     default => sub {
-        my $obj = Text::Markup::Any->new('Text::Markdown::Discount');
-        Text::Markdown::Discount::with_html5_tags();
+        my $markupper = Riji->config->{markup} || 'Text::Markdown::Discount';
+        my $obj = Text::Markup::Any->new($markupper);
+        Text::Markdown::Discount::with_html5_tags() if $markupper eq 'Text::Markdown::Discount';
         $obj;
     },
     handles => [qw/markup/],
