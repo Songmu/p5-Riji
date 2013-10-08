@@ -6,9 +6,7 @@
   <link rel="alternate" type="application/atom+xml" title="Atom" href="<: '/atom.xml' | uri_for :>">
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
   <title>
-  : block title -> {
-    <: $blog.title :>
-  :  }
+    <: block title -> { :><: $blog.title :><: } :>
   </title>
 </head>
 <body>

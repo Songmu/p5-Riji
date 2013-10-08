@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.11 2013-10-08T17:05:49Z
+
+    - add $config->{markup} (now, you can use Text::Markdown::Hoedown! etc.)
+
 0.0.10 2013-09-10T03:17:24Z
 
     - refactor CLI::Publish/CLI::Setup
