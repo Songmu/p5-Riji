@@ -10,7 +10,9 @@ Riji - Simple, git based blog tool
 
 # TUTORIAL
 
-[http://songmu.github.io/p5-Riji/blog/](http://songmu.github.io/p5-Riji/blog/) japanese only...
+Japanese: [http://songmu.github.io/p5-Riji/blog/](http://songmu.github.io/p5-Riji/blog/)
+
+English [http://perlmaven.com/blogging-with-riji](http://perlmaven.com/blogging-with-riji)
 
 # DESCRIPTION
 
@@ -26,6 +28,10 @@ Copyright (C) Masayuki Matsuki.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
+
+# THANKS
+
+Thanks to Gabor Szabo <szabgab@gmail.com> for great English tutorial.
 
 # AUTHOR
 

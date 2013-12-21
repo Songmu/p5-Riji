@@ -107,7 +107,9 @@ Riji - Simple, git based blog tool
 
 =head1 TUTORIAL
 
-L<http://songmu.github.io/p5-Riji/blog/> japanese only...
+Japanese: L<http://songmu.github.io/p5-Riji/blog/>
+
+English L<http://perlmaven.com/blogging-with-riji>
 
 =head1 DESCRIPTION
 
@@ -123,6 +125,10 @@ Copyright (C) Masayuki Matsuki.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
+
+=head1 THANKS
+
+Thanks to Gabor Szabo E<lt>szabgab@gmail.comE<gt> for great English tutorial.
 
 =head1 AUTHOR
 
