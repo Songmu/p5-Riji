@@ -18,8 +18,8 @@ sub run {
     my $conf = $app->config;
 
     say "start downloading";
-    my $replace_from = quotemeta '="http://localhost';
-    my $replace_to   = '="' . $conf->{site_url};
+    my $replace_from = quotemeta "http://localhost";
+    my $replace_to   = $conf->{site_url};
        $replace_to =~ s!/+$!!;
 
     my $dir = $conf->{publish_dir} // 'blog';
