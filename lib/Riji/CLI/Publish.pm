@@ -16,8 +16,23 @@ sub run {
 
     my $app = Riji->new;
     my $conf = $app->config;
+    my $repo = $app->model('Blog')->repo;
 
-    say "start downloading";
+    my $current_branch = $repo->run(qw/symbolic-ref --short HEAD/);
+    my $publish_branch = $app->model('Blog')->branch;
+    if ($publish_branch ne $current_branch) {
+        die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n";
+    }
+
+    if ( my $untracked = $repo->run(qw/ls-files --others --exclude-standard/) ) {
+        die "Unknown local files:\n$untracked\n\nUpdate .gitignore, or git add them\n";
+    }
+
+    if (my $uncommited = $repo->run(qw/diff head --name-only/) ) {
+        die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n";
+    }
+
+    say "start scanning";
     my $replace_from = quotemeta "http://localhost";
     my $replace_to   = $conf->{site_url};
        $replace_to =~ s!/+$!!;
