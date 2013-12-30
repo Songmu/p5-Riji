@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.12 2013-12-30T05:41:44Z
+
+    - add repository status checks when `riji publish`
+
 0.0.11 2013-10-08T17:05:49Z
 
     - add $config->{markup} (now, you can use Text::Markdown::Hoedown! etc.)
