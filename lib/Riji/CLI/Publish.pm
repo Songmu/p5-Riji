@@ -28,7 +28,7 @@ sub run {
         die "Unknown local files:\n$untracked\n\nUpdate .gitignore, or git add them\n";
     }
 
-    if (my $uncommited = $repo->run(qw/diff head --name-only/) ) {
+    if (my $uncommited = $repo->run(qw/diff HEAD --name-only/) ) {
         die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n";
     }
 
