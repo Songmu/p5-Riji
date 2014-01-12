@@ -2,6 +2,8 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.13 2014-01-12T03:43:21Z
+
     - [bugfix] riji publish failed in some Operating systems which has case-sensitive filesystem (tsucchi)
 
 0.0.12 2013-12-30T05:41:44Z
