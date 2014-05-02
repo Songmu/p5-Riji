@@ -90,24 +90,6 @@ get '/atom.xml' => sub {
     $c->create_response(200, ['Content-Type' => 'application/atom+xml'], [encode($c->encoding, $xml)]);
 };
 
-sub res_404 {
-    my $c = shift;
-
-    my $blog = $c->model('Blog');
-    return $c->try_render($c->req->path_info, { blog => $blog }) || $c->SUPER::res_404;
-}
-
-sub try_render {
-    my ($c, $tmpl, $param) = @_;
-    $param ||= {};
-    $tmpl =~ s/\.html\z/.tx/;
-    $tmpl .= '.tx' unless $tmpl =~ /\.tx$/;
-    for my $dir (@{ $c->template_dir }) {
-        return $c->render($tmpl, $param) if -f File::Spec->catfile($dir, $tmpl);
-    }
-    return;
-}
-
 1;
 __END__
 
