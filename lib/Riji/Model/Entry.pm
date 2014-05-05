@@ -16,7 +16,8 @@ has repo_path => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        $self->file_path->relative($self->base_dir)
+        my $repo_dir = $self->repo->run(qw/rev-parse --show-toplevel/);
+        $self->file_path->relative($repo_dir)
     },
 );
 
