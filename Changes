@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.0.14 2014-05-06T04:29:06Z
+
+    - [bugfix] Set more exact repository path if when `base_dir` is different from `repo_dir` (karupanerura)
+
 0.0.13 2014-01-12T03:43:21Z
 
     - [bugfix] riji publish failed in some Operating systems which has case-sensitive filesystem (tsucchi)
