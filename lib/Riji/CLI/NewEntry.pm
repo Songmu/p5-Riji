@@ -13,8 +13,10 @@ sub run {
     die "subtitle: $subtitle is not valid\n" if $subtitle && $subtitle =~ /[^-_a-zA-Z0-9]/;
 
     my $now = localtime;
+    my $dir = path('article/entry');
+    $dir->mkpath unless $dir->exists;
     my $date_str = $now->strftime('%Y-%m-%d');
-    my $file_format = "article/entry/$date_str-%s.md";
+    my $file_format = "$dir/$date_str-%s.md";
     my $file;
     if ($subtitle) {
         $file = path(sprintf $file_format, $subtitle);
