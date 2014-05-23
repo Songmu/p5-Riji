@@ -75,7 +75,9 @@
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "Scope::Guard" : "0",
+            "Test::More" : "0.98",
+            "Test::Output" : "0"
          }
       }
    },
@@ -91,9 +93,10 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "0.1.0",
+   "version" : "0.1.1",
    "x_contributors" : [
       "Takuya Tsuchida <tsucchi@cpan.org>",
-      "karupanerura <karupa@cpan.org>"
+      "karupanerura <karupa@cpan.org>",
+      "monmon <lesamoureuses@gmail.com>"
    ]
 }

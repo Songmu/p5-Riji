@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+0.1.1 2014-05-23T10:50:25Z
+
+    - create dir unless article/entry (monmon++)
+
 0.1.0 2014-05-17T08:17:13Z
 
     - depends on Puncheur 0.1.0
