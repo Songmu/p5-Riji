@@ -20,7 +20,7 @@ Riji is a simple and git based blog tool.
 
 'Riji' means diary in Chinese.
 
-__THE SOFTWARE IS ALPHA QUALITY. API MAY CHANGE WITHOUT NOTICE.__
+**THE SOFTWARE IS ALPHA QUALITY. API MAY CHANGE WITHOUT NOTICE.**
 
 # LICENSE
 

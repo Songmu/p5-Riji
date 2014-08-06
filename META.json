@@ -4,7 +4,7 @@
       "Masayuki Matsuki <y.songmu@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.15.2, CPAN::Meta::Converter version 2.141170",
+   "generated_by" : "Minilla/v2.1.1, CPAN::Meta::Converter version 2.140640",
    "license" : [
       "perl_5"
    ],
@@ -93,7 +93,7 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "0.1.1",
+   "version" : "0.1.2",
    "x_contributors" : [
       "Takuya Tsuchida <tsucchi@cpan.org>",
       "karupanerura <karupa@cpan.org>",
