@@ -7,7 +7,7 @@ use Encode;
 use File::Spec;
 use YAML::Tiny ();
 
-our $VERSION = '0.1.2';
+our $VERSION = '0.1.3';
 
 __PACKAGE__->setting(
     handle_static => 1,
