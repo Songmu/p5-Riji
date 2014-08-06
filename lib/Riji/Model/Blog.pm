@@ -5,7 +5,7 @@ use warnings;
 
 use File::Spec;
 use Git::Repository 'FileHistory';
-use List::UtilsBy qw/rev_sort_by rev_nsort_by/;
+use List::UtilsBy qw/rev_sort_by rev_nsort_by sort_by/;
 use Path::Tiny 'path';
 
 use Riji::Model::Atom;
@@ -109,7 +109,7 @@ has tags => (
     isa     => 'ArrayRef[Riji::Model::Tag]',
     lazy    => 1,
     default => sub {
-        [rev_nsort_by {$_->count} values %{ shift->tag_map }]
+        [rev_nsort_by {$_->count} sort_by {$_->name} values %{ shift->tag_map }]
     },
 );
 
