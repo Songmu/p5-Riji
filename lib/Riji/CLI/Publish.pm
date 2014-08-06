@@ -18,7 +18,9 @@ sub run {
     my $conf = $app->config;
     my $repo = $app->model('Blog')->repo;
 
-    my $current_branch = $repo->run(qw/symbolic-ref --short HEAD/);
+    # `git symbolic-ref --short` is available after git 1.7.10, so care older version.
+    my $current_branch = $repo->run(qw/symbolic-ref HEAD/);
+       $current_branch =~ s!refs/heads/!!;
     my $publish_branch = $app->model('Blog')->branch;
     if ($publish_branch ne $current_branch) {
         die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n";
