@@ -17,21 +17,24 @@ sub run {
     my $app = Riji->new;
     my $conf = $app->config;
     my $repo = $app->model('Blog')->repo;
+    my $is_force = grep /^--force$/, @argv;
 
     # `git symbolic-ref --short` is available after git 1.7.10, so care older version.
     my $current_branch = $repo->run(qw/symbolic-ref HEAD/);
        $current_branch =~ s!refs/heads/!!;
     my $publish_branch = $app->model('Blog')->branch;
-    if ($publish_branch ne $current_branch) {
-        die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n";
-    }
+    unless($is_force){
+        if ($publish_branch ne $current_branch) {
+            die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n";
+        }
 
-    if ( my $untracked = $repo->run(qw/ls-files --others --exclude-standard/) ) {
-        die "Unknown local files:\n$untracked\n\nUpdate .gitignore, or git add them\n";
-    }
+        if ( my $untracked = $repo->run(qw/ls-files --others --exclude-standard/) ) {
+            die "Unknown local files:\n$untracked\n\nUpdate .gitignore, or git add them\n";
+        }
 
-    if (my $uncommited = $repo->run(qw/diff HEAD --name-only/) ) {
-        die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n";
+        if (my $uncommited = $repo->run(qw/diff HEAD --name-only/) ) {
+            die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n";
+        }
     }
 
     say "start scanning";
