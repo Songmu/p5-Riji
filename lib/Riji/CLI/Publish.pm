@@ -17,13 +17,13 @@ sub run {
     my $app = Riji->new;
     my $conf = $app->config;
     my $repo = $app->model('Blog')->repo;
-    my $is_force = grep /^--force$/, @argv;
+    my $force = grep {$_ eq '--force'} @argv;
 
     # `git symbolic-ref --short` is available after git 1.7.10, so care older version.
     my $current_branch = $repo->run(qw/symbolic-ref HEAD/);
        $current_branch =~ s!refs/heads/!!;
     my $publish_branch = $app->model('Blog')->branch;
-    unless($is_force){
+    unless($force){
         if ($publish_branch ne $current_branch) {
             die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n";
         }
