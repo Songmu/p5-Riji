@@ -24,9 +24,9 @@ requires 'URI';
 requires 'URI::tag';
 requires 'XML::FeedPP';
 requires 'YAML::Tiny';
-requires 'perl', '5.010';
 
 on configure => sub {
+    requires 'perl', '5.010';
     requires 'CPAN::Meta';
     requires 'CPAN::Meta::Prereqs';
     requires 'Module::Build';
