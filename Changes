@@ -2,6 +2,11 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.2.0 2014-12-26T06:39:52Z
+
+    - [Experimental][feature] riji publish --force (trapple++)
+    - change version declaration way
+
 0.1.3 2014-08-06T10:15:59Z
 
     - `git symbolic-ref --short` is available after git 1.7.10, so care older version when publishing.
