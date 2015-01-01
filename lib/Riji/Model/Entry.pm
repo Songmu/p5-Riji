@@ -43,17 +43,6 @@ has site_path => (
     },
 );
 
-has url => (
-    is      => 'ro',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        my $root = $self->site_url;
-        $root =~ s!/+$!!;
-        $root . $self->site_path;
-    },
-);
-
 has tag_uri => (
     is      => 'ro',
     lazy    => 1,
