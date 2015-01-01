@@ -4,8 +4,10 @@ use strict;
 use warnings;
 
 use Errno qw(:POSIX);
-use Path::Tiny;
-use Wallflower;
+use Path::Tiny qw/path tempdir/;
+use File::Copy::Recursive qw/dircopy/;
+
+use Riji::CLI::Publish::Scanner;
 use Wallflower::Util qw/links_from/;
 use URI;
 
@@ -42,20 +44,33 @@ sub run {
     my $replace_to   = $conf->{site_url};
        $replace_to =~ s!/+$!!;
 
+    my $site_url = URI->new($conf->{site_url});
+
     my $dir = $conf->{publish_dir} // 'blog';
     unless (mkdir $dir or $! == EEXIST ){
         printf "can't create $dir: $!\n";
     }
-    my $wallflower = Wallflower->new(
+
+    my $work_dir = tempdir(CLEANUP => 1);
+
+    my $mount_path = $site_url->path;
+       $mount_path = '' if $mount_path eq '/';
+
+    my $wallflower = Riji::CLI::Publish::Scanner->new(
         application => $app->to_psgi,
-        destination => $dir,
+        destination => $work_dir . '',
+        $mount_path ? (mount => $mount_path) : (),
+        server_name => $site_url->host,
+        $site_url->scheme ne 'http' ? (scheme => $site_url->scheme) : (),
     );
+    my $host_reg = quotemeta $site_url->host;
+
     my %seen;
-    my @queue = ('/');
+    my @queue = ($site_url->path || '/');
     while (@queue) {
         my $url = URI->new( shift @queue );
         next if $seen{ $url->path }++;
-        next if $url->scheme && ! eval { $url->host =~ /localhost/ };
+        next if $url->scheme && ! eval { $url->host =~ /(?:localhost|$host_reg)/ };
 
         # get the response
         my $response = $wallflower->get($url);
@@ -76,6 +91,15 @@ sub run {
             $file->spew_utf8($content);
         }
     }
+
+    my $copy_from = $work_dir;
+    if ($site_url->path !~ m!^/?$!) {
+        my $mount = $site_url->path;
+        $mount =~ s!^/+!!;
+        $copy_from = path($work_dir, $mount);
+    }
+    dircopy($copy_from.'', $dir);
+
     say "done.";
 }
 
