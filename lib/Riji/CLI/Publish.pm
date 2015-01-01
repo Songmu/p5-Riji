@@ -40,12 +40,6 @@ sub run {
     }
 
     say "start scanning";
-    my $replace_from = quotemeta "http://localhost";
-    my $replace_to   = $conf->{site_url};
-       $replace_to =~ s!/+$!!;
-
-    my $site_url = URI->new($conf->{site_url});
-
     my $dir = $conf->{publish_dir} // 'blog';
     unless (mkdir $dir or $! == EEXIST ){
         printf "can't create $dir: $!\n";
@@ -53,6 +47,7 @@ sub run {
 
     my $work_dir = tempdir(CLEANUP => 1);
 
+    my $site_url = URI->new($conf->{site_url});
     my $mount_path = $site_url->path;
        $mount_path = '' if $mount_path eq '/';
 
@@ -66,7 +61,7 @@ sub run {
     my $host_reg = quotemeta $site_url->host;
 
     my %seen;
-    my @queue = ($site_url->path || '/');
+    my @queue = ($mount_path || '/');
     while (@queue) {
         my $url = URI->new( shift @queue );
         next if $seen{ $url->path }++;
@@ -87,18 +82,16 @@ sub run {
         if ($file && $file =~ /\.(?:js|css|html|xml)$/) {
             $file = path($file);
             my $content = $file->slurp_utf8;
-            $content =~ s/$replace_from/$replace_to/msg;
             $file->spew_utf8($content);
         }
     }
 
     my $copy_from = $work_dir;
-    if ($site_url->path !~ m!^/?$!) {
-        my $mount = $site_url->path;
-        $mount =~ s!^/+!!;
-        $copy_from = path($work_dir, $mount);
+    if ($mount_path) {
+        $mount_path =~ s!^/+!!;
+        $copy_from = path $work_dir, $mount_path;
     }
-    dircopy($copy_from.'', $dir);
+    dircopy $copy_from.'', $dir;
 
     say "done.";
 }
