@@ -58,7 +58,7 @@
             "Object::Container" : "0",
             "Path::Tiny" : "0",
             "Plack" : "0",
-            "Puncheur" : "v0.1.0",
+            "Puncheur" : "v0.3.0",
             "Puncheur::Lite" : "0",
             "Puncheur::Runner" : "0",
             "Router::Boom::Method" : "0",
@@ -93,7 +93,7 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "v0.2.0",
+   "version" : "v0.3.0",
    "x_contributors" : [
       "Takuya Tsuchida <tsucchi@cpan.org>",
       "karupanerura <karupa@cpan.org>",

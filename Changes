@@ -2,6 +2,14 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.3.0 2015-01-01T18:53:51Z
+
+    - depends on Puncheur v0.3.0 or later
+    - remove urgency replacing urls processes
+    - add Riji::CLI::Publish::Scanner
+    - fix Article#site_path and remove Entry#site_path
+    - move `url` from Entry to Article.
+
 v0.2.0 2014-12-26T06:39:52Z
 
     - [Experimental][feature] riji publish --force (trapple++)

@@ -11,7 +11,7 @@ requires 'Mouse';
 requires 'Object::Container';
 requires 'Path::Tiny';
 requires 'Plack';
-requires 'Puncheur', '0.1.0';
+requires 'Puncheur', 'v0.3.0';
 requires 'Puncheur::Lite';
 requires 'Puncheur::Runner';
 requires 'Router::Boom::Method';

@@ -24,6 +24,7 @@ sub _application {
     $urlmap->to_app;
 }
 
+# most of code copied from Wallflower
 sub get {
     my ( $self, $uri ) = @_;
     $uri = URI->new($uri) if !ref $uri;
@@ -48,7 +49,7 @@ sub get {
         # request-related environment variables
         REQUEST_METHOD => 'GET',
 
-        # TODO properly deal with SCRIPT_NAME and PATH_INFO with mounts
+        # Plack::App::URLMap deal with SCRIPT_NAME and PATH_INFO with mounts
         SCRIPT_NAME     => '',
         PATH_INFO       => $uri->path,
         REQUEST_URI     => $uri->path,
