@@ -31,18 +31,6 @@ has file_history => (
     handles => [qw/created_by last_modified_by/],
 );
 
-has site_path => (
-    is      => 'ro',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        my $ext = quotemeta $self->article_ext;
-        my $site_path = $self->file_path->basename;
-        $site_path =~ s/\.$ext$//;
-        "/entry/$site_path.html";
-    },
-);
-
 has tag_uri => (
     is      => 'ro',
     lazy    => 1,
