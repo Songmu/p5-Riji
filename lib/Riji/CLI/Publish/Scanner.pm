@@ -67,7 +67,7 @@ sub get {
     $env->{HTTP_IF_MODIFIED_SINCE} = time2str( ( stat _ )[9] ) if -e $target;
 
     # fixup URI (needed to resolve relative URLs in retrieved documents)
-    $uri->scheme('http') if !$uri->scheme;
+    $uri->scheme($self->scheme || 'http') if !$uri->scheme;
     $uri->host( $env->{SERVER_NAME} ) if !$uri->host;
 
     # get the content
