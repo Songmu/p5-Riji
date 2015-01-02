@@ -7,11 +7,12 @@ use Errno qw(:POSIX);
 use Path::Tiny qw/path tempdir/;
 use File::Copy::Recursive qw/dircopy/;
 
-use Riji::CLI::Publish::Scanner;
 use Wallflower::Util qw/links_from/;
 use URI;
+use Path::Canonical ();
 
 use Riji;
+use Riji::CLI::Publish::Scanner;
 
 sub run {
     my ($class, @argv) = @_;
@@ -103,15 +104,10 @@ sub _expand_link {
         return $link
     }
 
-    $link =~ s!^(?:\./)+!!;
     $base =~ s![^/]+$!!;
-
-    while ($link =~ s!^\.\./!!) {
-        $link =~ s!^(?:\./)+!!;
-        $base =~ s![^/]+/$!!;
-    }
     $base .= '/' if $base !~ m!/$!;
-    $base . $link;
+
+    Path::Canonical::canon_path($base . $link)
 }
 
 1;

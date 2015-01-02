@@ -9,6 +9,7 @@ requires 'List::UtilsBy';
 requires 'MIME::Base32';
 requires 'Mouse';
 requires 'Object::Container';
+requires 'Path::Canonical';
 requires 'Path::Tiny';
 requires 'Plack';
 requires 'Puncheur', 'v0.3.0';
@@ -27,8 +28,6 @@ requires 'YAML::Tiny';
 
 on configure => sub {
     requires 'perl', '5.010';
-    requires 'CPAN::Meta';
-    requires 'CPAN::Meta::Prereqs';
     requires 'Module::Build';
 };
 
