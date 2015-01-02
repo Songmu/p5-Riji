@@ -1,3 +1,2 @@
 - entry.summary 出せるようにすると良いかも
 - pageの仕様とかを考えたい。page prev nextを持つオブジェクトを定義するとかなんとか
-- Markdown::Discount以外も使えるように
