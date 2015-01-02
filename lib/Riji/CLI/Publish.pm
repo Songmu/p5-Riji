@@ -76,7 +76,7 @@ sub run {
 
         # obtain links to resources
         if ( $status eq '200' ) {
-            push @queue, links_from( $response => $url );
+            push @queue, map { _expand_link($url->path, $_) } links_from( $response => $url );
         }
 
         if ($file && $file =~ /\.(?:js|css|html|xml)$/) {
@@ -94,6 +94,24 @@ sub run {
     dircopy $copy_from.'', $dir;
 
     say "done.";
+}
+
+sub _expand_link {
+    my ($base, $link) = @_;
+
+    if ($link =~ m!^[a-zA-Z0-9]+://! || $link =~ m!^/! ) {
+        return $link
+    }
+
+    $link =~ s!^(?:\./)+!!;
+    $base =~ s![^/]+$!!;
+
+    while ($link =~ s!^\.\./!!) {
+        $link =~ s!^(?:\./)+!!;
+        $base =~ s![^/]+/$!!;
+    }
+    $base .= '/' if $base !~ m!/$!;
+    $base . $link;
 }
 
 1;
