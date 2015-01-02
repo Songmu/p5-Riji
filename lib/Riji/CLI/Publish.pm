@@ -26,17 +26,18 @@ sub run {
     my $current_branch = $repo->run(qw/symbolic-ref HEAD/);
        $current_branch =~ s!refs/heads/!!;
     my $publish_branch = $app->model('Blog')->branch;
-    unless($force){
+    unless ($force){
+        my $force_announce = "or you can use --force option\n";
         if ($publish_branch ne $current_branch) {
-            die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n";
+            die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n$force_announce";
         }
 
         if ( my $untracked = $repo->run(qw/ls-files --others --exclude-standard/) ) {
-            die "Unknown local files:\n$untracked\n\nUpdate .gitignore, or git add them\n";
+            die "Unknown local files:\n$untracked\n\nUpdate .gitignore, git add them\n$force_announce";
         }
 
         if (my $uncommited = $repo->run(qw/diff HEAD --name-only/) ) {
-            die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n";
+            die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n$force_announce";
         }
     }
 
