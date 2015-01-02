@@ -44,6 +44,16 @@ sub run {
     copy(File::Spec->catfile($share_dir, 'riji.yml'), $setup_dir);
     copy(File::Spec->catfile($share_dir, 'README.md'), $setup_dir);
 
+    my $cpanfile = path($setup_dir, 'cpanfile');
+    unless (-f $cpanfile) {
+        $cpanfile->spew(qq{requires "Riji", "$Riji::VERSION";\n});
+    }
+
+    my $gitignore = path($setup_dir, '.gitignore');
+    unless (-f $gitignore) {
+        $gitignore->spew(".*\n!.gitignore\nlocal/\n*~\n*.swp\n");
+    }
+
     my $git = which 'git' or die "git not found.\n";
 
     unless (-e path($setup_dir)->child('.git')) {
