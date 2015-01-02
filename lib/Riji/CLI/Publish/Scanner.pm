@@ -44,7 +44,7 @@ sub get {
 
         # current instance defaults
         %{ $self->env },
-        ('psgi.url_scheme' => $self->scheme )x!! $self->scheme,
+        $self->scheme ? ('psgi.url_scheme' => $self->scheme) : (),
 
         # request-related environment variables
         REQUEST_METHOD => 'GET',
@@ -77,10 +77,10 @@ sub get {
     if ( ref $res eq 'ARRAY' ) {
         ( $status, $headers, $content ) = @$res;
     }
-    elsif ( ref $res eq 'CODE' ) {
-        croak "Delayed response and streaming not supported yet";
+    else {
+        carp "Unknown response from application: $uri -> $res\n";
+        return [$status, $headers, $file];
     }
-    else { croak "Unknown response from application: $res"; }
 
     # save the content to a file
     if ( $status eq '200' ) {
@@ -107,7 +107,8 @@ sub get {
             $content->close;
         }
         else {
-            croak "Don't know how to handle body: $content";
+            carp "Don't know how to handle body: $uri -> $content\n";
+            return [ $status, $headers, $file ];
         }
 
         # finish
