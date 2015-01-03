@@ -51,7 +51,7 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     });
 };
 
-get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
+get '/entry/{name:[-_a-zA-Z0-9/]+}.html' => sub {
     my ($c, $args) = @_;
 
     my $name = $args->{name};

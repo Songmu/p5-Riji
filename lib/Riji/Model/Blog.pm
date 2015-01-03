@@ -129,9 +129,16 @@ sub entries {
     $self->{entries} ||= [
         rev_sort_by { $_->published_at->datetime . $_->file }
         grep        { $_ && !$_->is_draft }
-        map         { $self->entry($_->basename) }
-        grep        { -f -r }
-        $self->entry_path->children
+        map         { $self->entry($_->relative($self->entry_path) .'') }
+        do {
+            my $itr = $self->entry_path->iterator({recurse => 1});
+            my @files;
+            while (my $file = $itr->()) {
+                next unless -f -r $file;
+                push @files, $file;
+            }
+            @files;
+        }
     ];
     return $self->{entries} unless @args;
 
