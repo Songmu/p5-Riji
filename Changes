@@ -2,6 +2,8 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+    - `git publish` is prohibited only when `entry_dir` is dirty index, not all files in repository
+
 v0.3.2 2015-01-02T15:41:48Z
 
     - riji setup now generates .gitignore and cpanfile
