@@ -42,7 +42,6 @@ has tag_uri_specific_prefix => (
     },
 );
 
-
 has article_dir => (
     is => 'ro',
     default => 'article',
@@ -59,6 +58,15 @@ has article_path => (
     default => sub {
         my $self = shift;
         path($self->base_dir, $self->article_dir);
+    },
+);
+
+has entry_path => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        path($self->base_dir, $self->entry_dir);
     },
 );
 
@@ -123,7 +131,7 @@ sub entries {
         grep        { $_ && !$_->is_draft }
         map         { $self->entry($_->basename) }
         grep        { -f -r }
-        $self->article_path->child('entry')->children
+        $self->entry_path->children
     ];
     return $self->{entries} unless @args;
 

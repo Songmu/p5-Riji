@@ -7,13 +7,17 @@ use File::Which qw/which/;
 use Path::Tiny;
 use Time::Piece;
 
+use Riji;
+
 sub run {
     my ($class, @argv) = @_;
     my $subtitle = shift @argv;
     die "subtitle: $subtitle is not valid\n" if $subtitle && $subtitle =~ /[^-_a-zA-Z0-9]/;
 
+    my $app = Riji->new;
+
     my $now = localtime;
-    my $dir = path('article/entry');
+    my $dir = $app->model('Blog')->entry_path;
     $dir->mkpath unless $dir->exists;
     my $date_str = $now->strftime('%Y-%m-%d');
     my $file_format = "$dir/$date_str-%s.md";
