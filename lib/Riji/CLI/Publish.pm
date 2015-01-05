@@ -9,7 +9,6 @@ use File::Copy::Recursive qw/dircopy/;
 
 use Wallflower::Util qw/links_from/;
 use URI;
-use Path::Canonical ();
 
 use Riji;
 use Riji::CLI::Publish::Scanner;
@@ -106,10 +105,7 @@ sub _expand_link {
         return $link
     }
 
-    $base =~ s![^/]+$!!;
-    $base .= '/' if $base !~ m!/$!;
-
-    Path::Canonical::canon_path($base . $link)
+    URI->new_abs($link, $base)->path;
 }
 
 1;

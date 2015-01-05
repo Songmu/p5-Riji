@@ -9,7 +9,6 @@ requires 'List::UtilsBy';
 requires 'MIME::Base32';
 requires 'Mouse';
 requires 'Object::Container';
-requires 'Path::Canonical';
 requires 'Path::Tiny';
 requires 'Plack';
 requires 'Puncheur', 'v0.3.0';
