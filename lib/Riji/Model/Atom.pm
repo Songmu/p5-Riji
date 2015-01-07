@@ -32,7 +32,7 @@ has entry_datas => (
                 pubDate     => $_->last_modified_at->epoch,
                 author      => $_->created_by,
                 guid        => $_->tag_uri->as_string,
-                published   => $_->published_at->strftime('%Y-%m-%dT%M:%M:%S%z'),
+                published   => $_->published_at->strftime('%Y-%m-%dT%H:%M:%S%z'),
                 link        => $_->url,
             } } @{ $self->blog->entries(sort_by => 'last_modified_at', limit => 20) }
         ]
