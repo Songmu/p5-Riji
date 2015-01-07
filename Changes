@@ -2,6 +2,11 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.4.1 2015-01-07T09:43:50Z
+
+    - Fix wrong date format in Atom (hitode909++)
+    - it is enough just to use URI->new_abs so remove deps Path::Canonical
+
 v0.4.0 2015-01-03T15:43:38Z
 
     - `git publish` is prohibited only when `entry_dir` is dirty index, not all files in repository
