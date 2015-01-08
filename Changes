@@ -2,9 +2,15 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.4.2 2015-01-08T07:20:32Z
+
+    - explicitly defined Riji->base_dir which is current directory
+    - [bugfix] skip scanning mailto: links in publish phase
+    - suppress exception in publish phase
+
 v0.4.1 2015-01-07T09:43:50Z
 
-    - Fix wrong date format in Atom (hitode909++)
+    - [bunfix] Fix wrong date format in Atom (hitode909++)
     - it is enough just to use URI->new_abs so remove deps Path::Canonical
 
 v0.4.0 2015-01-03T15:43:38Z
