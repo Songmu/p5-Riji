@@ -1,4 +1,5 @@
 package Riji;
+use 5.010;
 use strict;
 use warnings;
 use Puncheur::Lite;
@@ -13,6 +14,8 @@ __PACKAGE__->setting(
     handle_static => 1,
 );
 __PACKAGE__->load_plugins(qw/Model ShareDir/);
+
+sub base_dir { state $b = File::Spec->rel2abs('./') }
 
 sub load_config {
     my $self = shift;
