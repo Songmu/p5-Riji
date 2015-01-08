@@ -101,11 +101,15 @@ sub run {
 sub _expand_link {
     my ($base, $link) = @_;
 
+    if (ref($link) && !$link->isa('URI::http')) {
+        return ();
+    }
+
     if ($link =~ m!^[a-zA-Z0-9]+://! || $link =~ m!^/! ) {
         return $link
     }
 
-    URI->new_abs($link, $base)->path;
+    URI->new_abs($link, $base);
 }
 
 1;
