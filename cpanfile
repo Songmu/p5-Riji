@@ -1,5 +1,4 @@
 requires 'App::Wallflower';
-requires 'Data::Section::Simple';
 requires 'File::Copy::Recursive';
 requires 'File::Which';
 requires 'Git::Repository';
@@ -31,7 +30,8 @@ on configure => sub {
 };
 
 on test => sub {
+    requires 'File::pushd';
+    requires 'Scope::Guard';
     requires 'Test::More', '0.98';
     requires 'Test::Output';
-    requires 'File::pushd';
 };
