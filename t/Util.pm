@@ -13,7 +13,12 @@ sub cmd  {
     @ret{qw/stdout stderr exit_code/};
 }
 sub git  { cmd('git', @_) }
-sub riji { cmd('riji', @_) }
+
+my $lib = File::Spec->rel2abs('lib');
+my $bin = File::Spec->rel2abs('bin/riji');
+sub riji {
+    cmd($^X, "-I$lib", $bin, @_);
+}
 
 sub riji_setup {
     my $tmpd = tempd();

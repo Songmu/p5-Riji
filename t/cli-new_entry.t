@@ -3,7 +3,6 @@ use warnings;
 use utf8;
 use Test::More;
 use Test::Output;
-use FindBin;
 use Path::Tiny;
 
 use t::Util;
