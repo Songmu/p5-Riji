@@ -49,7 +49,7 @@ sub run {
 
     my $work_dir = tempdir(CLEANUP => 1);
 
-    my $site_url = URI->new($conf->{site_url});
+    my $site_url   = $blog->site_url;
     my $mount_path = $site_url->path;
        $mount_path = '' if $mount_path eq '/';
 
