@@ -110,6 +110,7 @@ has url => (
         $root . $self->site_path;
     },
 );
+sub permalink { goto \&url }
 
 #############
 # Meta datas:
