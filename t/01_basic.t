@@ -39,7 +39,7 @@ subtest 'riji setup' => sub {
         };
         path($new_md)->spew("# new!\n\nnew entry");
         git qw/add/, $new_md;
-        git qw/ci -m new!/;
+        git qw/commit -m new!/;
         my ($out, $err, $exit) = riji 'publish';
         for my $file (
             map { "blog/$_" } qw(archives.html index.html entry/sample.html entry/new.html atom.xml)

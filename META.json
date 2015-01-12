@@ -53,7 +53,7 @@
             "MIME::Base32" : "0",
             "Mouse" : "0",
             "Object::Container" : "0",
-            "Path::Tiny" : "0",
+            "Path::Tiny" : "0.061",
             "Plack" : "0",
             "Puncheur" : "v0.3.0",
             "Puncheur::Lite" : "0",
@@ -75,6 +75,7 @@
          "requires" : {
             "File::pushd" : "0",
             "Scope::Guard" : "0",
+            "Test::Mock::Guard" : "0",
             "Test::More" : "0.98",
             "Test::Output" : "0"
          }
