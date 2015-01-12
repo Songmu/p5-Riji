@@ -5,6 +5,8 @@ use utf8;
 
 use File::pushd qw/tempd/;
 use IPC::Cmd qw/run_forked/;
+use Test::Mock::Guard qw/mock_guard/;
+
 use Exporter 'import';
 our @EXPORT = qw/cmd git riji riji_setup/;
 
@@ -21,8 +23,15 @@ sub riji {
 }
 
 sub riji_setup {
+    my $share = File::Spec->rel2abs('./share');
     my $tmpd = tempd();
-    riji 'setup';
+    {
+        my $g = mock_guard Riji => {
+            share_dir => $share,
+        };
+        require Riji::CLI::Setup;
+        Riji::CLI::Setup->run;
+    }
     $tmpd;
 }
 

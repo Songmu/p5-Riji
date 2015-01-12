@@ -32,6 +32,7 @@ on configure => sub {
 on test => sub {
     requires 'File::pushd';
     requires 'Scope::Guard';
+    requires 'Test::Mock::Guard';
     requires 'Test::More', '0.98';
     requires 'Test::Output';
 };
