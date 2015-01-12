@@ -2,6 +2,11 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.1 2015-01-12T09:22:39Z
+
+    - fix failing tests in where Riji is not installed
+    - depends on Path::Tiny 0.0061 or later
+
 v0.9.0 2015-01-12T07:12:41Z
 
     - [Incompatible] riji new-entry/publish/server fails unless riji.yml exists
