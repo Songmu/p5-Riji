@@ -15,7 +15,7 @@ sub cmd  {
 sub git  { cmd('git', @_) }
 
 my $lib = File::Spec->rel2abs('lib');
-my $bin = File::Spec->rel2abs('bin/riji');
+my $bin = File::Spec->rel2abs('script/riji');
 sub riji {
     cmd($^X, "-I$lib", $bin, @_);
 }
