@@ -25,6 +25,11 @@ sub riji {
 sub riji_setup {
     my $share = File::Spec->rel2abs('./share');
     my $tmpd = tempd();
+
+    $ENV{GIT_AUTHOR_NAME}     = 'Songmu';
+    $ENV{GIT_AUTHOR_EMAIL}    = 'songmu@example.com';
+    $ENV{GIT_COMMITTER_NAME}  = 'Songmu';
+    $ENV{GIT_COMMITTER_EMAIL} = 'songmu@example.com';
     {
         my $g = mock_guard Riji => {
             share_dir => $share,
