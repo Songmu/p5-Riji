@@ -2,10 +2,13 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.0 2015-01-12T07:12:41Z
+
     - [Incompatible] riji new-entry/publish/server fails unless riji.yml exists
     - remove Alpha declaration
     - add Riji::Model::Article#permalink
     - enhancement tests
+    - switch Module::Build::Tiny for packaging
 
 v0.4.2 2015-01-08T07:20:32Z
 
