@@ -28,7 +28,8 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.38",
+            "Module::Build" : "0",
+            "Module::Build::Tiny" : "0.035",
             "perl" : "5.010"
          }
       },
@@ -44,7 +45,6 @@
       "runtime" : {
          "requires" : {
             "App::Wallflower" : "0",
-            "Data::Section::Simple" : "0",
             "File::Copy::Recursive" : "0",
             "File::Which" : "0",
             "Git::Repository" : "0",
@@ -75,6 +75,7 @@
       "test" : {
          "requires" : {
             "File::pushd" : "0",
+            "Scope::Guard" : "0",
             "Test::More" : "0.98",
             "Test::Output" : "0"
          }

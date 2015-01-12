@@ -1,0 +1,3 @@
+module_maker="ModuleBuildTiny"
+name = "Riji"
+badges = ["travis", "coveralls"]

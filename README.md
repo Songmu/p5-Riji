@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Songmu/p5-Riji.svg?branch=master)](https://travis-ci.org/Songmu/p5-Riji) [![Coverage Status](https://img.shields.io/coveralls/Songmu/p5-Riji/master.svg)](https://coveralls.io/r/Songmu/p5-Riji?branch=master)
 # NAME
 
 Riji - Simple, git based blog tool
@@ -19,8 +20,6 @@ English [http://perlmaven.com/blogging-with-riji](http://perlmaven.com/blogging-
 Riji is a simple and git based blog tool.
 
 'Riji' means diary in Chinese.
-
-**THE SOFTWARE IS ALPHA QUALITY. API MAY CHANGE WITHOUT NOTICE.**
 
 # LICENSE
 

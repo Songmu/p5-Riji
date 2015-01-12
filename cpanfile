@@ -26,7 +26,7 @@ requires 'YAML::Tiny';
 
 on configure => sub {
     requires 'perl', '5.010';
-    requires 'Module::Build';
+    requires 'Module::Build::Tiny', '0.035';
 };
 
 on test => sub {

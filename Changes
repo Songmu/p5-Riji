@@ -2,6 +2,11 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+    - [Incompatible] riji new-entry/publish/server fails unless riji.yml exists
+    - remove Alpha declaration
+    - add Riji::Model::Article#permalink
+    - enhancement tests
+
 v0.4.2 2015-01-08T07:20:32Z
 
     - explicitly defined Riji->base_dir which is current directory
