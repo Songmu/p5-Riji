@@ -11,7 +11,7 @@ use Exporter 'import';
 our @EXPORT = qw/cmd git riji riji_setup/;
 
 sub cmd  {
-    my %ret = %{ run_forked([@_]) };
+    my %ret = %{ run_forked(join ' ', @_) };
     @ret{qw/stdout stderr exit_code/};
 }
 sub git  { cmd('git', @_) }
