@@ -21,8 +21,7 @@ sub load_config {
     my $self = shift;
     my $file = File::Spec->catfile($self->base_dir, 'riji.yml');
     unless (-e $file) {
-        warn 'config file not found';
-        return +{};
+        die sprintf "config file: [%s] not found.\n", $file;
     }
     YAML::Tiny::LoadFile($file);
 }

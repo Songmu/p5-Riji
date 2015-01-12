@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use utf8;
 use Test::More;
+
+use File::Copy qw/move/;
 use Path::Tiny;
 use Scope::Guard qw/guard/;
 
@@ -66,9 +68,19 @@ subtest 'riji setup' => sub {
             path('blog')->remove_tree;
         };
         path($hoge_md)->spew('# hoge');
-        my ($out, $err, $exit) = riji 'publish --force';
+        my ($out, $err, $exit) = riji 'publish', '--force';
         is $exit, 0;
         ok -e 'blog/entry/hoge.html';
+    };
+
+    subtest "riji publish fails unless riji.yml" => sub {
+        move 'riji.yml', 'riji.yml.bak';
+        my $g = guard {
+            move 'riji.yml.bak', 'riji.yml';
+        };
+        my ($out, $err, $exit) = riji 'publish';
+        cmp_ok $exit, '>', 0;
+        like $err, qr/config file: \[.*\] not found/
     };
 };
 

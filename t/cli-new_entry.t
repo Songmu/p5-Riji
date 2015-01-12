@@ -24,4 +24,10 @@ subtest 'create dir unless article/entry' => sub {
     ok $article_dir->exists;
 };
 
+subtest 'riji new-entry fails unless riji.yml' => sub {
+    my ($out, $err, $exit) = riji 'new-entry';
+    cmp_ok $exit, '>', 0;
+    like $err, qr/config file: \[.*\] not found/
+};
+
 done_testing;
