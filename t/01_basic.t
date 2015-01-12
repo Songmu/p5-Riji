@@ -20,7 +20,7 @@ subtest 'riji setup' => sub {
 
     subtest 'riji publish' => sub {
         my $g = guard {
-            cmd qw/rm -rf blog/;
+            path('blog')->remove_tree;
         };
 
         ok ! -d 'blog';
@@ -33,7 +33,7 @@ subtest 'riji setup' => sub {
     subtest 'add new entry' => sub {
         my $new_md = 'article/entry/new.md';
         my $g = guard {
-            cmd qw/rm -rf blog/;
+            path('blog')->remove_tree;
         };
         path($new_md)->spew("# new!\n\nnew entry");
         git qw/add/, $new_md;
@@ -49,8 +49,8 @@ subtest 'riji setup' => sub {
     subtest 'riji publish fails if in dirty entry_dir' => sub {
         my $hoge_md = 'article/entry/hoge.md';
         my $g = guard {
-            cmd qw/rm -f/, $hoge_md;
-            cmd qw/rm -rf blog/;
+            unlink $hoge_md;
+            path('blog')->remove_tree;
         };
         path($hoge_md)->spew('# hoge');
         my ($out, $err, $exit) = riji 'publish';
@@ -62,8 +62,8 @@ subtest 'riji setup' => sub {
     subtest 'riji publish success with --force even if in dirty index' => sub {
         my $hoge_md = 'article/entry/hoge.md';
         my $g = guard {
-            cmd qw/rm -f/, $hoge_md;
-            cmd qw/rm -rf blog/;
+            unlink $hoge_md;
+            path('blog')->remove_tree;
         };
         path($hoge_md)->spew('# hoge');
         my ($out, $err, $exit) = riji 'publish --force';
