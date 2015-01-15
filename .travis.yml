@@ -4,5 +4,8 @@ perl:
   - "5.20"
 before_install:
   cpanm -n Devel::Cover::Report::Coveralls
+install:
+  cpanm --quiet --installdeps --notest --with-recommends .
 script:
-  perl Build.PL && ./Build build && cover -test -report coveralls
+- perl Build.PL && ./Build test
+- RIJI_TEST_INTERNAL=1 ./Build build && cover -test -report coveralls

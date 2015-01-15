@@ -19,7 +19,40 @@ sub git  { cmd('git', @_) }
 my $lib = File::Spec->rel2abs('lib');
 my $bin = File::Spec->rel2abs('script/riji');
 sub riji {
-    cmd($^X, "-I$lib", $bin, @_);
+    my @args = @_;
+    if ($ENV{RIJI_TEST_INTERNAL}) {
+        # for calculating coverage. mainly in travis.
+        require Capture::Tiny;
+        require Class::Unload;
+        require String::CamelCase;
+        require Module::Load;
+
+        if ($INC{'Riji.pm'}) {
+            Class::Unload->unload('Riji');
+        }
+        require Riji;
+        if ($INC{'Riji/Models.pm'} && Riji::Models->instance->registered_classes->{Blog}) {
+            Riji::Models->unregister('Blog');
+            Riji::Models::register_blog();
+        }
+
+        my $cmd = shift @args;
+        $cmd =~ s/-/_/g;
+        $cmd = String::CamelCase::camelize($cmd);
+        my $pkg = "Riji::CLI::$cmd";
+        Module::Load::load($pkg);
+        Capture::Tiny::capture(sub{
+            eval { $pkg->run(@args) };
+            if ($@) {
+                warn $@;
+                return 255;
+            }
+            0;
+        });
+    }
+    else {
+        cmd($^X, "-I$lib", $bin, @args);
+    }
 }
 
 sub riji_setup {
