@@ -3,7 +3,7 @@ use feature ':5.10';
 use strict;
 use warnings;
 
-use File::Which ();
+use IPC::Cmd ();
 use Getopt::Long ();
 use Plack::Util ();
 use String::CamelCase ();
@@ -27,7 +27,7 @@ sub run {
     push @commands, @ARGV;
 
     my $cmd = shift @commands || 'help';
-    if (my $cmd = File::Which::which("riji-$cmd")) {
+    if (my $cmd = IPC::Cmd::can_run("riji-$cmd")) {
         exec $cmd, @commands;
     }
 

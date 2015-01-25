@@ -3,7 +3,7 @@ use feature ':5.10';
 use strict;
 use warnings;
 
-use File::Which qw/which/;
+use IPC::Cmd ();
 use Path::Tiny;
 use Time::Piece;
 
@@ -37,7 +37,7 @@ tags: blah
 ...
 
     my $editor = $ENV{EDITOR};
-       $editor = $editor && which $editor;
+       $editor = $editor && IPC::Cmd::can_run($editor);
 
     exec $editor, "$file" if $editor;
     say "$file is created. Edit it!";

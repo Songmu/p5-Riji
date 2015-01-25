@@ -7,7 +7,7 @@ use Cwd qw/getcwd/;
 use File::Copy qw/copy/;
 use File::Copy::Recursive qw/dircopy/;
 use File::Spec;
-use File::Which qw/which/;
+use IPC::Cmd ();
 use Path::Tiny;
 
 use Riji;
@@ -54,7 +54,7 @@ sub run {
         $gitignore->spew(".*\n!.gitignore\nlocal/\n*~\n*.swp\n");
     }
 
-    my $git = which 'git' or die "git not found.\n";
+    my $git = IPC::Cmd::can_run('git') or die "git not found.\n";
 
     unless (-e path($setup_dir)->child('.git')) {
         system($git, qw!init!);
