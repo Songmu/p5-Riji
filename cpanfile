@@ -11,7 +11,7 @@ requires 'Object::Container';
 requires 'Path::Tiny', '0.061';
 requires 'Plack';
 requires 'Puncheur', 'v0.3.0';
-requires 'Router::Boom';
+requires 'Router::Boom', '1.00';
 requires 'String::CamelCase';
 requires 'Text::Markdown::Discount', '0.10';
 requires 'Text::Markup::Any';

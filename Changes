@@ -2,6 +2,12 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.2 2015-01-25T08:22:53Z
+
+    - depend on App::Wallflower 1.005 or later and simplify the code
+    - remove deps on File::Which, use IPC::Cmd::can_run() instaad
+    - fixing deps
+
 v0.9.1 2015-01-12T09:22:39Z
 
     - fix failing tests in where Riji is not installed
