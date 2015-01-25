@@ -8,10 +8,10 @@ use Path::Tiny qw/path tempdir/;
 use File::Copy::Recursive qw/dircopy/;
 
 use Wallflower::Util qw/links_from/;
+use Wallflower;
 use URI;
 
 use Riji;
-use Riji::CLI::Publish::Scanner;
 
 sub run {
     my ($class, @argv) = @_;
@@ -53,12 +53,10 @@ sub run {
     my $mount_path = $site_url->path;
        $mount_path = '' if $mount_path eq '/';
 
-    my $wallflower = Riji::CLI::Publish::Scanner->new(
+    my $wallflower = Wallflower->new(
         application => $app->to_psgi,
         destination => $work_dir . '',
-        $mount_path ? (mount => $mount_path) : (),
-        server_name => $site_url->host,
-        $site_url->scheme ne 'http' ? (scheme => $site_url->scheme) : (),
+        url         => $site_url,
     );
     my $host_reg = quotemeta $site_url->host;
 
@@ -78,7 +76,7 @@ sub run {
 
         # obtain links to resources
         if ( $status eq '200' ) {
-            push @queue, map { _expand_link($url->path, $_) } links_from( $response => $url );
+            push @queue, links_from( $response => $url );
         }
 
         if ($file && $file =~ /\.(?:js|css|html|xml)$/) {
@@ -96,20 +94,6 @@ sub run {
     dircopy $copy_from.'', $dir;
 
     say "done.";
-}
-
-sub _expand_link {
-    my ($base, $link) = @_;
-
-    if (ref($link) && !$link->isa('URI::http')) {
-        return ();
-    }
-
-    if ($link =~ m!^[a-zA-Z0-9]+://! || $link =~ m!^/! ) {
-        return $link
-    }
-
-    URI->new_abs($link, $base);
 }
 
 1;

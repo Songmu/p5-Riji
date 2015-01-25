@@ -43,7 +43,7 @@
       },
       "runtime" : {
          "requires" : {
-            "App::Wallflower" : "0",
+            "App::Wallflower" : "1.005",
             "File::Copy::Recursive" : "0",
             "File::Which" : "0",
             "Git::Repository" : "0",
@@ -72,6 +72,10 @@
          }
       },
       "test" : {
+         "recommends" : {
+            "Capture::Tiny" : "0",
+            "Class::Unload" : "0"
+         },
          "requires" : {
             "File::pushd" : "0",
             "Scope::Guard" : "0",

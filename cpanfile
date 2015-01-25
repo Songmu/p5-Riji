@@ -1,4 +1,4 @@
-requires 'App::Wallflower';
+requires 'App::Wallflower', '1.005';
 requires 'File::Copy::Recursive';
 requires 'File::Which';
 requires 'Git::Repository';
