@@ -2,3 +2,5 @@
 - entry.summary 出せるようにすると良いかも
 - pageの仕様とかを考えたい。page prev nextを持つオブジェクトを定義するとかなんとか
 - Does riji should die when there is no riji.yml?
+- entry/index.htmlがblogエントリ扱いされる問題
+  - is_entry: falseとかで対応？
