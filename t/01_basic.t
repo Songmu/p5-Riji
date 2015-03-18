@@ -46,6 +46,8 @@ subtest 'riji setup' => sub {
         ) {
             ok -e $file;
         }
+
+        like path('blog/atom.xml')->slurp_utf8, qr/<content type="html">/;
     };
 
     subtest 'riji publish fails if in dirty entry_dir' => sub {
