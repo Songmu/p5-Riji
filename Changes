@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.4 2015-03-18T07:08:40Z
+
+    - remove entry title from content element in Atom
+
 v0.9.3 2015-03-18T03:09:31Z
 
     - specify type="html" to content element in Atom explicitly for avoiding garble
