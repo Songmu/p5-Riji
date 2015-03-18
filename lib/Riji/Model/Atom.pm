@@ -29,7 +29,7 @@ has entry_datas => (
             map { +{
                 title       => $_->title,
                 description => {
-                    '#text' => \$_->html_body, #pass scalar ref for CDATA
+                    '#text' => \$_->html_body_without_title, #pass scalar ref for CDATA
                     -type   => 'html',
                 },
                 pubDate     => $_->last_modified_at->epoch,
