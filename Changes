@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.3 2015-03-18T03:09:31Z
+
+    - specify type="html" to content element in Atom explicitly for avoiding garble
+
 v0.9.2 2015-01-25T08:22:53Z
 
     - depend on App::Wallflower 1.005 or later and simplify the code
