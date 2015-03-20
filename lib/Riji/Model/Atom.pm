@@ -35,7 +35,7 @@ has entry_datas => (
                 pubDate     => $_->last_modified_at->epoch,
                 author      => $_->created_by,
                 guid        => $_->tag_uri->as_string,
-                published   => $_->published_at->strftime('%Y-%m-%dT%H:%M:%S%z'),
+                published   => XML::FeedPP::Util::epoch_to_w3cdtf($_->published_at->epoch),
                 link        => $_->url,
             } } @{ $self->blog->entries(sort_by => 'last_modified_at', limit => 20) }
         ]
