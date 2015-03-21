@@ -2,6 +2,11 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.5 2015-03-21T13:12:01Z
+
+    - allow dot for entry filename
+    - use XML::FeedPP::Util::epoch_to_w3cdtf() for build published element in Atom
+
 v0.9.4 2015-03-18T07:08:40Z
 
     - remove entry title from content element in Atom
