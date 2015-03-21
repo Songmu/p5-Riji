@@ -12,7 +12,7 @@ use Riji;
 sub run {
     my ($class, @argv) = @_;
     my $subtitle = shift @argv;
-    die "subtitle: $subtitle is not valid\n" if $subtitle && $subtitle =~ /[^-_a-zA-Z0-9]/;
+    die "subtitle: $subtitle is not valid\n" if $subtitle && $subtitle =~ /[^-_a-zA-Z0-9.]/;
 
     my $app = Riji->new;
 
