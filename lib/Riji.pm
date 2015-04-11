@@ -93,6 +93,56 @@ get '/atom.xml' => sub {
     $c->create_response(200, ['Content-Type' => 'application/atom+xml'], [encode($c->encoding, $xml)]);
 };
 
+sub create_view {
+    my $self = shift;
+
+    my %functions;
+    my $functionspl = File::Spec->catfile($self->base_dir, 'share', 'functions.pl');
+    if (-f -r $functionspl) {
+        my $code = do {
+            local $/;
+            open my $fh, '<', $functionspl or die $!;
+            <$fh>
+        };
+        my $package = 'Riji::_Sandbox::Functions';
+        eval <<"..."; ## no critic
+        package $package;
+        use strict;
+        use warnings;
+        use utf8;
+
+        $code
+        1;
+...
+        if (my $err = $@) {
+            die "$err\n";
+        }
+        require Module::Functions;
+        my @functions = Module::Functions::get_public_functions($package);
+        for my $func (@functions) {
+            $functions{$func} = $package->can($func);
+        }
+    }
+
+    Text::Xslate->new(
+        path => $self->template_dir,
+        module   => [
+            'Text::Xslate::Bridge::Star',
+        ],
+        function => {
+            c         => sub { $self->context },
+            uri_for   => sub { $self->context->uri_for(@_) },
+            uri_with  => sub { $self->context->req->uri_with(@_) },
+            %functions,
+        },
+        ($self->debug_mode ? ( warn_handler => sub {
+            Text::Xslate->print( # print method escape html automatically
+                '[[', @_, ']]',
+            );
+        } ) : () ),
+    );
+}
+
 1;
 __END__
 
