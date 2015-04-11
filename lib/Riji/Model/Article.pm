@@ -240,6 +240,7 @@ sub _pre_proccessor {
         function => {
             uri_for   => sub { Riji->context->uri_for(@_) },
             config    => sub { Riji->config },
+            Riji->get_functions,
         }
     );
 }
