@@ -93,12 +93,12 @@ get '/atom.xml' => sub {
     $c->create_response(200, ['Content-Type' => 'application/atom+xml'], [encode($c->encoding, $xml)]);
 };
 
-sub create_view {
+sub get_functions {
     my $self = shift;
 
-    my %functions;
+    state %functions;
     my $functionspl = File::Spec->catfile($self->base_dir, 'share', 'functions.pl');
-    if (-f -r $functionspl) {
+    if (-f -r $functionspl && !%functions) {
         my $code = do {
             local $/;
             open my $fh, '<', $functionspl or die $!;
@@ -123,6 +123,11 @@ sub create_view {
             $functions{$func} = $package->can($func);
         }
     }
+    %functions;
+}
+
+sub create_view {
+    my $self = shift;
 
     Text::Xslate->new(
         path => $self->template_dir,
@@ -133,7 +138,7 @@ sub create_view {
             c         => sub { $self->context },
             uri_for   => sub { $self->context->uri_for(@_) },
             uri_with  => sub { $self->context->req->uri_with(@_) },
-            %functions,
+            $self->get_functions,
         },
         ($self->debug_mode ? ( warn_handler => sub {
             Text::Xslate->print( # print method escape html automatically

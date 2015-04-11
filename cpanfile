@@ -6,6 +6,7 @@ requires 'HTTP::Date';
 requires 'IPC::Cmd';
 requires 'List::UtilsBy';
 requires 'MIME::Base32';
+requires 'Module::Functions';
 requires 'Mouse';
 requires 'Object::Container';
 requires 'Path::Tiny', '0.061';
