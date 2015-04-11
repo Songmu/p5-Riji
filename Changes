@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.6 2015-04-11T17:07:51Z
+
+    - [Experimental] support functions.pl for user defined functions
+
 v0.9.5 2015-03-21T13:12:01Z
 
     - allow dot for entry filename

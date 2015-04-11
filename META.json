@@ -51,6 +51,7 @@
             "IPC::Cmd" : "0",
             "List::UtilsBy" : "0",
             "MIME::Base32" : "0",
+            "Module::Functions" : "0",
             "Mouse" : "0",
             "Object::Container" : "0",
             "Path::Tiny" : "0.061",
@@ -95,7 +96,7 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "v0.9.5",
+   "version" : "v0.9.6",
    "x_contributors" : [
       "Takuya Tsuchida <tsucchi@cpan.org>",
       "karupanerura <karupa@cpan.org>",
