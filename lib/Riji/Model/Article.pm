@@ -211,7 +211,9 @@ sub header {
 
 sub _parse_content {
     my $self = shift;
-    my ($header_raw, $body) = split /^---\n/ms, $self->content_raw, 2;
+    my $content_raw = $self->content_raw;
+       $content_raw =~ s/\A---\r?\n//ms;
+    my ($header_raw, $body) = split /^---\n/ms, $content_raw, 2;
 
     my $headers = {};
     if (defined $body) {
