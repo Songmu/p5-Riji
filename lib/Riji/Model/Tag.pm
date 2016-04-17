@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Encode;
-use MIME::Base32 'RFC';
+use MIME::Base32 1.301 ();
 
 use Mouse;
 
@@ -35,7 +35,7 @@ has _encoded_name => (
         my $name = shift->name;
         return $name unless $name =~ /[^-_a-zA-Z0-9]/ms;
 
-        'b32.'.MIME::Base32::encode(encode_utf8 $name);
+        'b32.'.MIME::Base32::encode_rfc3548(encode_utf8 $name);
     }
 );
 
@@ -50,7 +50,7 @@ sub normalize_tag {
     my ($class, $tag) = @_;
 
     if ($tag =~ s/^b32\.//) {
-        return decode_utf8 MIME::Base32::decode($tag);
+        return decode_utf8 MIME::Base32::decode_rfc3548($tag);
     }
     $tag;
 }

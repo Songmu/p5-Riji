@@ -5,7 +5,7 @@ requires 'Git::Repository::FileHistory', '0.03';
 requires 'HTTP::Date';
 requires 'IPC::Cmd';
 requires 'List::UtilsBy';
-requires 'MIME::Base32';
+requires 'MIME::Base32', '1.301';
 requires 'Module::Functions';
 requires 'Mouse';
 requires 'Object::Container';
