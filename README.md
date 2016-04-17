@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Songmu/p5-Riji.svg?branch=master)](https://travis-ci.org/Songmu/p5-Riji) [![Coverage Status](https://img.shields.io/coveralls/Songmu/p5-Riji/master.svg)](https://coveralls.io/r/Songmu/p5-Riji?branch=master)
+[![Build Status](https://travis-ci.org/Songmu/p5-Riji.svg?branch=master)](https://travis-ci.org/Songmu/p5-Riji) [![Coverage Status](https://img.shields.io/coveralls/Songmu/p5-Riji/master.svg?style=flat)](https://coveralls.io/r/Songmu/p5-Riji?branch=master)
 # NAME
 
 Riji - Simple, git based blog tool

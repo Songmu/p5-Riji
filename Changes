@@ -2,6 +2,10 @@ Revision history for Perl extension Riji
 
 {{$NEXT}}
 
+v0.9.8 2016-04-17T08:29:51Z
+
+    - depends on MIME::Base32 1.301 or later and fix code around incompatible changes of it. fix #19
+
 v0.9.7 2015-04-12T12:55:49Z
 
     - support Front-matter
