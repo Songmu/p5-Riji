@@ -58,7 +58,7 @@ has feed => (
         $tag_uri->specific($self->blog->tag_uri_specific_prefix);
         my $feed = XML::FeedPP::Atom::Atom10->new(
             link    => $self->site_url,
-            author  => $self->author,
+            author  => {name => $self->author},
             title   => $self->title,
             pubDate => $updated_at,
             id      => $tag_uri->as_string,
