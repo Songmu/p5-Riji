@@ -7,6 +7,7 @@ use File::Spec;
 use Git::Repository 'FileHistory';
 use List::UtilsBy qw/rev_sort_by rev_nsort_by sort_by/;
 use Path::Tiny 'path';
+use IPC::Cmd ();
 
 use Riji::Model::Atom;
 use Riji::Model::Entry;
@@ -81,7 +82,15 @@ has repo => (
 
 has branch => (
     is      => 'ro',
-    default => 'master',
+    default => sub {
+        my $git = IPC::Cmd::can_run('git') or return 'master';
+        my $ret = IPC::Cmd::run_forked(join(' ', $git, 'config', 'init.defaultBranch'));
+        if ($ret->{exit_code} == 0) {
+            chomp($ret->{stdout});
+            return $ret->{stdout};
+        }
+        'master';
+    },
 );
 
 has atom => (
