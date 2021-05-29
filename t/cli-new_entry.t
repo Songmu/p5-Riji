@@ -5,6 +5,8 @@ use Test::More;
 use Test::Output;
 use Path::Tiny;
 
+use FindBin;
+use lib "$FindBin::Bin/..";
 use t::Util;
 
 use Riji::CLI::NewEntry;

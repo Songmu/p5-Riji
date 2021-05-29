@@ -5,6 +5,8 @@ use Test::More;
 use Path::Tiny;
 use Scope::Guard qw/guard/;
 
+use FindBin;
+use lib "$FindBin::Bin/..";
 use t::Util;
 
 subtest 'riji setup' => sub {
