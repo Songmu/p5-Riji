@@ -3,7 +3,10 @@ use warnings;
 use utf8;
 use Test::More;
 
+use FindBin;
+use lib "$FindBin::Bin/..";
 use t::Util;
+
 use Path::Tiny;
 
 subtest tag => sub {
