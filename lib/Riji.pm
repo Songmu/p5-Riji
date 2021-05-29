@@ -90,6 +90,9 @@ get '/atom.xml' => sub {
 
     my $atom = $c->model('Blog')->atom;
     my $xml = $atom->feed->to_string;
+    my $atom_url = $atom->site_url . '/atom.xml';
+    $atom_url =~ s{//atom\.xml$}{/atom.xml};
+    $xml =~ s{(\s+)(<link[^>]+>)}{$1$2$1<link rel="self" type="application/atom+xml" href="$atom_url" />};
     $c->create_response(200, ['Content-Type' => 'application/atom+xml'], [encode($c->encoding, $xml)]);
 };
 
