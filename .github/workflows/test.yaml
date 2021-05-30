@@ -1,0 +1,29 @@
+name: test
+on:
+  push:
+    branches:
+    - "**"
+  pull_request: {}
+jobs:
+  test:
+    name: Run Test with Perl ${{ matrix.perl }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        perl:
+          - '5.32'
+          - '5.34'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl }}
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cpanm -n Devel::Cover::Report::Coveralls
+          cpanm --quiet --installdeps --notest --with-recommends .
+          perl Build.PL && ./Build build && ./Build test
+          RIJI_TEST_INTERNAL=1 cover -test -report coveralls
