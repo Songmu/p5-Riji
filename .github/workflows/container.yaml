@@ -13,6 +13,7 @@ jobs:
         run: docker build -t ghcr.io/${OWNER,,}/riji:${REF##*/v} .
         env:
           OWNER: ${{ github.repository_owner }}
+          REF: ${{ github.ref }}
       - name: Login
         run: echo $CR_PAT | docker login ghcr.io -u ${OWNER,,} --password-stdin
         env:
@@ -24,3 +25,4 @@ jobs:
           docker push ghcr.io/${OWNER,,}/riji:${REF##*/v} ghcr.io/${OWNER,,}/riji:latest
         env:
           OWNER: ${{ github.repository_owner }}
+          REF: ${{ github.ref }}
