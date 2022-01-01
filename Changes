@@ -1,6 +1,7 @@
 Revision history for Perl extension Riji
 
 {{$NEXT}}
+    - No code changes, adjust CI/CD only
 
 v0.9.11 2022-01-01T18:01:53Z
     - Add Dockerfile
