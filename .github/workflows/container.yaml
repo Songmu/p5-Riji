@@ -1,0 +1,26 @@
+on:
+  push:
+    branches-ignore:
+      - '**'
+    tags:
+      - 'v*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: docker build -t ghcr.io/${OWNER,,}/riji:${REF##*/v} .
+        env:
+          OWNER: ${{ github.repository_owner }}
+      - name: Login
+        run: echo $CR_PAT | docker login ghcr.io -u ${OWNER,,} --password-stdin
+        env:
+          CR_PAT: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+      - name: Push
+        run: |
+          docker push ghcr.io/${OWNER,,}/riji:${REF##*/v}
+          docker push ghcr.io/${OWNER,,}/riji:${REF##*/v} ghcr.io/${OWNER,,}/riji:latest
+        env:
+          OWNER: ${{ github.repository_owner }}
