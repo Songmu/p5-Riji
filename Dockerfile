@@ -21,6 +21,6 @@ RUN apt-get update && \
     cpanm -qn . && \
     rm -rf /root/.cpanm /riji
 
-WORKDIR /app
+WORKDIR /riji
 
 ENTRYPOINT [ "riji" ]
