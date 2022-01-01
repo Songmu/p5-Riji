@@ -65,7 +65,7 @@ sub run {
     while (@queue) {
         my $url = URI->new( shift @queue );
         next if $seen{ $url->path }++;
-        next if $url->scheme && ! eval { $url->host =~ /(?:localhost|$host_reg)/ };
+        next if $url->scheme && ! eval { $url->host and $url->host =~ /(?:localhost|$host_reg)/ };
 
         # get the response
         my $response = $wallflower->get($url);
