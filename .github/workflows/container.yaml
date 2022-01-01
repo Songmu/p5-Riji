@@ -10,7 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: docker build -t ghcr.io/${OWNER,,}/riji:${REF##*/v} .
+        run: |
+          docker build -t ghcr.io/${OWNER,,}/riji:latest .
+          docker tag ghcr.io/${OWNER,,}/riji:latest ghcr.io/${OWNER,,}/riji:${REF##*/v}
         env:
           OWNER: ${{ github.repository_owner }}
           REF: ${{ github.ref }}
@@ -21,8 +23,8 @@ jobs:
           OWNER: ${{ github.repository_owner }}
       - name: Push
         run: |
+          docker push ghcr.io/${OWNER,,}/riji:latest
           docker push ghcr.io/${OWNER,,}/riji:${REF##*/v}
-          docker push ghcr.io/${OWNER,,}/riji:${REF##*/v} ghcr.io/${OWNER,,}/riji:latest
         env:
           OWNER: ${{ github.repository_owner }}
           REF: ${{ github.ref }}
