@@ -1,6 +1,8 @@
 Revision history for Perl extension Riji
 
 {{$NEXT}}
+
+v0.9.11 2022-01-01T18:01:53Z
     - Add Dockerfile
     - In riji publish, take care of the case where the host of the target URL is undefined
 
