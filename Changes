@@ -1,6 +1,8 @@
 Revision history for Perl extension Riji
 
 {{$NEXT}}
+
+v0.9.13 2022-01-01T18:59:31Z
     - No code changes, adjust CI/CD only
 
 v0.9.12 2022-01-01T18:08:50Z
