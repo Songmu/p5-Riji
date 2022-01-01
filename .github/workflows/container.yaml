@@ -9,22 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build
-        run: |
-          docker build -t ghcr.io/${OWNER,,}/riji:latest .
-          docker tag ghcr.io/${OWNER,,}/riji:latest ghcr.io/${OWNER,,}/riji:${REF##*/v}
-        env:
-          OWNER: ${{ github.repository_owner }}
-          REF: ${{ github.ref }}
-      - name: Login
-        run: echo $CR_PAT | docker login ghcr.io -u ${OWNER,,} --password-stdin
-        env:
-          CR_PAT: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-      - name: Push
-        run: |
-          docker push ghcr.io/${OWNER,,}/riji:latest
-          docker push ghcr.io/${OWNER,,}/riji:${REF##*/v}
-        env:
-          OWNER: ${{ github.repository_owner }}
-          REF: ${{ github.ref }}
+      - uses: docker/metadata-action@v3
+        id: meta
+        with:
+          images: songmu/riji
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: songmu
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
