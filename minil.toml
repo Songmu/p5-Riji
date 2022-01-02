@@ -1,3 +1,5 @@
 module_maker="ModuleBuildTiny"
 name = "Riji"
 badges = ["github-actions", "coveralls"]
+[release]
+  branch = "main"
