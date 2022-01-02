@@ -1,6 +1,7 @@
 Revision history for Perl extension Riji
 
 {{$NEXT}}
+    - Enhance documents
 
 v0.9.14 2022-01-01T19:08:47Z
     - No code changes, adjust CI/CD only
