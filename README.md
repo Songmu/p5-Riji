@@ -30,8 +30,8 @@ Riji is a static site generator using Markdown, featuring RSS generation from gi
 - Static site generation with Markdown files.
 - All operations can be performed with the cli "riji".
 - Commits Markdown files to your git repository and automatically generates RSS from the git log.
-- Name of markdown file will be directly mapped to the URL as html.
-- YAML frontmatter can be written optionally in Markdown file for meta-information, like tags, etc.
+- Name of markdown file will be directly mapped to the URL as HTML.
+- YAML Frontmatter can be written optionally in Markdown file for meta-information, like tags, etc.
 - Customizable site template with Text::Xslate Kolon format.
 - Kolon template notation can also be used in Markdown files.
 - Your own template macros can be defined in the functions.pl file.

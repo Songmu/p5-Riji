@@ -8,7 +8,7 @@ use Encode;
 use File::Spec;
 use YAML::Tiny ();
 
-use version 0.77; our $VERSION = version->declare("v0.9.14");
+use version 0.77; our $VERSION = version->declare("v0.9.15");
 
 __PACKAGE__->setting(
     handle_static => 1,
@@ -154,6 +154,8 @@ sub create_view {
 1;
 __END__
 
+=for stopwords cli riji
+
 =encoding utf-8
 
 =head1 NAME
@@ -192,9 +194,9 @@ Riji is a static site generator using Markdown, featuring RSS generation from gi
 
 =item Commits Markdown files to your git repository and automatically generates RSS from the git log.
 
-=item Name of markdown file will be directly mapped to the URL as html.
+=item Name of markdown file will be directly mapped to the URL as HTML.
 
-=item YAML frontmatter can be written optionally in Markdown file for meta-information, like tags, etc.
+=item YAML Frontmatter can be written optionally in Markdown file for meta-information, like tags, etc.
 
 =item Customizable site template with Text::Xslate Kolon format.
 

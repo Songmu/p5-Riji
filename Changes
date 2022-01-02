@@ -1,7 +1,11 @@
 Revision history for Perl extension Riji
 
 {{$NEXT}}
+
+v0.9.15 2022-01-02T06:25:28Z
+    - No code changes
     - Enhance documents
+    - change default branch to main from master
 
 v0.9.14 2022-01-01T19:08:47Z
     - No code changes, adjust CI/CD only
