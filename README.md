@@ -5,9 +5,13 @@ Riji - Simple, git based blog tool
 
 # SYNOPSIS
 
-    % rjji setup
-    % riji server
-    % riji publish
+    % cpanm -qn Riji           # install `riji` cli
+    % rjji setup               # setup new blog site
+    % $EDITOR riji.yml         # adjust configuration
+    % riji new-entry your-slug # create new blog entry in Markdown
+    % git add article/ && git commit -m "add new entry"
+    % riji server              # local server for staging starts on the port 3650.
+    % riji publish             # static site will be created in the ./riji directory
 
 # TUTORIAL
 
@@ -17,9 +21,26 @@ English [http://perlmaven.com/blogging-with-riji](http://perlmaven.com/blogging-
 
 # DESCRIPTION
 
-Riji is a simple and git based blog tool.
+Riji is a static site generator using Markdown, featuring RSS generation from git history.
 
-'Riji' means diary in Chinese.
+'Riji'(日记) means diary in Chinese.
+
+# FEATURES
+
+- Static site generation with Markdown files.
+- All operations can be performed with the cli "riji".
+- Commits Markdown files to your git repository and automatically generates RSS from the git log.
+- Name of markdown file will be directly mapped to the URL as html.
+- YAML frontmatter can be written optionally in Markdown file for meta-information, like tags, etc.
+- Customizable site template with Text::Xslate Kolon format.
+- Kolon template notation can also be used in Markdown files.
+- Your own template macros can be defined in the functions.pl file.
+
+# DOCKER
+
+docker container is also available.
+
+    % docker run --rm -v $(PWD):/riji -v $(PWD)/.git:/riji/.git -i ghcr.io/songmu/riji publish
 
 # LICENSE
 
