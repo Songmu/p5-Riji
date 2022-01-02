@@ -96,7 +96,7 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "1.0.0",
+   "version" : "v1.0.0",
    "x_contributors" : [
       "Takuya Tsuchida <tsucchi@cpan.org>",
       "hitode909 <hitode909@gmail.com>",
