@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/Songmu/p5-Riji/workflows/test/badge.svg)](https://github.com/Songmu/p5-Riji/actions) [![Coverage Status](https://img.shields.io/coveralls/Songmu/p5-Riji/master.svg?style=flat)](https://coveralls.io/r/Songmu/p5-Riji?branch=master)
+[![Actions Status](https://github.com/Songmu/p5-Riji/workflows/test/badge.svg)](https://github.com/Songmu/p5-Riji/actions) [![Coverage Status](https://img.shields.io/coveralls/Songmu/p5-Riji/main.svg?style=flat)](https://coveralls.io/r/Songmu/p5-Riji?branch=main)
 # NAME
 
 Riji - Simple, git based blog tool
