@@ -66,8 +66,7 @@
             "URI" : "0",
             "URI::tag" : "0",
             "XML::FeedPP" : "0",
-            "YAML::Tiny" : "0",
-            "perl" : "5.010"
+            "YAML::Tiny" : "0"
          }
       },
       "test" : {
@@ -96,7 +95,7 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "v1.1.0",
+   "version" : "v1.1.1",
    "x_contributors" : [
       "Takuya Tsuchida <tsucchi@cpan.org>",
       "hitode909 <hitode909@gmail.com>",
