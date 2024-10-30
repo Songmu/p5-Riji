@@ -1,6 +1,7 @@
 Revision history for Perl extension Riji
 
 {{$NEXT}}
+    - use feature ':5.20' instead of use 5.010 for deprecated::subsequent_use_version
 
 v1.1.0 2024-10-29T11:29:04Z
     - contain all entries in RSS
