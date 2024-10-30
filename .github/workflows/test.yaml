@@ -5,25 +5,38 @@ on:
     - "**"
   pull_request: {}
 jobs:
+  list:
+    name: List Perl Versions
+    runs-on: ubuntu-latest
+    steps:
+    - uses: shogo82148/actions-setup-perl@v1
+    - name: list available perl versions
+      id: set-matrix
+      shell: perl {0}
+      run: |
+        use Actions::Core;
+        my ($latest, $prev) = perl_versions();
+        set_output(perl => [$latest, $prev]);
+    outputs:
+      perl: ${{ steps.set-matrix.outputs.perl }}
   test:
     name: Run Test with Perl ${{ matrix.perl }}
+    needs: list
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        perl:
-          - '5.38'
-          - '5.40'
+        perl: ${{fromJson(needs.list.outputs.perl)}}
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup perl
-        uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: ${{ matrix.perl }}
-      - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cpanm -n Devel::Cover::Report::Coveralls
-          cpanm --quiet --installdeps --notest --with-recommends .
-          perl Build.PL && ./Build build && ./Build test
-          RIJI_TEST_INTERNAL=1 cover -test -report coveralls
+    - uses: actions/checkout@v4
+    - name: Setup perl
+      uses: shogo82148/actions-setup-perl@v1
+      with:
+        perl-version: ${{ matrix.perl }}
+    - env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cpanm -n Devel::Cover::Report::Coveralls
+        cpanm --quiet --installdeps --notest --with-recommends .
+        perl Build.PL && ./Build build && ./Build test
+        RIJI_TEST_INTERNAL=1 cover -test -report coveralls
