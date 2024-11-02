@@ -17,8 +17,11 @@ RUN apt-get update && \
       cpanminus && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    cpanm -qn . && \
-    rm -rf /root/.cpanm /riji
+    cpanm -qn Carmel && \
+    carmel install && \
+    carmel package && \
+    cpanm --from $(pwd)/vendor/cache --quiet --notest . && \
+    rm -rf /root/.cpanm /root/.carmel /riji
 
 WORKDIR /riji
 
