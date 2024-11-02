@@ -11,4 +11,5 @@ cpanfile.snapshot: cpanfile
 			  cpanminus && \
 			apt-get clean && \
 			cpanm -n Carmel && \
-			carmel install'
+			carmel install && \
+			carmel update'
