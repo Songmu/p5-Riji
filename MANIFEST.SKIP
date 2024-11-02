@@ -1,3 +1,4 @@
 MANIFEST.SKIP
 TODO
 Makefile
+cpanfile.snapshot
