@@ -23,4 +23,4 @@ RUN apt-get update && \
 
 WORKDIR /riji
 
-ENTRYPOINT [ "riji" ]
+ENTRYPOINT [ "./entrypoint.sh" ]

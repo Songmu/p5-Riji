@@ -2,3 +2,4 @@ MANIFEST.SKIP
 TODO
 Makefile
 cpanfile.snapshot
+entrypoint.sh
