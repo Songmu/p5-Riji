@@ -59,7 +59,7 @@
             "Puncheur" : "v0.3.0",
             "Router::Boom" : "1.00",
             "String::CamelCase" : "0",
-            "Text::Markdown::Discount" : "0.10",
+            "Text::Markdown::Discount" : "== 0.13",
             "Text::Markup::Any" : "0",
             "Text::Xslate" : "0",
             "Time::Piece" : "0",
@@ -95,7 +95,7 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "v1.1.2",
+   "version" : "v1.1.3",
    "x_contributors" : [
       "Takuya Tsuchida <tsucchi@cpan.org>",
       "hitode909 <hitode909@gmail.com>",
