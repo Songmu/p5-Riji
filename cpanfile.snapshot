@@ -1653,10 +1653,10 @@ DISTRIBUTIONS
       Test::Exception 0
       Test::More 0.42
       Text::Balanced 0
-  Text-Markdown-Discount-0.16
-    pathname: S/SE/SEKIMURA/Text-Markdown-Discount-0.16.tar.gz
+  Text-Markdown-Discount-0.13
+    pathname: S/SE/SEKIMURA/Text-Markdown-Discount-0.13.tar.gz
     provides:
-      Text::Markdown::Discount 0.16
+      Text::Markdown::Discount 0.13
     requirements:
       ExtUtils::MakeMaker 0
   Text-Markup-Any-0.04
