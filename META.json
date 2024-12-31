@@ -59,7 +59,7 @@
             "Puncheur" : "v0.3.0",
             "Router::Boom" : "1.00",
             "String::CamelCase" : "0",
-            "Text::Markdown::Discount" : "== 0.13",
+            "Text::Markdown::Discount" : "0",
             "Text::Markup::Any" : "0",
             "Text::Xslate" : "0",
             "Time::Piece" : "0",
