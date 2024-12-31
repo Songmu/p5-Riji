@@ -14,7 +14,7 @@ requires 'Plack';
 requires 'Puncheur', 'v0.3.0';
 requires 'Router::Boom', '1.00';
 requires 'String::CamelCase';
-requires 'Text::Markdown::Discount', '== 0.13';
+requires 'Text::Markdown::Discount';
 requires 'Text::Markup::Any';
 requires 'Text::Xslate';
 requires 'Time::Piece';

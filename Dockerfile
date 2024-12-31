@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM --platform=linux/amd64 debian:stable-slim
 
 ENV LANG=en_US.UTF-8 \
     LC_ALL=C.UTF-8 \
