@@ -17,12 +17,13 @@ RUN apt-get update && \
       git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    sh -c 'curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | \
-           perl - install --without-test -g \
-             --resolver snapshot \
-             --no-default-resolvers \
-             .' && \
-    rm -rf /root/.perl-cpm /riji
+    curl -fsSLO https://raw.githubusercontent.com/skaji/cpm/main/cpm && \
+    perl ./cpm install -g Carton::Snapshot && \
+    perl ./cpm install -g \
+      --resolver snapshot \
+      --no-default-resolvers \
+      . && \
+    rm -rf ./cpm /root/.perl-cpm /riji
 
 WORKDIR /riji
 
