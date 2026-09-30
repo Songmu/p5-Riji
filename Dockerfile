@@ -18,7 +18,10 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     sh -c 'curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm | \
-           perl - install --without-test -g .' && \
+           perl - install --without-test -g \
+             --resolver snapshot \
+             --no-default-resolvers \
+             .' && \
     rm -rf /root/.perl-cpm /riji
 
 WORKDIR /riji
