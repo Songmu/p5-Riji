@@ -1,11 +1,11 @@
 on:
+  workflow_dispatch:
   push:
-    branches-ignore:
-      - '**'
     tags:
       - 'v*'
 jobs:
   build:
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
