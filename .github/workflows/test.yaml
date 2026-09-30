@@ -9,7 +9,7 @@ jobs:
     name: List Perl Versions
     runs-on: ubuntu-latest
     steps:
-    - uses: shogo82148/actions-setup-perl@v1
+    - uses: shogo82148/actions-setup-perl@b61fd6db748050f91bedd4d72ad5e404b5177cc0 # v1.44.1
     - name: list available perl versions
       id: set-matrix
       shell: perl {0}
@@ -28,9 +28,9 @@ jobs:
       matrix:
         perl: ${{fromJson(needs.list.outputs.perl)}}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Setup perl
-      uses: shogo82148/actions-setup-perl@v1
+      uses: shogo82148/actions-setup-perl@b61fd6db748050f91bedd4d72ad5e404b5177cc0 # v1.44.1
       with:
         perl-version: ${{ matrix.perl }}
     - env:
