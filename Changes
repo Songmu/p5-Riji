@@ -1,6 +1,8 @@
 Revision history for Perl extension Riji
 
 {{$NEXT}}
+
+v1.2.0 2026-09-30T16:54:09Z
     - update deps to use Text::Markdown::Discount 0.19
 
 v1.1.4 2024-12-31T08:50:31Z
