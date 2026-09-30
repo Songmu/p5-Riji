@@ -1,0 +1,9 @@
+.git
+.output.log
+.build
+_build
+Build
+blib
+local
+.carmel
+Riji-*

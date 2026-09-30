@@ -1,4 +1,5 @@
 .*
+!.dockerignore
 /Riji-*
 /.build
 /_build
